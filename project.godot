@@ -11,6 +11,7 @@ config_version=4
 [application]
 
 config/name="bug_revolution_gameoff_jam2021"
+run/main_scene="res://intro.tscn"
 config/icon="res://icon.png"
 
 [physics]
