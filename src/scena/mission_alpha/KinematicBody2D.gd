@@ -15,6 +15,7 @@ func get_input():
 		velocity = Vector2(0, -speed).rotated(rotation)
 	if Input.is_action_pressed("ui_right"):
 		velocity = Vector2(0, speed).rotated(rotation)
+	
 
 func _physics_process(delta):
 	get_input()
