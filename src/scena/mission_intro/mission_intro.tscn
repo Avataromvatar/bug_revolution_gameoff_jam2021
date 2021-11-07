@@ -1,0 +1,265 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://src/scena/mission_intro/mission_intro.tres" type="TileSet" id=1]
+[ext_resource path="res://src/scena/mission_intro/mission_intro.gd" type="Script" id=2]
+[ext_resource path="res://assets/map_object/my/small_bak.png" type="Texture" id=3]
+[ext_resource path="res://assets/test_learning/spot.png" type="Texture" id=4]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+polygon = PoolVector2Array( -66.9662, 191.638, -841.173, 190.303, -841.173, 215.665, -66.9662, 214.33 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( -1091.44, 210.957, -1094.3, 2555.14, -1062.52, 2555.14, -1065.49, 209.474 )
+
+[sub_resource type="OccluderPolygon2D" id=3]
+polygon = PoolVector2Array( -839.567, 1471.59, -550.589, 1468.02, -550.589, 1468.02, -551.779, 1498.94, -839.567, 1496.56 )
+
+[sub_resource type="CanvasItemMaterial" id=4]
+light_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id=6]
+light_mode = 2
+
+[sub_resource type="CanvasItemMaterial" id=9]
+light_mode = 2
+
+[sub_resource type="OccluderPolygon2D" id=8]
+polygon = PoolVector2Array( -22.7414, -5.45013, -16.1198, -19.7529, -2.61162, -24.7853, 12.7506, -19.2232, 21.4912, -5.45013, 18.0479, 9.11746, 8.24788, 18.1229, -0.757568, 20.2419, -0.757568, 20.2419, -12.1468, 17.8581, -21.4171, 9.11746, -23.0063, 1.43637 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 40.4898, 39.9226 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( 304.719, 78.0013 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0.14902, 0.141176, 0.141176, 1 )
+
+[node name="TileMap" type="TileMap" parent="CanvasModulate"]
+position = Vector2( -3398.76, -805.192 )
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 256, 256 )
+cell_quadrant_size = 128
+format = 1
+tile_data = PoolIntArray( 65549, 0, 1, 65550, 0, 2, 65551, 0, 2, 65552, 0, 2, 65553, 0, 2, 65554, 0, 3, 131085, 0, 65537, 131086, 0, 65538, 131087, 0, 65538, 131088, 0, 65538, 131089, 0, 65538, 131090, 0, 65539, 196617, 0, 1, 196618, 0, 65540, 196619, 0, 65540, 196620, 0, 65540, 196621, 0, 131078, 196622, 0, 65538, 196623, 0, 65538, 196624, 0, 65538, 196625, 0, 65538, 196626, 0, 65539, 262153, 0, 4, 262157, 0, 1, 262158, 0, 2, 262159, 0, 2, 262160, 0, 65538, 262161, 0, 65538, 262162, 0, 65539, 327689, 0, 4, 327693, 0, 131073, 327694, 0, 131074, 327695, 0, 131074, 327696, 0, 131074, 327697, 0, 131074, 327698, 0, 131075, 393225, 0, 4, 393230, 0, 196608, 458761, 0, 4, 458763, 0, 1, 458764, 0, 2, 458765, 0, 2, 458766, 0, 3, 458767, 0, 196608, 458768, 0, 1, 458769, 0, 2, 458770, 0, 3, 524297, 0, 65537, 524298, 0, 65540, 524299, 0, 131078, 524300, 0, 65538, 524301, 0, 65538, 524302, 0, 65539, 524304, 0, 65537, 524305, 0, 65538, 524306, 0, 65539, 589833, 0, 4, 589835, 0, 65537, 589836, 0, 65538, 589837, 0, 65538, 589838, 0, 131076, 589839, 0, 2, 589840, 0, 7, 589841, 0, 65538, 589842, 0, 65539, 655369, 0, 4, 655371, 0, 65537, 655372, 0, 65538, 655373, 0, 65538, 655374, 0, 65538, 655375, 0, 65538, 655376, 0, 65538, 655377, 0, 65538, 655378, 0, 65539, 720905, 0, 4, 720907, 0, 131073, 720908, 0, 131074, 720909, 0, 131074, 720910, 0, 131074, 720911, 0, 131074, 720912, 0, 131074, 720913, 0, 131074, 720914, 0, 131075, 786441, 0, 4, 851973, 0, 1, 851974, 0, 2, 851975, 0, 2, 851976, 0, 1, 851977, 0, 65542, 851978, 0, 3, 851979, 0, 2, 851980, 0, 2, 851981, 0, 2, 851982, 0, 2, 851983, 0, 2, 851984, 0, 2, 851985, 0, 3, 917509, 0, 65537, 917510, 0, 65538, 917511, 0, 65538, 917512, 0, 131073, 917513, 0, 131074, 917514, 0, 131075, 917515, 0, 65538, 917516, 0, 65538, 917517, 0, 65538, 917518, 0, 65538, 917519, 0, 65538, 917520, 0, 65538, 917521, 0, 65539, 983045, 0, 65537, 983046, 0, 65538, 983047, 0, 65538, 983048, 0, 65538, 983049, 0, 65538, 983050, 0, 65538, 983051, 0, 65538, 983052, 0, 65538, 983053, 0, 65538, 983054, 0, 65538, 983055, 0, 65538, 983056, 0, 65538, 983057, 0, 65539, 1048581, 0, 65537, 1048582, 0, 65538, 1048583, 0, 65538, 1048584, 0, 65538, 1048585, 0, 65538, 1048586, 0, 65538, 1048587, 0, 65538, 1048588, 0, 65538, 1048589, 0, 65538, 1048590, 0, 65538, 1048591, 0, 65538, 1048592, 0, 65538, 1048593, 0, 65539, 1114117, 0, 65537, 1114118, 0, 65538, 1114119, 0, 65538, 1114120, 0, 65538, 1114121, 0, 65538, 1114122, 0, 65538, 1114123, 0, 65538, 1114124, 0, 65538, 1114125, 0, 65538, 1114126, 0, 65538, 1114127, 0, 65538, 1114128, 0, 65538, 1114129, 0, 65539, 1179653, 0, 131073, 1179654, 0, 131074, 1179655, 0, 131074, 1179656, 0, 131074, 1179657, 0, 131074, 1179658, 0, 131074, 1179659, 0, 131074, 1179660, 0, 131074, 1179661, 0, 131074, 1179662, 0, 131074, 1179663, 0, 131074, 1179664, 0, 131074, 1179665, 0, 131075 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CanvasModulate"]
+occluder = SubResource( 1 )
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="CanvasModulate"]
+occluder = SubResource( 2 )
+
+[node name="LightOccluder2D3" type="LightOccluder2D" parent="CanvasModulate"]
+occluder = SubResource( 3 )
+
+[node name="map_object" type="Node2D" parent="CanvasModulate"]
+
+[node name="small_bak" type="Sprite" parent="CanvasModulate/map_object"]
+material = SubResource( 4 )
+position = Vector2( 1.1225, 290.718 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="CanvasModulate/map_object/small_bak"]
+modulate = Color( 0.419608, 0.764706, 0.447059, 0.760784 )
+material = SubResource( 6 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasModulate/map_object/small_bak"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CanvasModulate/map_object/small_bak/StaticBody2D"]
+material = SubResource( 9 )
+occluder = SubResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasModulate/map_object/small_bak/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="CanvasModulate/map_object/small_bak/StaticBody2D"]
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 4 )
+color = Color( 0.439216, 0.611765, 0.45098, 1 )
+energy = 0.53
+
+[node name="small_bak2" type="Sprite" parent="CanvasModulate/map_object"]
+material = SubResource( 4 )
+position = Vector2( 83.2151, 292.053 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="CanvasModulate/map_object/small_bak2"]
+modulate = Color( 0.419608, 0.764706, 0.447059, 0.760784 )
+material = SubResource( 6 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasModulate/map_object/small_bak2"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CanvasModulate/map_object/small_bak2/StaticBody2D"]
+material = SubResource( 9 )
+occluder = SubResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasModulate/map_object/small_bak2/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="CanvasModulate/map_object/small_bak2/StaticBody2D"]
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 4 )
+color = Color( 0.439216, 0.611765, 0.45098, 1 )
+energy = 0.53
+
+[node name="small_bak3" type="Sprite" parent="CanvasModulate/map_object"]
+material = SubResource( 4 )
+position = Vector2( 266.323, 289.219 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="CanvasModulate/map_object/small_bak3"]
+modulate = Color( 0.419608, 0.764706, 0.447059, 0.760784 )
+material = SubResource( 6 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasModulate/map_object/small_bak3"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CanvasModulate/map_object/small_bak3/StaticBody2D"]
+material = SubResource( 9 )
+occluder = SubResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasModulate/map_object/small_bak3/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="CanvasModulate/map_object/small_bak3/StaticBody2D"]
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 4 )
+color = Color( 0.439216, 0.611765, 0.45098, 1 )
+energy = 0.53
+
+[node name="small_bak4" type="Sprite" parent="CanvasModulate/map_object"]
+material = SubResource( 4 )
+position = Vector2( 349.479, 289.219 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="CanvasModulate/map_object/small_bak4"]
+modulate = Color( 0.419608, 0.764706, 0.447059, 0.760784 )
+material = SubResource( 6 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasModulate/map_object/small_bak4"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CanvasModulate/map_object/small_bak4/StaticBody2D"]
+material = SubResource( 9 )
+occluder = SubResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasModulate/map_object/small_bak4/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="CanvasModulate/map_object/small_bak4/StaticBody2D"]
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 4 )
+color = Color( 0.439216, 0.611765, 0.45098, 1 )
+energy = 0.53
+
+[node name="small_bak5" type="Sprite" parent="CanvasModulate/map_object"]
+material = SubResource( 4 )
+position = Vector2( 531.523, 289.969 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="CanvasModulate/map_object/small_bak5"]
+modulate = Color( 0.419608, 0.764706, 0.447059, 0.760784 )
+material = SubResource( 6 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasModulate/map_object/small_bak5"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CanvasModulate/map_object/small_bak5/StaticBody2D"]
+material = SubResource( 9 )
+occluder = SubResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasModulate/map_object/small_bak5/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="CanvasModulate/map_object/small_bak5/StaticBody2D"]
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 4 )
+color = Color( 0.439216, 0.611765, 0.45098, 1 )
+energy = 0.53
+
+[node name="small_bak6" type="Sprite" parent="CanvasModulate/map_object"]
+material = SubResource( 4 )
+position = Vector2( 613.93, 289.969 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="CanvasModulate/map_object/small_bak6"]
+modulate = Color( 0.419608, 0.764706, 0.447059, 0.760784 )
+material = SubResource( 6 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasModulate/map_object/small_bak6"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CanvasModulate/map_object/small_bak6/StaticBody2D"]
+material = SubResource( 9 )
+occluder = SubResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasModulate/map_object/small_bak6/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="CanvasModulate/map_object/small_bak6/StaticBody2D"]
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 4 )
+color = Color( 0.439216, 0.611765, 0.45098, 1 )
+energy = 0.53
+
+[node name="big_bak7" type="Sprite" parent="CanvasModulate/map_object"]
+material = SubResource( 4 )
+position = Vector2( 1080.44, -164.16 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="CanvasModulate/map_object/big_bak7"]
+modulate = Color( 0.419608, 0.764706, 0.447059, 0.760784 )
+material = SubResource( 6 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasModulate/map_object/big_bak7"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CanvasModulate/map_object/big_bak7/StaticBody2D"]
+material = SubResource( 9 )
+occluder = SubResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasModulate/map_object/big_bak7/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="CanvasModulate/map_object/big_bak7/StaticBody2D"]
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 4 )
+color = Color( 0.439216, 0.611765, 0.45098, 1 )
+energy = 0.53
+
+[node name="big_bak8" type="Sprite" parent="CanvasModulate/map_object"]
+material = SubResource( 4 )
+position = Vector2( 566.315, -164.505 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 3 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="CanvasModulate/map_object/big_bak8"]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="CanvasModulate/map_object/big_bak8/StaticBody2D"]
+material = SubResource( 9 )
+occluder = SubResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasModulate/map_object/big_bak8/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="Light2D" type="Light2D" parent="CanvasModulate/map_object/big_bak8/StaticBody2D"]
+scale = Vector2( 0.9, 0.9 )
+texture = ExtResource( 4 )
+color = Color( 0.439216, 0.611765, 0.45098, 1 )
+energy = 0.53

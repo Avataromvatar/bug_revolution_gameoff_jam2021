@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/background/cyberpunk-street.png" type="Texture" id=1]
+[ext_resource path="res://main.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="server_start" type="Button" parent="."]
+margin_left = 819.364
+margin_top = 34.487
+margin_right = 904.364
+margin_bottom = 54.487
+text = "Server Start"
+
+[node name="connect_bug" type="Button" parent="."]
+margin_left = 168.867
+margin_top = 36.8654
+margin_right = 259.867
+margin_bottom = 56.8654
+text = "Connect bug"
+
+[node name="connect_science" type="Button" parent="."]
+margin_left = 154.597
+margin_top = 110.596
+margin_right = 271.597
+margin_bottom = 130.596
+text = "Connect science"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="server_start" to="." method="_on_server_start_pressed"]
+[connection signal="pressed" from="connect_bug" to="." method="_on_connect_bug_pressed"]
+[connection signal="pressed" from="connect_science" to="." method="_on_connect_science_pressed"]

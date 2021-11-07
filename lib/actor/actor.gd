@@ -16,6 +16,7 @@ enum eActorState{
 
 signal stamina_change(stamina)
 signal actor_state_change(state)
+signal position_change(position,rotate)
 
 export var isAI:bool = false
 export var speed_rotate:float = 5.0
@@ -48,7 +49,9 @@ func _ready():
 	stamina = stamina_max
 	if staminaOn:
 		emit_signal("stamina_change",stamina)
-	emit_signal("actor_state_change",state) 
+	emit_signal("actor_state_change",state)
+	if isAI:
+		set_physics_process(false)
 	
 func _get_input():
 	pass
@@ -175,6 +178,7 @@ func _get_input_MOUSE_ROTATION_AND_MOVEMENT(delta):
 	if state!=eActorState.STAMINA_RECOVERY: #если мы не восстанавливаемся после бега
 		var need_rotate_to = position.direction_to(get_global_mouse_position()) #направление мышки определяет куда нам надо повернутся
 		rotation_dir = need_rotate_to.dot(Vector2(0,1).rotated(rotation-1.57))#rad 1.57 = 90gradus поворачиваем нормальный вектор на наш rotation и находи угол который нам надо 
+		#print('Actor:cur_rotate:',rotation,' need_rotate_to:',need_rotate_to,' rotation_dir:',rotation_dir)
 		if Input.is_action_pressed("ui_right"):
 			velocity.x += 1
 		if Input.is_action_pressed("ui_left"):
@@ -197,6 +201,8 @@ func _get_input_MOUSE_ROTATION_AND_MOVEMENT(delta):
 	
 	
 func _physics_process(delta):
+	if isAI:
+		set_physics_process(false)
 	if !isAI:
 		if mode == eActorMoveMode.EIGHT_WAY_MOVEMENT:
 			_get_input_EIGHT_WAY_MOVEMENT(delta)
@@ -209,3 +215,6 @@ func _physics_process(delta):
 				
 	rotation += rotation_dir * speed_rotate * delta
 	velocity = move_and_slide(velocity.rotated(rotation))
+	if state != eActorState.IDLE and state != eActorState.STAMINA_RECOVERY:
+		emit_signal("position_change",position,rotation)
+	#print('position change:',position,' rotate:',rotation)
