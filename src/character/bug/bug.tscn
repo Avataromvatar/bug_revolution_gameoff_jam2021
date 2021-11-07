@@ -1,13 +1,45 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/characters/bug/antspiderumber_hybrid2_bw.png" type="Texture" id=1]
-[ext_resource path="res://assets/test_learning/light1.png" type="Texture" id=2]
+[ext_resource path="res://assets/test_learning/light_soft_round.png" type="Texture" id=2]
 [ext_resource path="res://lib/actor/actor.gd" type="Script" id=3]
 [ext_resource path="res://src/character/bug/bug.gd" type="Script" id=4]
+[ext_resource path="res://assets/characters/bug/bug_sheet.png" type="Texture" id=5]
+
+[sub_resource type="CanvasItemMaterial" id=7]
+light_mode = 2
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 256, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 512, 0, 256, 256 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 5 )
+region = Rect2( 768, 0, 256, 256 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "move",
+"speed": 8.0
+} ]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 19.6899
-height = 31.2458
+radius = 16.077
+height = 14.0275
 
 [node name="Client" type="Node"]
 script = ExtResource( 4 )
@@ -23,22 +55,31 @@ run_start_speed = 200.0
 stamina_max = 100.0
 
 [node name="Sprite" type="Sprite" parent="Actor"]
+visible = false
 position = Vector2( 0.0325015, -0.12252 )
 rotation = 3.14159
 scale = Vector2( 0.6, 0.4 )
 texture = ExtResource( 1 )
 offset = Vector2( -5.56447, 23.1048 )
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Actor"]
+material = SubResource( 7 )
+rotation = 3.14159
+scale = Vector2( 0.25, 0.25 )
+frames = SubResource( 6 )
+animation = "move"
+frame = 1
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Actor"]
 position = Vector2( -0.0102234, -0.0199432 )
 shape = SubResource( 1 )
 
 [node name="Light2D" type="Light2D" parent="Actor"]
+light_mask = 2
 position = Vector2( 0, -0.37458 )
 texture = ExtResource( 2 )
 texture_scale = 0.6
 color = Color( 0.85098, 0.898039, 0.858824, 1 )
-shadow_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="Actor"]
 
