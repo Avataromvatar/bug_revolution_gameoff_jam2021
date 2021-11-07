@@ -39,7 +39,7 @@ func _ready():
 		add_child(client)
 		timer = Timer.new()
 		timer.autostart = true
-		timer.wait_time = 0.1
+		timer.wait_time = 0.03
 		timer.connect("timeout", self, "_timeout")
 		add_child(timer)
 	else:
@@ -48,7 +48,10 @@ func _ready():
 	data={'type':type,'state':$Actor.state,'pos_x':$Actor.position.x,'pos_y':$Actor.position.y,'rotation':$Actor.rotation,'stamina':$Actor.stamina}
 	
 	
-
+func _checkCamera2D(): #костыль. так как камера не переключается на него 
+	if isClientOn and !$Actor/Camera2D.current:
+		$Actor/Camera2D.current = true
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -56,10 +59,12 @@ func _on_client_new_data(data):
 	emit_signal("new_data_from_server",data)
 
 func _on_Actor_actor_state_change(state):
+	_checkCamera2D()
 	data['state'] = state
 	actorIsChanged = true
 
 func _on_Actor_position_change(position, rotate):
+	_checkCamera2D()
 	data['pos_x'] = position.x
 	data['pos_y'] = position.y
 	data['rotation'] = rotate
@@ -67,5 +72,6 @@ func _on_Actor_position_change(position, rotate):
 
 
 func _on_Actor_stamina_change(stamina):
+	_checkCamera2D()
 	data['stamina'] = stamina
 	actorIsChanged = true

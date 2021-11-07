@@ -41,7 +41,6 @@ color = Color( 0.85098, 0.898039, 0.858824, 1 )
 shadow_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="Actor"]
-current = true
 
 [connection signal="actor_state_change" from="Actor" to="." method="_on_Actor_actor_state_change"]
 [connection signal="position_change" from="Actor" to="." method="_on_Actor_position_change"]
