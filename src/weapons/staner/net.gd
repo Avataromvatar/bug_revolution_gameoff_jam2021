@@ -15,6 +15,7 @@ var distance_last:float=0
 var scale_speed:Vector2
 
 func init(from:Vector2, to:Vector2 ):
+	
 	position = from
 	scale = begin_scale
 	to_target = from.direction_to(to)

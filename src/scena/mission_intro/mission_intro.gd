@@ -13,11 +13,15 @@ func _ready():
 			SCIENCE.isClientOn = false
 			BUG.connect("new_data_from_server",self,'_new_data_about_ai')
 			ai = SCIENCE
+			GlobalResource.game_data['ai_actor_node'] = ai.get_node("Actor")
+			GlobalResource.game_data['player_actor_node'] = BUG.get_node("Actor")
 		else:
 			BUG.isClientOn = false
 			SCIENCE.isClientOn = true
 			ai = BUG
 			SCIENCE.connect("new_data_from_server",self,'_new_data_about_ai')
+			GlobalResource.game_data['ai_actor_node'] = ai.get_node("Actor")
+			GlobalResource.game_data['player_actor_node'] = SCIENCE.get_node("Actor")
 		$CanvasModulate.add_child(BUG)
 		$CanvasModulate.add_child(SCIENCE)
 	

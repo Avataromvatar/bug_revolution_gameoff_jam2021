@@ -42,22 +42,29 @@ func _move_end():
 	
 	if net!=null:
 		if net.is_inside_tree():
-			get_tree().root.remove_child(net)
+			#get_tree().root.remove_child(net)
 			isColddown = false
 			net.queue_free()
 	
 func _target_hit(area):
-	var arr = area.get_overlapping_bodies() as Array
-	if !arr.empty():
-		for i in arr:
-			if i is KinematicBody2D:
-				if i.name == 'Bug':
-					print('I HIT BUG')
-	if net!=null:
-		if net.is_inside_tree():
-			get_tree().root.remove_child(net)
-			isColddown = false
-			net.queue_free()
+	#var arr = area.get_overlapping_bodies() as Array
+	if area.overlaps_body(GlobalResource.game_data['ai_actor_node'] ):
+		print('I HIT BUG')
+	net.queue_free()
+	isColddown = false
+	
+	#if !arr.empty():
+	#	for i in arr:
+	#		#if i is ActorKinematicBody2D:
+	#		print('I HIT ',i.name)
+	#		if i.name == 'Bug':
+	#			print('I HIT BUG')
+	#if net!=null:
+	#	if net.is_inside_tree():
+	#		net.queue_free()
+	#		#get_tree().root.remove_child(net)
+	#		isColddown = false
+	#		#net.queue_free()
 
 func _timeout():
 	shoot()

@@ -30,9 +30,7 @@ stamina_max = 100.0
 [node name="Staner" parent="Actor" instance=ExtResource( 5 )]
 scale = Vector2( 0.2, 0.2 )
 speed = 200.0
-begin_scale = Vector2( 1, 1 )
-end_scale = Vector2( 5, 5 )
-distance = 1000.0
+distance = 500.0
 
 [node name="Sprite" type="Sprite" parent="Actor"]
 material = SubResource( 1 )
