@@ -1,14 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/characters/famale/token_3(2).png" type="Texture" id=1]
 [ext_resource path="res://assets/test_learning/light2.png" type="Texture" id=2]
 [ext_resource path="res://lib/actor/actor.gd" type="Script" id=3]
 [ext_resource path="res://src/character/science/science.gd" type="Script" id=4]
+[ext_resource path="res://src/weapons/staner/staner.tscn" type="PackedScene" id=5]
 
-[sub_resource type="CanvasItemMaterial" id=2]
+[sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=2]
 radius = 19.6899
 height = 31.2458
 
@@ -16,6 +17,7 @@ height = 31.2458
 script = ExtResource( 4 )
 
 [node name="Actor" type="KinematicBody2D" parent="."]
+position = Vector2( 258.914, 140.481 )
 script = ExtResource( 3 )
 speed_move_forward = 200.0
 speed_move_streve = 100.0
@@ -25,8 +27,15 @@ run_speed = 300.0
 run_start_speed = 200.0
 stamina_max = 100.0
 
+[node name="Staner" parent="Actor" instance=ExtResource( 5 )]
+scale = Vector2( 0.2, 0.2 )
+speed = 200.0
+begin_scale = Vector2( 1, 1 )
+end_scale = Vector2( 5, 5 )
+distance = 1000.0
+
 [node name="Sprite" type="Sprite" parent="Actor"]
-material = SubResource( 2 )
+material = SubResource( 1 )
 position = Vector2( 0.0325015, -0.12252 )
 rotation = 3.14159
 scale = Vector2( 0.6, 0.4 )
@@ -35,7 +44,7 @@ offset = Vector2( -5.56447, 23.1048 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Actor"]
 position = Vector2( -0.0102234, -0.0199432 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Light2D" type="Light2D" parent="Actor"]
 scale = Vector2( 0.6, 1 )
@@ -45,7 +54,6 @@ color = Color( 0.898039, 0.894118, 0.85098, 1 )
 shadow_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="Actor"]
-zoom = Vector2( 2, 2 )
 
 [connection signal="actor_state_change" from="Actor" to="." method="_on_Actor_actor_state_change"]
 [connection signal="position_change" from="Actor" to="." method="_on_Actor_position_change"]

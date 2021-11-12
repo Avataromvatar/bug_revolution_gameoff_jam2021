@@ -25,6 +25,14 @@ func set_rotate(rotate:float):
 func set_stamina(stamina:float):
 	$Actor.stamina=stamina
 
+func _input(event):
+	if Input.is_action_pressed("fire"):
+		$Actor/Staner.shoot()
+	#print('science event ',event )
+	#if event is InputEventAction:
+	#	if event.action=='fire':
+	#		if event.pressed:
+	#			$Actor/Staner.shoot()
 
 func _timeout():
 	if actorIsChanged:
@@ -42,6 +50,7 @@ func _ready():
 		timer.wait_time = 0.03
 		timer.connect("timeout", self, "_timeout")
 		add_child(timer)
+		set_process_input(true)
 	else:
 		$Actor/Camera2D.current = false
 		$Actor.isAI = true

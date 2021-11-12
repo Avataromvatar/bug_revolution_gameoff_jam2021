@@ -6,7 +6,7 @@
 [ext_resource path="res://src/character/bug/bug.gd" type="Script" id=4]
 [ext_resource path="res://assets/characters/bug/bug_sheet.png" type="Texture" id=5]
 
-[sub_resource type="CanvasItemMaterial" id=7]
+[sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
 
 [sub_resource type="AtlasTexture" id=2]
@@ -37,7 +37,7 @@ animations = [ {
 "speed": 8.0
 } ]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=7]
 radius = 16.077
 height = 14.0275
 
@@ -45,6 +45,7 @@ height = 14.0275
 script = ExtResource( 4 )
 
 [node name="Actor" type="KinematicBody2D" parent="."]
+collision_mask = 3
 script = ExtResource( 3 )
 speed_move_forward = 200.0
 speed_move_streve = 100.0
@@ -63,7 +64,7 @@ texture = ExtResource( 1 )
 offset = Vector2( -5.56447, 23.1048 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Actor"]
-material = SubResource( 7 )
+material = SubResource( 1 )
 rotation = 3.14159
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 6 )
@@ -72,7 +73,7 @@ frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Actor"]
 position = Vector2( -0.0102234, -0.0199432 )
-shape = SubResource( 1 )
+shape = SubResource( 7 )
 
 [node name="Light2D" type="Light2D" parent="Actor"]
 light_mask = 2
