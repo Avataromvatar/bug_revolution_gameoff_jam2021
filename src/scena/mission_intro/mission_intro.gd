@@ -8,7 +8,7 @@ var ai
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if !isDebug:
-		if GlobalResource.game_data['player'] == 'bug':
+		if GlobalResource.game_data['player_type'] == 'bug':
 			BUG.isClientOn = true
 			SCIENCE.isClientOn = false
 			BUG.connect("new_data_from_server",self,'_new_data_about_ai')
@@ -22,6 +22,8 @@ func _ready():
 			SCIENCE.connect("new_data_from_server",self,'_new_data_about_ai')
 			GlobalResource.game_data['ai_actor_node'] = ai.get_node("Actor")
 			GlobalResource.game_data['player_actor_node'] = SCIENCE.get_node("Actor")
+		BUG.set_position(Vector2(500,0))
+		SCIENCE.set_position(Vector2(1000,500))
 		$CanvasModulate.add_child(BUG)
 		$CanvasModulate.add_child(SCIENCE)
 	

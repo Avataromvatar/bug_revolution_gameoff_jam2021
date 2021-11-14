@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 signal new_data_from_server(data)
 
@@ -7,7 +7,7 @@ var client
 
 export var sceneKey:String = "bug"
 export var isClientOn:bool = false
-export var type:String = "bug"
+export var type:String = "bear"
 var actorIsChanged:bool = false
 var timer
 
@@ -33,7 +33,7 @@ func _timeout():
 		actorIsChanged = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print('BUG is Ready ',isClientOn)
+	print('BEARS is Ready ',isClientOn)
 	if isClientOn:
 		client = Client.new()
 		client.connect("data_from_server",self,'_on_client_new_data')
@@ -46,7 +46,6 @@ func _ready():
 	else:
 		$Actor/Camera2D.current = false
 		$Actor.isAI = true
-		$Actor/Light2D.set_deferred('enabled',false)
 	data={'scene_key':sceneKey,'type':type,'state':$Actor.state,'pos_x':$Actor.position.x,'pos_y':$Actor.position.y,'rotation':$Actor.rotation,'stamina':$Actor.stamina}
 	
 func _checkCamera2D(): #костыль. так как камера не переключается на него 

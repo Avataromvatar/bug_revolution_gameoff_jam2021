@@ -18,3 +18,4 @@ input_pickable = false
 polygon = PoolVector2Array( -34.2354, -0.333267, -34.2354, -0.01828, -10.6119, -30.8864, 36.3201, 4.07646, 0.0974121, 41.5591, -38.6452, 8.48618 )
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

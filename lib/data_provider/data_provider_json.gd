@@ -25,7 +25,7 @@ func save():
 func open(path:String='')->bool:
 	if path.length()>0 :
 		self.path = path
-		if isOpen:
+		#if isOpen:
 			
 	_dictionary = JsonHelper.loadFromJson(self.path)
 	if JsonHelper.isExists(self.path):

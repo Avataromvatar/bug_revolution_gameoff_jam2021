@@ -7,10 +7,12 @@ var client
 
 export var isClientOn:bool = false
 export var type:String = "science"
+export var sceneKey:String = "science"
 var actorIsChanged:bool = false
 var timer
 
 var data:Dictionary
+
 
 func set_state(state):
 	$Actor.state = state
@@ -55,7 +57,7 @@ func _ready():
 		$Actor/Camera2D.current = false
 		$Actor.isAI = true
 		#$Actor/Light2D.set_deferred('enabled',false)
-	data={'type':type,'state':$Actor.state,'pos_x':$Actor.position.x,'pos_y':$Actor.position.y,'rotation':$Actor.rotation,'stamina':$Actor.stamina}
+	data={'scene_key':sceneKey,'type':type,'state':$Actor.state,'pos_x':$Actor.position.x,'pos_y':$Actor.position.y,'rotation':$Actor.rotation,'stamina':$Actor.stamina}
 	
 	
 func _checkCamera2D(): #костыль. так как камера не переключается на него 

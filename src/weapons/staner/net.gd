@@ -1,13 +1,15 @@
 extends Node2D
 
 signal move_end()
-signal target_hit(area)
+signal target_hit(body)
 
 export var speed:float = 10
 export var begin_scale:Vector2 = Vector2(0.2,0.2)
 export var end_scale:Vector2 = Vector2(1,1)
 export var speed_rotate:float = 10
 export var distance:float =10
+export var power:float =10
+
 var to_target:Vector2
 
 var rotation_dir:float #normalized
@@ -48,3 +50,12 @@ func _on_Area2D_area_entered(area):
 	emit_signal("target_hit",area)
 	#emit_signal("move_end")
 	
+
+
+func _on_Area2D_body_entered(body):
+	print('Net shoot target hit in ',position,' dist:',distance_last)
+	set_physics_process(false)
+	if body.has_method('collisionEvent'):
+		body.collisionEvent('stun',power)
+	emit_signal("target_hit",body)
+	pass # Replace with function body.

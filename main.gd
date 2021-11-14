@@ -18,12 +18,12 @@ func _ready():
 
 
 func _on_connect_science_pressed():
-	GlobalResource.game_data['player'] = 'science'
+	GlobalResource.game_data['player_type'] = 'science'
 	get_tree().change_scene("res://src/scena/mission_intro/mission_intro.tscn") # Replace with function body.
 
 
 func _on_connect_bug_pressed():
-	GlobalResource.game_data['player'] = 'bug'
+	GlobalResource.game_data['player_type'] = 'bug'
 	get_tree().change_scene("res://src/scena/mission_intro/mission_intro.tscn")
 
 

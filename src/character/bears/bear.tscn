@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://lib/actor/actor.gd" type="Script" id=1]
+[ext_resource path="res://src/character/bears/bear.gd" type="Script" id=2]
+[ext_resource path="res://assets/characters/bears/bears1.png" type="Texture" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+light_mode = 2
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 33.5335
+height = 46.8628
+
+[node name="Client" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Actor" type="KinematicBody2D" parent="."]
+material = SubResource( 2 )
+script = ExtResource( 1 )
+isAI = true
+
+[node name="Camera2D" type="Camera2D" parent="Actor"]
+
+[node name="Sprite" type="Sprite" parent="Actor"]
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Actor"]
+position = Vector2( 0.557205, 9.53759 )
+rotation = 1.5708
+shape = SubResource( 1 )
+one_way_collision = true

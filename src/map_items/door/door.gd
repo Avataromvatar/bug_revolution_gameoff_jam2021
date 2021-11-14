@@ -48,7 +48,7 @@ func _on_sound_closed_finished():
 	$opened.hide()
 	$closed/StaticBody2D/CollisionShape2D.set_deferred('disabled',false)
 	state = CLOSED
-	print('door open')
+	print('door closed')
 
 
 func _on_sound_open_finished():
@@ -56,4 +56,4 @@ func _on_sound_open_finished():
 	$opened.show()
 	$closed/StaticBody2D/CollisionShape2D.set_deferred('disabled',true)
 	state = OPENED
-	print('door closed')
+	print('door open')

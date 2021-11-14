@@ -17,6 +17,7 @@ enum eActorState{
 signal stamina_change(stamina)
 signal actor_state_change(state)
 signal position_change(position,rotate)
+signal collision_event(type,data)
 
 export var isAI:bool = false
 export var speed_rotate:float = 5.0
@@ -44,6 +45,9 @@ var rotation_dir:float = 0
 
 var state:int = eActorState.IDLE
 
+func collisionEvent(type:String, data):
+	emit_signal("collision_event",type,data)
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	stamina = stamina_max

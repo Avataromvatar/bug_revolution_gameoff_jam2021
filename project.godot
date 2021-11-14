@@ -18,10 +18,22 @@ _global_script_classes=[ {
 "class": "DataProviderJson",
 "language": "GDScript",
 "path": "res://lib/data_provider/data_provider_json.gd"
+}, {
+"base": "Node",
+"class": "GlobalObjectLogic",
+"language": "GDScript",
+"path": "res://lib/gol/gol.gd"
+}, {
+"base": "Node",
+"class": "GlobalObjectLogic_DTO",
+"language": "GDScript",
+"path": "res://lib/gol/gol_dto.gd"
 } ]
 _global_script_class_icons={
 "ActorKinematicBody2D": "",
-"DataProviderJson": ""
+"DataProviderJson": "",
+"GlobalObjectLogic": "",
+"GlobalObjectLogic_DTO": ""
 }
 
 [application]

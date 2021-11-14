@@ -46,10 +46,10 @@ func _move_end():
 			isColddown = false
 			net.queue_free()
 	
-func _target_hit(area):
+func _target_hit(body):
 	#var arr = area.get_overlapping_bodies() as Array
-	if area.overlaps_body(GlobalResource.game_data['ai_actor_node'] ):
-		print('I HIT BUG')
+	#if area.overlaps_body(GlobalResource.game_data['ai_actor_node'] ):
+	print('I HIT BUG ? ',body.name)
 	net.queue_free()
 	isColddown = false
 	
