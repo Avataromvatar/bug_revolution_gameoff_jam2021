@@ -1,8 +1,12 @@
 extends Node
 class_name GlobalObjectLogic
 
-#var GlobalObjectLogic_Action = preload("res://lib/gol/gol_action.gd")
 ## event from top -> GOL -> action to top
+#action from GOL go up to the GOL master and up to the client websocket to server
+#From server in client websocket go event/ Event fall down to the GOL Master and to the target gol
+
+#var GlobalObjectLogic_Action = preload("res://lib/gol/gol_action.gd")
+
 
 export var gol_scena_key:String 
 export var gol_type:String

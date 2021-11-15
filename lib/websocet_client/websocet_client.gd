@@ -1,6 +1,8 @@
 extends Node
 
 signal data_from_server(data)
+signal closed()
+signal connect_estabilished()
 
 # The URL we will connect to
 export var websocket_url = "ws://localhost:9081"
@@ -40,6 +42,7 @@ func _closed(was_clean = false):
 	print("Closed, clean: ", was_clean)
 	set_process(false)
 	isConnected = false
+	emit_signal("closed")
 	connect_to_server()
 
 func _connected(proto = ""):
@@ -50,6 +53,7 @@ func _connected(proto = ""):
 # and not put_packet directly when not using the MultiplayerAPI.
 	#_client.get_peer(1).put_packet("Test packet".to_utf8())
 	isConnected = true
+	emit_signal("connect_estabilished")
 	set_process(true)
 		
 func _on_data():

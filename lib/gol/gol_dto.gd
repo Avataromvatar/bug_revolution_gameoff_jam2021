@@ -28,6 +28,9 @@ func init(action_name,type,target_key,data,source):
 func toJson()->String:
 	return to_json(_msg)
 
+func getDictionary()->Dictionary:
+	return _msg
+
 func fromJson(json:String)->GlobalObjectLogic_DTO:
 	var tmp = parse_json(json)
 	if typeof(tmp) == TYPE_DICTIONARY:
