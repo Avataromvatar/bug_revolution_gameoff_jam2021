@@ -1,5 +1,5 @@
 extends Node
-class_name GlobalObjectLogic_DTO
+class_name GlobalObjectLogicDTO 
 
 # scena player object
 var target_type:String setget _set_target_type, _get_target_type
@@ -17,13 +17,13 @@ var _msg:Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
-func init(action_name,type,target_key,data,source):
-	self.action_name = action_name
+ 
+func init(_action_name,type,_target_key,_data,_source):
+	action_name = _action_name
 	target_type = type
-	self.target_key = target_key
-	self.source = source
-	self.data = data
+	target_key = _target_key
+	source = _source
+	data = _data
 
 func toJson()->String:
 	return to_json(_msg)
@@ -31,10 +31,22 @@ func toJson()->String:
 func getDictionary()->Dictionary:
 	return _msg
 
-func fromJson(json:String)->GlobalObjectLogic_DTO:
+func fromDictionary(dict:Dictionary) -> GlobalObjectLogicDTO:
+	if dict.has('target_type') and dict.has('target_key') and dict.has('name') and dict.has('data'):
+		#var ret = GlobalObjectLogicDTO.new()
+		#ret._msg = dict
+		#return ret 
+		_msg = dict
+		return self
+	return null
+#->GlobalObjectLogic_DTO
+func fromJson(json:String)-> GlobalObjectLogicDTO:
 	var tmp = parse_json(json)
 	if typeof(tmp) == TYPE_DICTIONARY:
 		if tmp.has('target_type') and tmp.has('target_key') and tmp.has('name') and tmp.has('data'):
+			#var ret = GlobalObjectLogicDTO.new()
+			#ret._msg = tmp
+			#return ret
 			_msg = tmp
 			return self
 	return null

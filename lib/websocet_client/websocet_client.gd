@@ -15,7 +15,23 @@ func send_data(data:Dictionary):
 	if isConnected:
 		var d = to_json(data)
 		_client.get_peer(1).put_packet(d.to_utf8())
-	
+	else:
+		connect_to_server()
+
+func reconnect():
+	_client.disconnect("connection_closed", self, "_closed")
+	_client.disconnect("connection_error", self, "_closed")
+	_client.disconnect("connection_established", self, "_connected")
+	_client.disconnect("data_received", self, "_on_data")
+	isConnected = false
+	_client.free()
+	_client = WebSocketClient.new()
+	_client.connect("connection_closed", self, "_closed")
+	_client.connect("connection_error", self, "_closed")
+	_client.connect("connection_established", self, "_connected")
+	_client.connect("data_received", self, "_on_data")
+	connect_to_server()
+
 func _ready():
 # Connect base signals to get notified of connection open, close, and errors.
 	_client.connect("connection_closed", self, "_closed")
@@ -25,15 +41,17 @@ func _ready():
 # a full packet is received.
 # Alternatively, you could check get_peer(1).get_available_packets() in a loop.
 	_client.connect("data_received", self, "_on_data")
-	connect_to_server()
+	#connect_to_server()
 # Initiate connection to the given URL.
 	
 
 func connect_to_server():
-	var err = _client.connect_to_url(websocket_url)
-	if err != OK:
-		print("Unable to connect")
-		set_process(false)
+	if !isConnected:
+		var err = _client.connect_to_url(websocket_url)
+		if err != OK:
+			print("Unable to connect err:",err)
+			set_process(false)
+		
 	
 
 func _closed(was_clean = false):
@@ -61,7 +79,7 @@ func _on_data():
 # to receive data from server, and not get_packet directly when not
 # using the MultiplayerAPI.
 	var ret =  _client.get_peer(1).get_packet().get_string_from_utf8()
-	#print("Got data from server: ", ret)
+	print("Got data from server: ", ret)
 	var json = parse_json(ret)
 	if json is Dictionary:
 		emit_signal("data_from_server",json)

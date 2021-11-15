@@ -12,6 +12,13 @@ var client
 ## value:Dictionary key=gol_scena_key value=GlobalObjectLogic
 var _gol:Dictionary = {}
 
+func isConnected()->bool:
+	return client.isConnected()
+
+func reconnect():
+	client.reconnect()
+func connect_to_server():
+	client.connect_to_server()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,6 +28,9 @@ func _ready():
 
 func addGOL(gol:GlobalObjectLogic)->bool:
 	if !_gol.has(gol.gol_type):
+		_gol[gol.gol_type]={gol.gol_scena_key:gol}
+		return true
+	else:
 		if !_gol[gol.gol_type].has(gol.gol_scena_key):
 			_gol[gol.gol_type][gol.gol_scena_key] = gol
 			return true
@@ -31,14 +41,17 @@ func removeGOL(gol:GlobalObjectLogic):
 		if !_gol[gol.gol_type].has(gol.gol_scena_key):
 			_gol[gol.gol_type].erase(gol.gol_scena_key)
 
-func gol_send_action(action:GlobalObjectLogic_DTO):
+func gol_send_action(action):
 	client.send_data(action.getDictionary())
 
-func gol_set_event(event:GlobalObjectLogic_DTO):
+func gol_set_event(event):
 	if _gol.has(event.target_type):
 		if _gol[event.target_type].has(event.target_key):
 			_gol[event.target_type][event.target_key].gol_set_event(event)
 
 #data - Dictionary
 func _on_client_new_data(data):
-	gol_set_event(data)
+	var tmp = GlobalObjectLogicDTO.new()
+	tmp = tmp.fromDictionary(data)
+	if tmp != null:
+		gol_set_event(tmp)

@@ -25,6 +25,7 @@ func listen():
 		if err != OK:
 			print("Unable to start server ERR:",err)
 			set_process(false)
+		print("WSocket Server listen OK! ")
 		set_process(true)
 		isListen = true	
 	else:
@@ -63,6 +64,7 @@ func init():
 # in a loop for each connected peer.
 		_server.connect("data_received", self, "_on_data")
 		isInit = true
+		print("WSocket Server init OK! ")
 # Start listening on the given port.
 
 func _connected(id, proto):
@@ -91,7 +93,7 @@ func _on_data(id):
 # and not get_packet directly when not using the MultiplayerAPI.
 	var pkt = _server.get_peer(id).get_packet()
 	var tmp = pkt.get_string_from_utf8()
-	#print("Got data from client %d: %s ... echoing" % [id, tmp])
+	print("Got data from client %d: %s " % [id, tmp])
 	var json = parse_json(tmp)
 	if json is Dictionary:
 		emit_signal("new_data_from_client",id,json)
