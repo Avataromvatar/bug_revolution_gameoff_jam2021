@@ -15,8 +15,6 @@ func send_data(data:Dictionary):
 	if isConnected:
 		var d = to_json(data)
 		_client.get_peer(1).put_packet(d.to_utf8())
-	else:
-		connect_to_server()
 
 func reconnect():
 	_client.disconnect("connection_closed", self, "_closed")
@@ -79,7 +77,7 @@ func _on_data():
 # to receive data from server, and not get_packet directly when not
 # using the MultiplayerAPI.
 	var ret =  _client.get_peer(1).get_packet().get_string_from_utf8()
-	print("Got data from server: ", ret)
+	#print("Got data from server: ", ret)
 	var json = parse_json(ret)
 	if json is Dictionary:
 		emit_signal("data_from_server",json)

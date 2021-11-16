@@ -93,7 +93,7 @@ func _on_data(id):
 # and not get_packet directly when not using the MultiplayerAPI.
 	var pkt = _server.get_peer(id).get_packet()
 	var tmp = pkt.get_string_from_utf8()
-	print("Got data from client %d: %s " % [id, tmp])
+	#print("Got data from client %d: %s " % [id, tmp])
 	var json = parse_json(tmp)
 	if json is Dictionary:
 		emit_signal("new_data_from_client",id,json)

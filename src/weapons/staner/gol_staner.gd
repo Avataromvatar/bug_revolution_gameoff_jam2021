@@ -23,8 +23,8 @@ func _ready():
 	gol.gol_type = 'item'
 	gol.event_handlers = {'shoot':funcref(self, '_event_handler_shoot')}
 	#for test
-	GolServer.listen()
-	GolMaster.connect_to_server()
+	#GolServer.listen()
+	#GolMaster.connect_to_server()
 	add_child(gol)
 
 func need_shoot():
@@ -53,7 +53,7 @@ func _event_handler_shoot(data:Dictionary):
 		get_tree().root.add_child(net)
 		isColddown = true
 
-func _input(event):
+func _unhandled_input(event):
 	if Input.is_action_pressed("fire"):
 		need_shoot()
 # Called every frame. 'delta' is the elapsed time since the previous frame.

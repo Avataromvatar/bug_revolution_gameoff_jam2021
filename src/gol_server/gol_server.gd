@@ -16,7 +16,7 @@ func _new_data_from_client(id,data_dict):
 	var ret = GlobalObjectLogicDTO.new()
 	ret = ret.fromDictionary(data_dict)
 	if ret != null:
-		if ret.target_key == ret.source:
+		if ret.target_key == ret.source and ret.action_name != 'update':
 			send_data(id,ret.toJson())
 		else:
 			_send_to_another(id,ret.toJson())
