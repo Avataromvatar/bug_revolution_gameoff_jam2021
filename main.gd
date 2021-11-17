@@ -8,7 +8,8 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,14 +19,16 @@ func _ready():
 
 
 func _on_connect_science_pressed():
+	GolMaster.connect_to_server()
 	GlobalResource.game_data['player_type'] = 'science'
-	get_tree().change_scene("res://src/scena/mission_intro/mission_intro.tscn") # Replace with function body.
+	get_tree().change_scene("res://src/scena/mission_intro/gol_mission_intro.tscn") # Replace with function body.
 
 
 func _on_connect_bug_pressed():
+	GolMaster.connect_to_server()
 	GlobalResource.game_data['player_type'] = 'bug'
-	get_tree().change_scene("res://src/scena/mission_intro/mission_intro.tscn")
+	get_tree().change_scene("res://src/scena/mission_intro/gol_mission_intro.tscn")
 
 
 func _on_server_start_pressed():
-	WebsocetServer.listen()
+	GolServer.listen()

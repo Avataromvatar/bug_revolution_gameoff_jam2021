@@ -3,7 +3,7 @@
 [ext_resource path="res://lib/actor/gol_actor.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/famale/token_3(2).png" type="Texture" id=2]
 [ext_resource path="res://assets/test_learning/light2.png" type="Texture" id=3]
-[ext_resource path="res://src/weapons/staner/staner.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/weapons/staner/gol_staner.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
@@ -12,26 +12,13 @@ light_mode = 2
 radius = 19.6899
 height = 31.2458
 
-[node name="Control" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Actor" type="KinematicBody2D" parent="."]
-position = Vector2( 193.398, 115.913 )
+[node name="Actor" type="KinematicBody2D"]
 script = ExtResource( 1 )
 gol_scena_key = "science"
 mode = 2
 speed_rotate = 10.0
 
-[node name="Staner" parent="Actor" instance=ExtResource( 4 )]
-scale = Vector2( 0.2, 0.2 )
-speed = 200.0
-distance = 500.0
-
-[node name="Sprite" type="Sprite" parent="Actor"]
+[node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 1 )
 position = Vector2( 0.0325015, -0.12252 )
 rotation = 3.14159
@@ -39,15 +26,21 @@ scale = Vector2( 0.6, 0.4 )
 texture = ExtResource( 2 )
 offset = Vector2( -5.56447, 23.1048 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Actor"]
+[node name="Staner" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, 0 )
+scale = Vector2( 0.2, 0.2 )
+speed = 200.0
+distance = 500.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.0102234, -0.0199432 )
 shape = SubResource( 2 )
 
-[node name="Light2D" type="Light2D" parent="Actor"]
+[node name="Light2D" type="Light2D" parent="."]
 scale = Vector2( 0.6, 1 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -512 )
 color = Color( 0.898039, 0.894118, 0.85098, 1 )
 shadow_enabled = true
 
-[node name="Camera2D" type="Camera2D" parent="Actor"]
+[node name="Camera2D" type="Camera2D" parent="."]

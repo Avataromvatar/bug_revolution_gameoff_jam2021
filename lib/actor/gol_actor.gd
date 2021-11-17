@@ -40,13 +40,14 @@ var gol_data:Dictionary={'x':0,'y':0,'angle':0,'stamina':0,'state':eActorState.I
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#for test
-	GolServer.listen()
-	GolMaster.connect_to_server()
+	#GolServer.listen()
+	#GolMaster.connect_to_server()
 	
 	gol = GlobalObjectLogic.new()
 	gol.gol_scena_key = gol_scena_key
 	gol.gol_type = 'actor'
 	action = gol.createAction('update',gol_data)
+	gol.event_handlers = {'update':funcref(self, '_event_handler_update')}
 	stamina = stamina_max
 	moveController.mode = mode
 	if staminaOn:
@@ -54,9 +55,15 @@ func _ready():
 	emit_signal("actor_state_change",state)
 	add_child(gol)
 	add_child(moveController)
+	$Camera2D.current = true
 	if isAI:
 		set_physics_process(false)
+		$Camera2D.current = false
+		
 
+func set_camera(on):
+	$Camera2D.current = on
+	$Light2D.set_deferred('enabled',on)
 
 func _change_state(new_state:int):
 	if state != new_state:
@@ -138,7 +145,7 @@ func _physics_process(delta):
 	var arr 
 	if !isAI:
 		arr = _update(delta)
-		print(delta,' ',arr,' ',state)
+		#print(delta,' ',arr,' ',state)
 		if isChange:
 			rotation += arr[2] * speed_rotate * delta
 			move_and_slide(Vector2(arr[0],arr[1]).rotated(rotation))
@@ -146,10 +153,20 @@ func _physics_process(delta):
 			gol_data = {'x':position.x,'y':position.y,'angle':rotation,'stamina':stamina,'state':state}
 			action.data = gol_data
 			gol.gol_send_action(action)
-	else:
-		if isChange:
-			isChange = false
-			rotation += arrToUpdateFromServer[2] * speed_rotate * delta
-			move_and_slide(Vector2(arrToUpdateFromServer[0],arrToUpdateFromServer[1]).rotated(rotation))
+	#else:
+	#	if isChange:
+	#		isChange = false
+	#		rotation += arrToUpdateFromServer[2] * speed_rotate * delta
+	#		move_and_slide(Vector2(arrToUpdateFromServer[0],arrToUpdateFromServer[1]).rotated(rotation))
 		
-	#print('position change:',position,' rotate:',rotation)
+func _event_handler_update(data:Dictionary):
+	if isAI:
+		$Camera2D.current = false
+	if data.has_all(['x','y','angle','stamina','state']):
+		arrToUpdateFromServer = [data['x'],data['y'],data['angle']]
+		state = data['state']
+		stamina = data['stamina']
+		rotation = arrToUpdateFromServer[2]
+		position = Vector2(arrToUpdateFromServer[0],arrToUpdateFromServer[1])
+	else:
+		printerr('ERROR GOL EVENT update in gol_actor data:',data)
