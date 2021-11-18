@@ -22,11 +22,14 @@ func _ready():
 	gol = GlobalObjectLogic.new()
 	gol.gol_type = 'item'
 	gol.event_handlers = {'shoot':funcref(self, '_event_handler_shoot')}
-	set_process_input(true)
+	#set_process_input(true)
 	#for test
 	#GolServer.listen()
 	#GolMaster.connect_to_server()
 	add_child(gol)
+
+func catch_input_from_user(on:bool):
+	set_process_input(false)
 
 func need_shoot():
 	

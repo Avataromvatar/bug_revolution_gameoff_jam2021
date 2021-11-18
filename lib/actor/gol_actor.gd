@@ -58,12 +58,14 @@ func _ready():
 	$Camera2D.current = true
 	if isAI:
 		set_physics_process(false)
-		$Camera2D.current = false
+		#$Camera2D.current = false
 		
 
 func set_camera(on):
-	$Camera2D.current = on
+	$Camera2D.set_deferred('current',on)
 	$Light2D.set_deferred('enabled',on)
+
+
 
 func _change_state(new_state:int):
 	if state != new_state:
