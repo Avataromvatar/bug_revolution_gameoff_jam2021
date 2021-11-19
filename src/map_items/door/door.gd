@@ -11,14 +11,16 @@ export var gol_scena_key:String = 'door'
 
 var gol:GlobalObjectLogic
 
-func open():
+func open(need_update:bool = false):
 	state = SOUND_OPEN
-	_update()
+	if need_update:
+		_update()
 	$sound_open.play()
 
-func close():
+func close(need_update:bool = false):
 	state = SOUND_CLOSED
-	_update()
+	if need_update:
+		_update()
 	$sound_closed.play()
 
 func _update():
@@ -34,6 +36,7 @@ func _ready():
 		$opened.hide()
 	gol = GlobalObjectLogic.new()
 	gol.gol_type = 'door'
+	gol.gol_scena_key = gol_scena_key
 	gol.event_handlers = {'update':funcref(self, '_event_handler_update')}
 	#for test
 	#GolServer.listen()
@@ -54,11 +57,11 @@ func _event_handler_update(data:Dictionary):
 		printerr('ERROR GOL EVENT update in gol_door data:',data)
 
 func _on_Area2D_body_entered(body):
-	open()
+	open(true)
 	
 
 func _on_Area2D_body_exited(body):
-	close()
+	close(true)
 
 
 func _on_AudioStreamPlayer2D_finished():

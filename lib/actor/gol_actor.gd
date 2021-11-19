@@ -2,6 +2,9 @@ extends KinematicBody2D
 
 var moveController = preload("res://lib/actor/move_controller.gd").new()
 
+signal collision_event(type,data)
+#signal ai_need_move(pos,rot)
+
 enum eActorState{
 	IDLE,
 	MOVE,
@@ -37,6 +40,10 @@ var changeAccept:bool = false #if server accept changes
 var action:GlobalObjectLogicDTO
 var state:int = eActorState.IDLE
 var gol_data:Dictionary={'x':0,'y':0,'angle':0,'stamina':0,'state':eActorState.IDLE}
+
+var isPathMove:=false
+var path :=PoolVector2Array()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#for test
@@ -46,27 +53,53 @@ func _ready():
 	gol = GlobalObjectLogic.new()
 	gol.gol_scena_key = gol_scena_key
 	gol.gol_type = 'actor'
-	action = gol.createAction('update',gol_data)
-	gol.event_handlers = {'update':funcref(self, '_event_handler_update')}
+	action = gol.createAction('move',gol_data)
+	gol.event_handlers = {'move':funcref(self, '_event_handler_update')}
 	stamina = stamina_max
 	moveController.mode = mode
-	if staminaOn:
-		emit_signal("stamina_change",stamina)
-	emit_signal("actor_state_change",state)
 	add_child(gol)
 	add_child(moveController)
-	$Camera2D.current = true
+	#$Camera2D.current = true
 	if isAI:
 		set_physics_process(false)
 		#$Camera2D.current = false
 		
+func collisionEvent(type:String, data):
+	emit_signal("collision_event",type,data)
+	
+func set_camera(on:bool):
+	var c = find_node('Camera2D')
+	if c != null:
+		c.set_deferred('current',on)
 
-func set_camera(on):
-	$Camera2D.set_deferred('current',on)
-	$Light2D.set_deferred('enabled',on)
+func set_light(on:bool):
+	var l = find_node('Light2D')
+	if l!=null:
+		l.set_deferred('enabled',on)
+	
+func set_AI(on:bool):
+	isAI = on
+	set_physics_process(!on)
+	#set_camera(!on)
+	#set_light(!on)
 
-
-
+func move_by_path(new_path:PoolVector2Array):
+	if isAI:
+		isPathMove = true
+		path = new_path
+		set_physics_process(true)
+		
+#update path from ai. need return arr [x,y,rotate,isRun 1 or 0]
+#this is only direction
+func _update_path(delta)->Array:
+	if path.size()>0:
+		var need_rotate_to = global_position.direction_to(path[0]) #направление мышки определяет куда нам надо повернутся
+		var rotate_angle = need_rotate_to.dot(Vector2(0,1).rotated(rotation-1.57))#
+		return [0,-1,rotate_angle,0]
+	else:
+		set_physics_process(false)
+		return [0,0,0,0]
+	
 func _change_state(new_state:int):
 	if state != new_state:
 		#print('Change state ',state,' to ',new_state)
@@ -95,28 +128,40 @@ func set_stamina(new_stamina:float):
 			_change_state(eActorState.STAMINA_RECOVERY)
 ##производит перемещение с учетом состояния ускорения и стамины
 func _update(delta):
-	var arr = moveController.getInputVelocityAndRotation(position,rotation)
+	var arr:=Array() #[x,y,rotate,isRun 1 or 0]
+	var isRun =false
+	#Get main data(arr) from input or AI path
+	if !isAI:
+		arr = moveController.getInputVelocityAndRotation(position,rotation) #arr.lenght = 3
+		if Input.is_action_pressed("ui_run") : 
+			arr.push_back(1)
+		else:
+			arr.push_back(0)
+	elif isPathMove:
+		arr = _update_path(delta)
+					
+	var velocity = Vector2(arr[0],arr[1])
+	var rotate_angle = arr[2]
+	
 	if arr[0]!=0 or arr[1]!=0 or arr[2]!=0:
 		isChange =true
-		if Input.is_action_pressed("ui_run"): 
-			_change_state(eActorState.RUN)
-		else:
-			if state == eActorState.IDLE or state == eActorState.RUN:
-				_change_state(eActorState.MOVE)
-				
-	var velocity = moveController.velocity
-	var rotate_angle = moveController.rotate_angle
-	if velocity.x ==0 and velocity.y ==0 and rotate_angle==0:
+		if state !=eActorState.STAMINA_RECOVERY:
+			if arr[3]==1: 
+				_change_state(eActorState.RUN)
+			else:
+				if state == eActorState.IDLE or state == eActorState.RUN:
+					_change_state(eActorState.MOVE)
+	
+	if state==eActorState.IDLE or state == eActorState.STAMINA_RECOVERY:
 		if staminaOn:
 			set_stamina(stamina+stamina_regen_when_idle*delta)
 			if state == eActorState.STAMINA_RECOVERY:
 				if stamina >=stamina_min:
 					_change_state(eActorState.IDLE)
+	if velocity.x ==0 and velocity.y ==0 and rotate_angle==0:
 		if state == eActorState.MOVE or state == eActorState.RUN:
 			_change_state(eActorState.IDLE)
-	if state == eActorState.STAMINA_RECOVERY:
-		if staminaOn:
-			set_stamina(stamina+stamina_regen_when_idle*delta)
+	
 	if state == eActorState.MOVE:
 		if staminaOn:
 			set_stamina(stamina+stamina_regen_when_move*delta)
@@ -155,15 +200,33 @@ func _physics_process(delta):
 			gol_data = {'x':position.x,'y':position.y,'angle':rotation,'stamina':stamina,'state':state}
 			action.data = gol_data
 			gol.gol_send_action(action)
-	#else:
-	#	if isChange:
-	#		isChange = false
-	#		rotation += arrToUpdateFromServer[2] * speed_rotate * delta
-	#		move_and_slide(Vector2(arrToUpdateFromServer[0],arrToUpdateFromServer[1]).rotated(rotation))
+	else:
+		if isPathMove:
+			# Calculate the movement distance for this frame
+			#var distance_to_walk = speed_move_forward * delta
+			arr = _update(delta)
+			var velocity = Vector2(arr[0],arr[1])
+			var distance_to_walk = velocity.length()
+	# Move the player along the path until he has run out of movement or the path ends.
+			if distance_to_walk > 0 and path.size() > 0:
+				var distance_to_next_point = global_position.distance_to(path[0])
+				rotation += arr[2] * speed_rotate * delta
+				if distance_to_walk <= distance_to_next_point:
+			# The player does not have enough movement left to get to the next point.
+					move_and_slide(velocity.rotated(rotation))
+					#position += position.direction_to(path[0]) * distance_to_walk
+				else:
+			# The player get to the next point
+					move_and_slide(velocity.rotated(rotation))
+					#position = path[0]
+					path.remove(0)
+				gol_data = {'x':position.x,'y':position.y,'angle':rotation,'stamina':stamina,'state':state}
+				action.data = gol_data
+				gol.gol_send_action(action)
 		
 func _event_handler_update(data:Dictionary):
-	if isAI:
-		$Camera2D.current = false
+	#if isAI:
+	#	$Camera2D.current = false
 	if data.has_all(['x','y','angle','stamina','state']):
 		arrToUpdateFromServer = [data['x'],data['y'],data['angle']]
 		state = data['state']

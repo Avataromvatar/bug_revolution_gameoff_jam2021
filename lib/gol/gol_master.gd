@@ -54,4 +54,6 @@ func _on_client_new_data(data):
 	var tmp = GlobalObjectLogicDTO.new()
 	tmp = tmp.fromDictionary(data)
 	if tmp != null:
+		if tmp.action_name!='move':
+			print('Client ',client.get_id(),' DTO:',data)
 		gol_set_event(tmp)

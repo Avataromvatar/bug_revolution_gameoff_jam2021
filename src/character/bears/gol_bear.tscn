@@ -1,13 +1,13 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://lib/actor/gol_actor.gd" type="Script" id=1]
-[ext_resource path="res://assets/test_learning/light_soft_round.png" type="Texture" id=2]
+[ext_resource path="res://assets/characters/bears/bears1.png" type="Texture" id=2]
 [ext_resource path="res://assets/characters/bug/bug_sheet.png" type="Texture" id=3]
-[ext_resource path="res://src/character/bug/gol_bug.gd" type="Script" id=4]
+[ext_resource path="res://src/character/bears/gol_bear.gd" type="Script" id=4]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 16.077
-height = 14.0275
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 12.1108
+height = 45.7242
 
 [sub_resource type="CanvasItemMaterial" id=2]
 light_mode = 2
@@ -44,39 +44,32 @@ animations = [ {
 script = ExtResource( 4 )
 
 [node name="Actor" type="KinematicBody2D" parent="."]
-collision_layer = 0
+collision_layer = 3
 collision_mask = 3
 script = ExtResource( 1 )
-gol_scena_key = "bug"
+gol_scena_key = "bear"
 mode = 2
-speed_rotate = 10.0
+isAI = true
+speed_rotate = 1.0
+speed_move_forward = 50.0
+run_speed = 100.0
 staminaOn = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Actor"]
-position = Vector2( -0.0102234, -0.0199432 )
-shape = SubResource( 1 )
+position = Vector2( 0.177063, -3.39113 )
+rotation = 1.5708
+shape = SubResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="Actor"]
-visible = false
-position = Vector2( 0.0325015, -0.12252 )
 rotation = 3.14159
 scale = Vector2( 0.6, 0.4 )
-offset = Vector2( -5.56447, 23.1048 )
+texture = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Actor"]
+visible = false
 material = SubResource( 2 )
 rotation = 3.14159
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 7 )
 animation = "move"
 frame = 3
-
-[node name="Light2D" type="Light2D" parent="Actor"]
-position = Vector2( 0, -0.37458 )
-texture = ExtResource( 2 )
-texture_scale = 0.6
-color = Color( 0.85098, 0.898039, 0.858824, 1 )
-mode = 2
-shadow_enabled = true
-
-[node name="Camera2D" type="Camera2D" parent="Actor"]

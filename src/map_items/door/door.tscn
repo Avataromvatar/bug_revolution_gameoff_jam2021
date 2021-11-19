@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/map_items/door/door.gd" type="Script" id=1]
 [ext_resource path="res://assets/map_object/my/doors/doors1_closed.png" type="Texture" id=2]
@@ -8,6 +8,9 @@
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 99.8078 )
+
+[sub_resource type="OccluderPolygon2D" id=3]
+polygon = PoolVector2Array( -8.96673, -99.2141, -9.27643, 100.005, 9.2962, 100.402, 8.98681, -100.802 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50.7914, 99.2875 )
@@ -23,10 +26,15 @@ texture = ExtResource( 2 )
 [node name="StaticBody2D" type="StaticBody2D" parent="closed"]
 rotation = -1.5708
 scale = Vector2( 1.28205, 1.28205 )
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="closed/StaticBody2D"]
 position = Vector2( 0, -0.199646 )
 shape = SubResource( 2 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="closed/StaticBody2D"]
+occluder = SubResource( 3 )
 
 [node name="opened" type="Sprite" parent="."]
 visible = false

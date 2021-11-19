@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://lib/actor/gol_actor.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/famale/token_3(2).png" type="Texture" id=2]
 [ext_resource path="res://assets/test_learning/light2.png" type="Texture" id=3]
 [ext_resource path="res://src/weapons/staner/gol_staner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/character/science/gol_science.gd" type="Script" id=5]
+[ext_resource path="res://src/item/lantern/lantern.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
@@ -13,14 +14,19 @@ light_mode = 2
 radius = 19.6899
 height = 31.2458
 
-[node name="science" type="Node2D"]
+[node name="science" type="Node"]
 script = ExtResource( 5 )
 
 [node name="Actor" type="KinematicBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
 script = ExtResource( 1 )
 gol_scena_key = "actor"
 mode = 2
 speed_rotate = 10.0
+staminaOn = true
+stamina_max = 15.0
+stamina_min = 10.0
 
 [node name="Sprite" type="Sprite" parent="Actor"]
 material = SubResource( 1 )
@@ -40,7 +46,11 @@ distance = 500.0
 position = Vector2( -0.0102234, -0.0199432 )
 shape = SubResource( 2 )
 
+[node name="Lantern" parent="Actor" instance=ExtResource( 6 )]
+scale = Vector2( 0.6, 1 )
+
 [node name="Light2D" type="Light2D" parent="Actor"]
+visible = false
 scale = Vector2( 0.6, 1 )
 texture = ExtResource( 3 )
 offset = Vector2( 0, -512 )

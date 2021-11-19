@@ -5,7 +5,7 @@ signal closed()
 signal connect_estabilished()
 
 # The URL we will connect to
-export var websocket_url = "ws://localhost:9081"
+export var websocket_url = "ws://192.168.1.8:9081"
 
 # Our WebSocketClient instance
 var _client = WebSocketClient.new()
@@ -15,6 +15,10 @@ func send_data(data:Dictionary):
 	if isConnected:
 		var d = to_json(data)
 		_client.get_peer(1).put_packet(d.to_utf8())
+
+func get_id():
+	if isConnected:
+		_client.get_connected_port()
 
 func reconnect():
 	_client.disconnect("connection_closed", self, "_closed")
