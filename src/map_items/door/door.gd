@@ -57,11 +57,13 @@ func _event_handler_update(data:Dictionary):
 		printerr('ERROR GOL EVENT update in gol_door data:',data)
 
 func _on_Area2D_body_entered(body):
-	open(true)
+	if body is KinematicBody2D:
+		open(true)
 	
 
 func _on_Area2D_body_exited(body):
-	close(true)
+	if body is KinematicBody2D:
+		close(true)
 
 
 func _on_AudioStreamPlayer2D_finished():

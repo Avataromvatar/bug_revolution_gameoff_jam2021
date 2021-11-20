@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var moveController = preload("res://lib/actor/move_controller.gd").new()
 
+signal actor_state_change(state)
 signal collision_event(type,data)
 #signal ai_need_move(pos,rot)
 
@@ -111,7 +112,7 @@ func _change_state(new_state:int):
 		if state == eActorState.IDLE or state ==eActorState.STAMINA_RECOVERY:
 			forward_speed = 0
 		isChange = true
-		#emit_signal("actor_state_change",state)
+		emit_signal("actor_state_change",state)
 
 func set_stamina(new_stamina:float):
 	if new_stamina >stamina_max:
@@ -223,6 +224,9 @@ func _physics_process(delta):
 				gol_data = {'x':position.x,'y':position.y,'angle':rotation,'stamina':stamina,'state':state}
 				action.data = gol_data
 				gol.gol_send_action(action)
+			if path.size()==0:
+				isPathMove = false
+				set_physics_process(false)
 		
 func _event_handler_update(data:Dictionary):
 	#if isAI:

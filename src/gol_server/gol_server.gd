@@ -25,8 +25,11 @@ func _new_data_from_client(id,data_dict):
 		if ret.action_name == 'shoot':
 			_send_to_another(id,tmp)	
 			send_data(id,tmp)
-		if ret.action_name == 'move':
+		if ret.action_name == 'next_item':
+			_send_to_another(id,tmp)	
 			send_data(id,tmp)
+		if ret.action_name == 'move':
+			#send_data(id,tmp)
 			_send_to_another(id,tmp)
 	
 	

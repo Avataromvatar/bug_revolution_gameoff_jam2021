@@ -5,24 +5,78 @@ export var isAI:bool=false
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
-
+var current_item:int =0
+var items:Array
+var gol:GlobalObjectLogic
+var isSend:bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Actor.gol_scena_key = gol_scena_key
-	$Actor/Lantern.gol_scena_key = 'lantern'
+	gol = GlobalObjectLogic.new()
+	gol.gol_scena_key = gol_scena_key
+	gol.gol_type = 'character'
+	gol.event_handlers = {'next_item':funcref(self, '_event_handler_next_item')}
+	$Actor.gol_scena_key = gol_scena_key+'_actor'
+	$Actor/Lantern.gol_scena_key = gol_scena_key+'_lantern'
+	$Actor/laser_gun.gol_scena_key = gol_scena_key+'_laser_gun'
+	$Actor/laser_gun.hide()
 	set_AI(isAI)
-	GlobalResource.game_data['science'] = $Actor
+	GlobalResource.game_data['science_actor'] = $Actor
+	GlobalResource.game_data['science'] = self
+	add_child(gol)
 
 func set_AI(on:bool):
 	isAI=on
 	$Actor.set_AI(on)
 	$Actor.set_camera(!on)
 	$Actor/Staner.catch_input_from_user(!on)
-	$Actor/Lantern.catch_input_from_user(!on)
-	
-		
+	if isAI:
+		$Actor/Lantern.catch_input_from_user(false)
+		$Actor/laser_gun.catch_input_from_user(false)
+	else:
+		if current_item==0:
+			$Actor/Lantern.catch_input_from_user(true)
+			$Actor/laser_gun.catch_input_from_user(false)
+		else:
+			$Actor/Lantern.catch_input_from_user(false)
+			$Actor/laser_gun.catch_input_from_user(true)
+	set_process_input(!on)
 
+func add_item(item:String):
+	pass
+
+func remove_item(item:String):
+	pass
+
+func next_item():
+	pass
+
+func _event_handler_next_item(data:Dictionary):
+	isSend = false
+	if data.has('item'):
+		if data['item']==1:
+			$Actor/Staner.hide()
+			$Actor/laser_gun.show()
+			if !isAI:
+				$Actor/Staner.catch_input_from_user(false)
+				$Actor/laser_gun.catch_input_from_user(true)
+		if data['item']==0:
+			$Actor/Staner.show()
+			$Actor/laser_gun.hide()
+			if !isAI:
+				$Actor/Staner.catch_input_from_user(true)
+				$Actor/laser_gun.catch_input_from_user(false)
+			
+
+func _input(event):
+	if Input.is_action_pressed("next_item") and !isSend:
+		isSend = true
+		if current_item==0:
+			current_item =1
+		else:
+			current_item =0
+		var tmp = gol.createAction('next_item',{'item':current_item})
+		gol.gol_send_action(tmp)
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

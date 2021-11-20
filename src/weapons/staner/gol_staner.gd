@@ -32,7 +32,6 @@ func catch_input_from_user(on:bool):
 	set_process_input(on)
 
 func need_shoot():
-	
 	if !isSend and !isColddown:
 		isSend = true
 		print('need_shoot to',get_global_mouse_position())
@@ -56,7 +55,7 @@ func _event_handler_shoot(data:Dictionary):
 			net.connect('move_end',self,'_move_end')
 			net.connect('target_hit',self,'_target_hit')
 			#get_tree().root.add_child(net)
-			find_parent('CanvasModulate').add_child(net)
+			find_parent('body_scena').add_child(net)
 			
 			isColddown = true
 			print('shoot to',glpos)

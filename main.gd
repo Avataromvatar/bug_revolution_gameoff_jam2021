@@ -8,7 +8,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	GlobalResource.game_data['isServer'] = false
 	
 
 
@@ -31,4 +31,5 @@ func _on_connect_bug_pressed():
 
 
 func _on_server_start_pressed():
+	GlobalResource.game_data['isServer'] = true
 	GolServer.listen()

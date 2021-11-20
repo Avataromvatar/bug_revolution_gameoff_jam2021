@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/fonts/GameOfSquids-1GMVL.ttf" type="DynamicFontData" id=1]
 
 [sub_resource type="DynamicFont" id=1]
-size = 25
+size = 12
 font_data = ExtResource( 1 )
 
 [sub_resource type="Theme" id=2]
@@ -19,11 +19,25 @@ __meta__ = {
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -92.5
-margin_right = 92.5
-margin_bottom = 32.0
+margin_left = -501.974
+margin_top = 6.29961
+margin_right = -316.974
+margin_bottom = 38.2996
 theme = SubResource( 2 )
-text = "sdfdf3333"
+text = "Stamina:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -501.977
+margin_top = 28.1387
+margin_right = -316.977
+margin_bottom = 60.1387
+theme = SubResource( 2 )
+text = "Hits:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
