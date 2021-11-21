@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/text_frame/text_frame.gd" type="Script" id=1]
+[ext_resource path="res://assets/sound/print_machine/first_symbol.wav" type="AudioStream" id=2]
+[ext_resource path="res://assets/sound/print_machine/symbol.wav" type="AudioStream" id=3]
+[ext_resource path="res://assets/sound/print_machine/space.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/sound/print_machine/enter.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/fonts/GameOfSquids-1GMVL.ttf" type="DynamicFontData" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 22
+font_data = ExtResource( 6 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="text_frame" type="RichTextLabel"]
+margin_right = 512.0
+margin_bottom = 512.0
+theme = SubResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="first_symbol" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = 10.0
+
+[node name="other_symbol" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = 10.0
+
+[node name="space" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = 24.0
+
+[node name="next_string" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 4.37
+
+[connection signal="finished" from="first_symbol" to="." method="_on_first_symbol_finished"]
+[connection signal="finished" from="other_symbol" to="." method="_on_other_symbol_finished"]
+[connection signal="finished" from="space" to="." method="_on_space_finished"]
+[connection signal="finished" from="next_string" to="." method="_on_next_string_finished"]

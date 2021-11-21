@@ -9,6 +9,8 @@ var current_item:int =0
 var items:Array
 var gol:GlobalObjectLogic
 var isSend:bool = false
+
+var time_count:float = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	gol = GlobalObjectLogic.new()
@@ -19,10 +21,27 @@ func _ready():
 	$Actor/Lantern.gol_scena_key = gol_scena_key+'_lantern'
 	$Actor/laser_gun.gol_scena_key = gol_scena_key+'_laser_gun'
 	$Actor/laser_gun.hide()
+	#$Actor.connect("actor_state_change",self,'_actor_change_state')
 	set_AI(isAI)
 	GlobalResource.game_data['science_actor'] = $Actor
 	GlobalResource.game_data['science'] = self
 	add_child(gol)
+
+func _process(delta):
+	time_count +=delta
+	if time_count>0.1:
+		time_count=0
+		if $Actor.state == 0 or $Actor.state == 3:
+			$Actor/AnimatedSprite.play('idle')
+			$Actor/AnimatedSprite/AnimationPlayer.play("idle")
+		if $Actor.state == 1 or $Actor.state == 2:
+			if $Actor.isWalk:
+				$Actor/AnimatedSprite.play('move')
+			else:
+				$Actor/AnimatedSprite.play('idle')
+				$Actor/AnimatedSprite/AnimationPlayer.play("idle")
+			$Actor/AnimatedSprite/AnimationPlayer.play("RESET")
+		
 
 func set_AI(on:bool):
 	isAI=on
@@ -32,6 +51,7 @@ func set_AI(on:bool):
 	if isAI:
 		$Actor/Lantern.catch_input_from_user(false)
 		$Actor/laser_gun.catch_input_from_user(false)
+		$Actor/Light2D.hide()
 	else:
 		if current_item==0:
 			$Actor/Lantern.catch_input_from_user(true)

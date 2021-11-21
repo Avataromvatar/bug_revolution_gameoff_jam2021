@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://lib/actor/gol_actor.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/famale/token_3(2).png" type="Texture" id=2]
@@ -7,18 +7,72 @@
 [ext_resource path="res://src/character/science/gol_science.gd" type="Script" id=5]
 [ext_resource path="res://src/item/lantern/lantern.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/weapons/laser_gun/laser_gun.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/characters/science/science_mover0l1.png" type="Texture" id=8]
+[ext_resource path="res://assets/characters/science/science_idle.png" type="Texture" id=9]
+[ext_resource path="res://assets/characters/science/science_mover1l2.png" type="Texture" id=10]
+[ext_resource path="res://assets/characters/science/science_mover2l1.png" type="Texture" id=11]
+[ext_resource path="res://assets/characters/science/science_mover1l0.png" type="Texture" id=12]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+light_mode = 2
 
 [sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 19.6899
-height = 31.2458
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 12 ), ExtResource( 10 ), ExtResource( 12 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 11 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "move",
+"speed": 5.0
+} ]
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 0.52, 0.52 ) ]
+}
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 32.2906
+height = 130.804
 
 [node name="science" type="Node"]
 script = ExtResource( 5 )
 
 [node name="Actor" type="KinematicBody2D" parent="."]
+material = SubResource( 2 )
+scale = Vector2( 0.5, 0.5 )
 collision_layer = 129
 collision_mask = 129
 script = ExtResource( 1 )
@@ -26,10 +80,9 @@ gol_scena_key = "actor"
 mode = 2
 speed_move_forward = 125.0
 staminaOn = true
-stamina_max = 15.0
-stamina_min = 10.0
 
 [node name="Sprite" type="Sprite" parent="Actor"]
+visible = false
 material = SubResource( 1 )
 position = Vector2( 0.0325015, -0.12252 )
 rotation = 3.14159
@@ -38,26 +91,40 @@ texture = ExtResource( 2 )
 offset = Vector2( -5.56447, 23.1048 )
 
 [node name="Staner" parent="Actor" instance=ExtResource( 4 )]
-position = Vector2( 0, 0 )
+position = Vector2( 82.8398, -31.498 )
+rotation = -0.109956
 scale = Vector2( 0.2, 0.2 )
 speed = 200.0
 distance = 500.0
 
+[node name="Lantern" parent="Actor" instance=ExtResource( 6 )]
+position = Vector2( -76.8552, -37.1677 )
+rotation = 0.218166
+scale = Vector2( 0.6, 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Actor"]
+rotation = -3.14159
+frames = SubResource( 3 )
+animation = "move"
+speed_scale = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Actor/AnimatedSprite"]
+anims/RESET = SubResource( 5 )
+anims/idle = SubResource( 6 )
+
 [node name="laser_gun" parent="Actor" instance=ExtResource( 7 )]
-position = Vector2( 28.3454, -26.7162 )
-scale = Vector2( 0.5, 0.5 )
+position = Vector2( 83.7819, -72.7033 )
 shoot_in_second = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Actor"]
-position = Vector2( -0.0102234, -0.0199432 )
-shape = SubResource( 2 )
-
-[node name="Lantern" parent="Actor" instance=ExtResource( 6 )]
-scale = Vector2( 0.6, 1 )
+position = Vector2( 3.46478, 10.0794 )
+rotation = 1.5708
+shape = SubResource( 4 )
 
 [node name="Light2D" type="Light2D" parent="Actor"]
 texture = ExtResource( 3 )
-color = Color( 0.898039, 0.894118, 0.85098, 1 )
+texture_scale = 5.0
+color = Color( 0.737255, 0.737255, 0.705882, 1 )
 shadow_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="Actor"]

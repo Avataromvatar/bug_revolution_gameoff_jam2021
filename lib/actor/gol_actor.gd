@@ -41,7 +41,8 @@ var changeAccept:bool = false #if server accept changes
 var action:GlobalObjectLogicDTO
 var state:int = eActorState.IDLE
 var gol_data:Dictionary={'x':0,'y':0,'angle':0,'stamina':0,'state':eActorState.IDLE}
-
+var isRotate:bool = false
+var isWalk:bool = false
 var isPathMove:=false
 var path :=PoolVector2Array()
 
@@ -152,7 +153,14 @@ func _update(delta):
 			else:
 				if state == eActorState.IDLE or state == eActorState.RUN:
 					_change_state(eActorState.MOVE)
-	
+	if arr[0]==0 and arr[1]==0:
+		isWalk = false
+	else:
+		isWalk = true
+	if arr[2] > 0:
+		isRotate = true
+	else:
+		isRotate = false	
 	if state==eActorState.IDLE or state == eActorState.STAMINA_RECOVERY:
 		if staminaOn:
 			set_stamina(stamina+stamina_regen_when_idle*delta)

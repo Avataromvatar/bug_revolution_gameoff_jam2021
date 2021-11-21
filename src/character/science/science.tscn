@@ -1,10 +1,28 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/characters/famale/token_3(2).png" type="Texture" id=1]
 [ext_resource path="res://assets/test_learning/light2.png" type="Texture" id=2]
 [ext_resource path="res://lib/actor/actor.gd" type="Script" id=3]
 [ext_resource path="res://src/character/science/science.gd" type="Script" id=4]
 [ext_resource path="res://src/weapons/staner/staner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/characters/science/science_mover0l1.png" type="Texture" id=6]
+[ext_resource path="res://assets/characters/science/science_idle.png" type="Texture" id=7]
+[ext_resource path="res://assets/characters/science/science_mover1l2.png" type="Texture" id=8]
+[ext_resource path="res://assets/characters/science/science_mover2l1.png" type="Texture" id=9]
+[ext_resource path="res://assets/characters/science/science_mover1l0.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 10 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "move",
+"speed": 5.0
+} ]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
@@ -26,12 +44,20 @@ run_speed = 300.0
 run_start_speed = 200.0
 stamina_max = 100.0
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Actor"]
+rotation = 3.14159
+frames = SubResource( 3 )
+animation = "idle"
+speed_scale = 2.0
+
 [node name="Staner" parent="Actor" instance=ExtResource( 5 )]
+position = Vector2( 82.8283, -31.5336 )
 scale = Vector2( 0.2, 0.2 )
 speed = 200.0
 distance = 500.0
 
 [node name="Sprite" type="Sprite" parent="Actor"]
+visible = false
 material = SubResource( 1 )
 position = Vector2( 0.0325015, -0.12252 )
 rotation = 3.14159
