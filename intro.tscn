@@ -1,8 +1,31 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/IFC.png" type="Texture" id=1]
+[ext_resource path="res://src/text_frame/text_frame.tscn" type="PackedScene" id=2]
+[ext_resource path="res://intro.gd" type="Script" id=3]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 200.101
+margin_right = -205.899
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 5
+
+[node name="text_frame" parent="." instance=ExtResource( 2 )]
+anchor_left = 0.151
+anchor_right = 1.0
+margin_left = -59.4603
+margin_top = 28.541
+margin_right = -59.4603
+margin_bottom = 528.541
+rect_scale = Vector2( 2, 2 )
