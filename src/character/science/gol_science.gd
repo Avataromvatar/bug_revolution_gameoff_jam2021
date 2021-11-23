@@ -2,6 +2,7 @@ extends Node
 
 export var gol_scena_key:String = 'science'
 export var isAI:bool=false
+export var hit:float = 10
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -12,6 +13,17 @@ var isSend:bool = false
 var nav_2d:Navigation2D
 var time_count:float = 0
 var ai_work_time_count:float = 0
+
+var geager_power:float = 0
+var geager_count:float = 0
+var geager_on:bool = false
+var geager_sound_on:bool = false
+
+var ai_state = 0 # 0 -search 1- find and att 2-poterial
+var ai_rand0 = 1000
+var ai_rand1 = 50
+var ai_rand2 = 200
+var ai_count_state2 = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	gol = GlobalObjectLogic.new()
@@ -23,6 +35,9 @@ func _ready():
 	$Actor/Lantern.gol_scena_key = gol_scena_key+'_lantern'
 	$Actor/laser_gun.gol_scena_key = gol_scena_key+'_laser_gun'
 	$Actor/laser_gun.hide()
+	$Actor/Lantern.connect("body_find",self,'_body_find')
+	$Actor/Lantern.connect("body_hide",self,'_body_hide')
+	$Actor.connect("collision_event",self,'_collision_event')
 	#$Actor.connect("actor_state_change",self,'_actor_change_state')
 	set_AI(isAI)
 	GlobalResource.game_data['science_actor'] = $Actor
@@ -45,14 +60,41 @@ func _process(delta):
 			$Actor/AnimatedSprite/AnimationPlayer.play("RESET")
 	if isAI:
 		ai_work_time_count+=delta
-		if ai_work_time_count>=3:
+		if ai_work_time_count>=1:
 			ai_work_time_count = 0
 			if nav_2d != null:
+				var r
+				if ai_state == 0: #search bug
+					r = ai_rand0
+				if ai_state == 1: #find bug and try hit
+					r = ai_rand1
+					$Actor/Staner.need_shoot()
+				if ai_state == 2: #bug hide
+					r = ai_rand2
+					ai_count_state2+=1
+					if ai_count_state2>5:
+						ai_state=0
+				else:
+					ai_count_state2=0
+				var randX = (randi() % r + 1)-r/2	# random integer between 1 and 512.
+				var randY = (randi() % r + 1)-r/2	# random integer between 1 and 512.
 				var gpb = $Actor.global_position
 				var gps = GlobalResource.game_data['bug'].global_position
-				var path = nav_2d.get_simple_path(gpb,gps)
+				var path = nav_2d.get_simple_path(gpb,Vector2(gps.x+randX,gps.y+randY))
 				$Actor.move_by_path(path)
-		
+	if geager_on:
+		geager_count +=delta
+		if geager_count>0.5:
+			var v:Vector2 = GlobalResource.game_data['bug'].global_position - $Actor.global_position
+			geager_power = 2000 - v.length()
+			if geager_power > 0:
+				$Actor/AudioStreamPlayer2D.volume_db = 0.5 + geager_power/120
+				$Actor/AudioStreamPlayer2D.pitch_scale = 0.2+geager_power/1000
+				if !geager_sound_on:
+					$Actor/AudioStreamPlayer2D.play()
+					geager_sound_on =true
+			else:
+				geager_sound_on =false
 
 func set_AI(on:bool):
 	isAI=on
@@ -60,15 +102,19 @@ func set_AI(on:bool):
 	$Actor.set_camera(!on)
 	$Actor/Staner.catch_input_from_user(!on)
 	if isAI:
+		randomize()
+		geager_on = false
 		$Actor/Lantern.catch_input_from_user(false)
 		$Actor/laser_gun.catch_input_from_user(false)
+		$Actor/Staner.catch_input_from_user(false)
 		$Actor/Light2D.hide()
 	else:
+		$Actor/Lantern.catch_input_from_user(true)
 		if current_item==0:
-			$Actor/Lantern.catch_input_from_user(true)
+			$Actor/Staner.catch_input_from_user(true)
 			$Actor/laser_gun.catch_input_from_user(false)
 		else:
-			$Actor/Lantern.catch_input_from_user(false)
+			$Actor/Staner.catch_input_from_user(false)
 			$Actor/laser_gun.catch_input_from_user(true)
 	set_process_input(!on)
 
@@ -96,6 +142,7 @@ func _event_handler_next_item(data:Dictionary):
 			if !isAI:
 				$Actor/Staner.catch_input_from_user(true)
 				$Actor/laser_gun.catch_input_from_user(false)
+				
 			
 
 func _input(event):
@@ -111,3 +158,23 @@ func _input(event):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+func _body_find(body):
+	if isAI and body == GlobalResource.game_data['bug']:
+		ai_state = 1
+		print('I find you!!!')
+
+func _body_hide(body):
+	if isAI and body == GlobalResource.game_data['bug']:
+		ai_state = 2
+		print('You not hide at me!!!')
+
+func _collision_event(type:String,data):
+	hit -=data
+	if hit<=0:
+		print(name,' DIE!')
+	else:
+		print(name,' DMG: ',data,' HIT:',hit)
+
+func _on_AudioStreamPlayer2D_finished():
+	if geager_sound_on and geager_on:
+		$Actor/AudioStreamPlayer2D.play()

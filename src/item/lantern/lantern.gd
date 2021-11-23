@@ -1,5 +1,8 @@
 extends Node2D
 
+signal body_find(body)
+signal body_hide(body)
+
 export var gol_scena_key:String = 'lantern'
 export var input_from_user:bool = false
 var gol:GlobalObjectLogic
@@ -42,3 +45,11 @@ func _input(event):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_Area2D_body_entered(body):
+	emit_signal("body_find",body)
+
+
+func _on_Area2D_body_exited(body):
+	emit_signal("body_hide",body)

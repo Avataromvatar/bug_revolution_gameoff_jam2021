@@ -23,7 +23,7 @@ func _ready():
 			#SCIENCE.isClientOn = false
 			BUG.set_AI(false)
 			SCIENCE.set_AI(true)
-			
+			GlobalResource.game_data['player'] = BUG
 			ai = SCIENCE
 			#GlobalResource.game_data['science'] = ai.get_node("Actor")
 			#GlobalResource.game_data['bug'] = BUG.get_node("Actor")
@@ -33,6 +33,7 @@ func _ready():
 			ai = BUG
 			BUG.set_AI(true)
 			SCIENCE.set_AI(false)
+			GlobalResource.game_data['player'] = SCIENCE
 			#SCIENCE.add_child(ui_science)
 			#GlobalResource.game_data['ai_actor_node'] = ai.get_node("Actor")
 			#GlobalResource.game_data['player_actor_node'] = SCIENCE.get_node("Actor")
@@ -40,8 +41,8 @@ func _ready():
 		bear.get_node("Actor").set_position(Vector2(4500,800))
 		if GlobalResource.game_data['isServer']:
 			bear.inServer = true
-		GlobalResource.game_data['science'] = SCIENCE.get_node("Actor")
-		GlobalResource.game_data['bug'] = BUG.get_node("Actor")
+		#GlobalResource.game_data['science'] = SCIENCE.get_node("Actor")
+		#GlobalResource.game_data['bug'] = BUG.get_node("Actor")
 		BUG.get_node("Actor").set_position(Vector2(4000,800))
 		SCIENCE.get_node("Actor").set_position(Vector2(4500,1250))
 		#$CanvasModulate.add_child(BUG)
@@ -50,6 +51,7 @@ func _ready():
 		$ViewportContainer/Viewport/body_scena.add_child(SCIENCE)
 		$ViewportContainer/Viewport/body_scena.add_child(bear)
 		add_child(gol)
+		$Control.init()
 
 
 

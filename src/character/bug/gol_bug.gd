@@ -13,6 +13,8 @@ func _ready():
 	$Actor.gol_scena_key = gol_scena_key
 	set_AI(isAI)
 	$Actor.connect("collision_event",self,'_collision_event')
+	GlobalResource.game_data['bug_actor'] = $Actor
+	GlobalResource.game_data['bug'] = self
 
 func set_AI(on:bool):
 	isAI=on

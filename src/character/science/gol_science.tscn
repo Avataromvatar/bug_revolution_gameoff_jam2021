@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://lib/actor/gol_actor.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/famale/token_3(2).png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://assets/characters/science/science_mover1l2.png" type="Texture" id=10]
 [ext_resource path="res://assets/characters/science/science_mover2l1.png" type="Texture" id=11]
 [ext_resource path="res://assets/characters/science/science_mover1l0.png" type="Texture" id=12]
+[ext_resource path="res://assets/sound/schetchik-geigera-odinochnyii-rezkii-blizkii.wav" type="AudioStream" id=13]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 light_mode = 2
@@ -128,4 +129,11 @@ color = Color( 0.737255, 0.737255, 0.705882, 1 )
 shadow_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="Actor"]
-zoom = Vector2( 2, 2 )
+zoom = Vector2( 1.5, 1.5 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Actor"]
+stream = ExtResource( 13 )
+volume_db = 3.496
+max_distance = 500.0
+
+[connection signal="finished" from="Actor/AudioStreamPlayer2D" to="." method="_on_AudioStreamPlayer2D_finished"]

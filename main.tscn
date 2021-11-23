@@ -25,17 +25,17 @@ margin_bottom = 54.487
 text = "Server Start"
 
 [node name="connect_bug" type="Button" parent="."]
-margin_left = 168.867
-margin_top = 36.8654
-margin_right = 259.867
-margin_bottom = 56.8654
+margin_left = 156.0
+margin_top = 32.0
+margin_right = 273.0
+margin_bottom = 69.0
 text = "Connect bug"
 
 [node name="connect_science" type="Button" parent="."]
-margin_left = 154.597
-margin_top = 110.596
-margin_right = 271.597
-margin_bottom = 130.596
+margin_left = 155.0
+margin_top = 111.0
+margin_right = 272.0
+margin_bottom = 153.0
 text = "Connect science"
 __meta__ = {
 "_edit_use_anchors_": false
