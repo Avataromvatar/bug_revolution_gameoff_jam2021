@@ -5,7 +5,7 @@ signal closed()
 signal connect_estabilished()
 
 # The URL we will connect to
-export var websocket_url = "ws://192.168.1.8:9081"
+export var websocket_url = "ws://127.0.0.1:9081"
 
 # Our WebSocketClient instance
 var _client = WebSocketClient.new()

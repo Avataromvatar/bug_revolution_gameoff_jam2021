@@ -4,7 +4,7 @@ extends Control
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var server_start=false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,5 +31,8 @@ func _on_connect_bug_pressed():
 
 
 func _on_server_start_pressed():
-	GlobalResource.game_data['isServer'] = true
-	GolServer.listen()
+	if !server_start:
+		server_start = true
+		GlobalResource.game_data['isServer'] = true
+		GolServer.listen()
+		$server_start.text = 'Stop Server'

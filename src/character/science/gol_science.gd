@@ -9,14 +9,16 @@ var current_item:int =0
 var items:Array
 var gol:GlobalObjectLogic
 var isSend:bool = false
-
+var nav_2d:Navigation2D
 var time_count:float = 0
+var ai_work_time_count:float = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	gol = GlobalObjectLogic.new()
 	gol.gol_scena_key = gol_scena_key
 	gol.gol_type = 'character'
 	gol.event_handlers = {'next_item':funcref(self, '_event_handler_next_item')}
+	nav_2d = get_parent().find_node('Navigation2D')
 	$Actor.gol_scena_key = gol_scena_key+'_actor'
 	$Actor/Lantern.gol_scena_key = gol_scena_key+'_lantern'
 	$Actor/laser_gun.gol_scena_key = gol_scena_key+'_laser_gun'
@@ -41,6 +43,15 @@ func _process(delta):
 				$Actor/AnimatedSprite.play('idle')
 				$Actor/AnimatedSprite/AnimationPlayer.play("idle")
 			$Actor/AnimatedSprite/AnimationPlayer.play("RESET")
+	if isAI:
+		ai_work_time_count+=delta
+		if ai_work_time_count>=3:
+			ai_work_time_count = 0
+			if nav_2d != null:
+				var gpb = $Actor.global_position
+				var gps = GlobalResource.game_data['bug'].global_position
+				var path = nav_2d.get_simple_path(gpb,gps)
+				$Actor.move_by_path(path)
 		
 
 func set_AI(on:bool):
