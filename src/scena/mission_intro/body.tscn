@@ -446,9 +446,10 @@ light_mode = 2
 color = Color( 0.92549, 0.905882, 0.905882, 1 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = 1.0
-margin_right = 5301.0
-margin_bottom = 5362.0
+margin_left = 3.77808
+margin_top = 4.36548
+margin_right = 5303.78
+margin_bottom = 5366.37
 texture = ExtResource( 6 )
 expand = true
 __meta__ = {
@@ -485,6 +486,21 @@ polygon = PoolVector2Array( 2330.67, 2050.95, 2309.27, 2049.77, 2307.36, 3333.67
 
 [node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="TileMap/StaticBody2D"]
 polygon = PoolVector2Array( 3334.35, 1003.92, 2557.61, 999.426, 2538.52, 1027.49, 2538.26, 2050.27, 2563.45, 2069.17, 2840.64, 2070.43, 2835.6, 2051.53, 2559.67, 2046.49, 2557.34, 1027.3, 2572.17, 1014.58, 3333.92, 1018.82 )
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="TileMap/StaticBody2D"]
+polygon = PoolVector2Array( 2839.12, 2073.02, 2840.31, 1813.77, 3815.46, 1812.58, 3815.46, 2329.88, 4119.33, 2326.94, 4120.27, 1814.42, 4120.27, 1814.42, 4837.45, 1812.04, 4838.95, 2081.73, 4858.43, 2083.23, 4853.93, 1800.05, 4106.28, 1803.05, 4107.77, 2312.47, 3835.08, 2306.48, 3839.58, 1797.06, 2821.27, 1794.84, 2821.64, 2048.39 )
+
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="TileMap/StaticBody2D"]
+polygon = PoolVector2Array( 3170, 3043, 2846, 3043, 2841.33, 2279.3, 2821.2, 2279.3, 2819.08, 3068.6, 3168.71, 3069.66 )
+
+[node name="CollisionPolygon2D8" type="CollisionPolygon2D" parent="TileMap/StaticBody2D"]
+polygon = PoolVector2Array( 3232.33, 3044.66, 4835.81, 3049.42, 4835.81, 2146.75, 4859.12, 2148.87, 4859.12, 3068.49, 3231.79, 3068.49 )
+
+[node name="CollisionPolygon2D9" type="CollisionPolygon2D" parent="TileMap/StaticBody2D"]
+polygon = PoolVector2Array( 4582, 3614, 4582, 3352, 2536.25, 3351.55, 2533.9, 2304.53, 2563.08, 2274.22, 2820.1, 2281.16, 2816.77, 2301.85, 2561.61, 2303.99, 2558.73, 3332.82, 4606.42, 3333.78, 4603.43, 3614.48 )
+
+[node name="CollisionPolygon2D10" type="CollisionPolygon2D" parent="TileMap/StaticBody2D"]
+polygon = PoolVector2Array( 4581.01, 3680.17, 4587.24, 4837.18, 1307.37, 4839.51, 1309.59, 3452.74, 1288.24, 3451.41, 1286.62, 4858.42, 4605.04, 4857.57, 4602.33, 3679.66 )
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="TileMap"]
 position = Vector2( 3398.76, 805.192 )
