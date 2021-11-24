@@ -99,6 +99,7 @@ func _update_path(delta)->Array:
 		var rotate_angle = need_rotate_to.dot(Vector2(0,1).rotated(rotation-1.57))#
 		return [0,-1,rotate_angle,0]
 	else:
+		print('SCIENCE STOP PATH')
 		set_physics_process(false)
 		return [0,0,0,0]
 	

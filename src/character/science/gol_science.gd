@@ -79,8 +79,9 @@ func _process(delta):
 				var randX = (randi() % r + 1)-r/2	# random integer between 1 and 512.
 				var randY = (randi() % r + 1)-r/2	# random integer between 1 and 512.
 				var gpb = $Actor.global_position
-				var gps = GlobalResource.game_data['bug'].global_position
+				var gps = GlobalResource.game_data['bug_actor'].global_position
 				var path = nav_2d.get_simple_path(gpb,Vector2(gps.x+randX,gps.y+randY))
+				print('SCIENC NAVI ',path)
 				$Actor.move_by_path(path)
 	if geager_on:
 		geager_count +=delta
@@ -159,12 +160,12 @@ func _input(event):
 #func _process(delta):
 #	pass
 func _body_find(body):
-	if isAI and body == GlobalResource.game_data['bug']:
+	if isAI and body == GlobalResource.game_data['bug_actor']:
 		ai_state = 1
 		print('I find you!!!')
 
 func _body_hide(body):
-	if isAI and body == GlobalResource.game_data['bug']:
+	if isAI and body == GlobalResource.game_data['bug_actor']:
 		ai_state = 2
 		print('You not hide at me!!!')
 
