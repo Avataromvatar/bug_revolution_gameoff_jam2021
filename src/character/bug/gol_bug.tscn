@@ -87,7 +87,7 @@ script = ExtResource( 4 )
 
 [node name="Actor" type="KinematicBody2D" parent="."]
 collision_layer = 0
-collision_mask = 3
+collision_mask = 11
 script = ExtResource( 1 )
 gol_scena_key = "bug"
 mode = 2

@@ -54,7 +54,8 @@ func _ready():
 
 
 func _on_AudioStreamPlayer2D_finished():
-	pass # Replace with function body.
+	if alarm:
+		$AudioStreamPlayer2D.play()
 
 
 func _on_Timer_timeout():

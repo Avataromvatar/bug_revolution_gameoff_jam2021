@@ -6,14 +6,15 @@ extends Node
 
 var Client = preload("res://lib/websocet_client/websocet_client.gd")
 var client
-
-
+var permission:bool = true
+var isConnected:bool = false
 # key:type value:Dictionary
 ## value:Dictionary key=gol_scena_key value=GlobalObjectLogic
 var _gol:Dictionary = {}
 
 func isConnected()->bool:
-	return client.isConnected()
+	return isConnected
+	#return client.isConnected()
 
 func reconnect():
 	client.reconnect()
@@ -42,12 +43,14 @@ func removeGOL(gol:GlobalObjectLogic):
 			_gol[gol.gol_type].erase(gol.gol_scena_key)
 
 func gol_send_action(action):
-	client.send_data(action.getDictionary())
+	if permission:
+		client.send_data(action.getDictionary())
 
 func gol_set_event(event):
 	if _gol.has(event.target_type):
 		if _gol[event.target_type].has(event.target_key):
-			_gol[event.target_type][event.target_key].gol_set_event(event)
+			if permission:
+				_gol[event.target_type][event.target_key].gol_set_event(event)
 
 #data - Dictionary
 func _on_client_new_data(data):

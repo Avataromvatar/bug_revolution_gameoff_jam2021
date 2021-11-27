@@ -27,13 +27,15 @@ func _ready():
 
 
 func _on_connect_science_pressed():
-	GolMaster.connect_to_server(_ws_adress+':'+_ws_port)
+	if !GolMaster.isConnected():
+		GolMaster.connect_to_server(_ws_adress+':'+_ws_port)
 	GlobalResource.game_data['player_type'] = 'science'
 	get_tree().change_scene("res://src/scena/mission_intro/state1/state1.tscn") # Replace with function body.
 
 
 func _on_connect_bug_pressed():
-	GolMaster.connect_to_server(_ws_adress+':'+_ws_port)
+	if !GolMaster.isConnected():
+		GolMaster.connect_to_server(_ws_adress+':'+_ws_port)
 	GlobalResource.game_data['player_type'] = 'bug'
 	get_tree().change_scene("res://src/scena/mission_intro/state1/state1.tscn")
 
@@ -53,7 +55,8 @@ func _on_server_start_pressed():
 
 
 func _on_connect_solder_pressed():
-	GolMaster.connect_to_server(_ws_adress+':'+_ws_port)
+	if !GolMaster.isConnected():
+		GolMaster.connect_to_server(_ws_adress+':'+_ws_port)
 	GlobalResource.game_data['player_type'] = 'solder'
 	get_tree().change_scene("res://src/scena/mission_intro/gol_mission_intro.tscn")
 
