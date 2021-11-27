@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://lib/actor/gol_actor.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/famale/token_3(2).png" type="Texture" id=2]
@@ -68,8 +68,12 @@ tracks/0/keys = {
 radius = 32.2906
 height = 130.804
 
+[sub_resource type="CircleShape2D" id=7]
+radius = 90.4051
+
 [node name="science" type="Node"]
 script = ExtResource( 5 )
+geager_on = true
 
 [node name="Actor" type="KinematicBody2D" parent="."]
 material = SubResource( 1 )
@@ -80,7 +84,13 @@ script = ExtResource( 1 )
 gol_scena_key = "actor"
 mode = 2
 speed_move_forward = 125.0
+run_acceleration = 20.0
+run_speed = 225.0
+run_start_speed = 160.0
 staminaOn = true
+stamina_max = 200.0
+stamina_regen_when_move = 8.0
+stamina_regen_when_idle = 10.0
 
 [node name="Sprite" type="Sprite" parent="Actor"]
 visible = false
@@ -95,8 +105,8 @@ offset = Vector2( -5.56447, 23.1048 )
 position = Vector2( 82.8398, -31.498 )
 rotation = -0.109956
 scale = Vector2( 0.2, 0.2 )
-speed = 200.0
-distance = 500.0
+speed = 250.0
+distance = 600.0
 
 [node name="Lantern" parent="Actor" instance=ExtResource( 6 )]
 position = Vector2( -76.8552, -37.1677 )
@@ -133,7 +143,13 @@ zoom = Vector2( 1.5, 1.5 )
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Actor"]
 stream = ExtResource( 13 )
-volume_db = 3.496
 max_distance = 500.0
 
+[node name="MeleeFightArea" type="Area2D" parent="Actor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Actor/MeleeFightArea"]
+position = Vector2( 4.80769, -48.0769 )
+shape = SubResource( 7 )
+
 [connection signal="finished" from="Actor/AudioStreamPlayer2D" to="." method="_on_AudioStreamPlayer2D_finished"]
+[connection signal="body_entered" from="Actor/MeleeFightArea" to="." method="_on_MeleeFightArea_body_entered"]

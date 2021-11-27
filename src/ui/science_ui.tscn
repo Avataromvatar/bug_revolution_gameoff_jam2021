@@ -3,12 +3,11 @@
 [ext_resource path="res://assets/fonts/GameOfSquids-1GMVL.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/ui/science_ui.gd" type="Script" id=2]
 
-[sub_resource type="DynamicFont" id=1]
-size = 12
+[sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 1 )
 
 [sub_resource type="Theme" id=2]
-default_font = SubResource( 1 )
+default_font = SubResource( 3 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -38,6 +37,20 @@ margin_left = -501.977
 margin_top = 28.1387
 margin_right = -316.977
 margin_bottom = 60.1387
+theme = SubResource( 2 )
+text = "Hits:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -501.58
+margin_top = 49.5686
+margin_right = -316.58
+margin_bottom = 81.5686
 theme = SubResource( 2 )
 text = "Hits:"
 __meta__ = {

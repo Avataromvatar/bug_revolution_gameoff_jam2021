@@ -4,7 +4,7 @@ signal new_data_from_client(id,data_dict)
 signal client_connection(id)
 signal client_disconnection(id)
 # The port we will listen to
-const PORT = 9081
+var PORT:int = 9081
 # Our WebSocketServer instance
 var _server = WebSocketServer.new()
 var _clients:Dictionary
@@ -19,8 +19,9 @@ func _close():
 	print('Server close')
 	_server.stop()
 
-func listen():
+func listen(port:int = 9081):
 	if isInit:
+		PORT = port
 		var err = _server.listen(PORT)
 		if err != OK:
 			print("Unable to start server ERR:",err)

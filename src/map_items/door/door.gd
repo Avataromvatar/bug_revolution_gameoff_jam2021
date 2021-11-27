@@ -6,16 +6,19 @@ enum {
 	SOUND_CLOSED,
 	OPENED
 }
+export var block_on:bool = false
 export var state:int = CLOSED
 export var gol_scena_key:String = 'door'
-
+var electric_error:bool = false
+var eclectric_error_light_pulse = 0.4
 var gol:GlobalObjectLogic
 
 func open(need_update:bool = false):
-	state = SOUND_OPEN
-	if need_update:
-		_update()
-	$sound_open.play()
+	if !block_on:
+		state = SOUND_OPEN
+		if need_update:
+			_update()
+		$sound_open.play()
 
 func close(need_update:bool = false):
 	state = SOUND_CLOSED
@@ -28,6 +31,8 @@ func _update():
 	gol.gol_send_action(tmp)
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
+	$tmr_electric.start((randi() % 200 + 1))
 	if state == OPENED:
 		$closed.hide()
 		$opened.show()
@@ -84,3 +89,33 @@ func _on_sound_open_finished():
 	$closed/StaticBody2D/CollisionShape2D.set_deferred('disabled',true)
 	state = OPENED
 	print('door open')
+
+
+func _on_tmr_electric_timeout():
+	electric_error = true
+	$tmr_light.start(eclectric_error_light_pulse)
+	$electric_shock.play()
+
+
+func _on_tmr_light_timeout():
+	if electric_error:
+		var r = randi()%2
+		if r ==0:
+			if $closed/StaticBody2D/Light2D.is_visible_in_tree():
+				$closed/StaticBody2D/Light2D.hide()
+			else:
+				$closed/StaticBody2D/Light2D.show()
+		else:
+			if $closed/StaticBody2D/Light2D2.is_visible_in_tree():
+				$closed/StaticBody2D/Light2D2.hide()
+			else:
+				$closed/StaticBody2D/Light2D2.show()
+		$tmr_light.start(eclectric_error_light_pulse)
+	else:
+		$closed/StaticBody2D/Light2D.show()
+		$closed/StaticBody2D/Light2D2.show()
+
+
+func _on_electric_shock_finished():
+	electric_error = false
+	$tmr_electric.start((randi() % 10 + 1))

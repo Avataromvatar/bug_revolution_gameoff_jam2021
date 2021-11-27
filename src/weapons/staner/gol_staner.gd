@@ -5,6 +5,7 @@ export var begin_scale:Vector2 = Vector2(0.2,0.2)
 export var end_scale:Vector2 = Vector2(1,1)
 export var speed_rotate:float = 10
 export var distance:float =50
+export var power:float =10
 
 var Net = preload("res://src/weapons/staner/net.tscn")
 var net
@@ -31,13 +32,18 @@ func _ready():
 func catch_input_from_user(on:bool):
 	set_process_input(on)
 
-func need_shoot():
+func need_shoot(to_position=null):
 	if !isSend and !isColddown:
 		isSend = true
-		print('need_shoot to',get_global_mouse_position())
-		var v = get_global_mouse_position()
+		var v
+		if to_position != null:
+			v = to_position
+		else:
+			v = get_global_mouse_position()
+		print('need_shoot to',v)
 		var tmp = gol.createAction('shoot',{'target_gl_position_X':v.x,'target_gl_position_Y':v.y})
 		gol.gol_send_action(tmp)
+		
 
 func _event_handler_shoot(data:Dictionary):
 	isSend = false
@@ -56,7 +62,7 @@ func _event_handler_shoot(data:Dictionary):
 			net.connect('target_hit',self,'_target_hit')
 			#get_tree().root.add_child(net)
 			find_parent('body_scena').add_child(net)
-			
+			$AudioStreamPlayer2D.play()
 			isColddown = true
 			print('shoot to',glpos)
 	else:
@@ -79,9 +85,8 @@ func _move_end():
 			net.queue_free()
 	
 func _target_hit(body):
-	#var arr = area.get_overlapping_bodies() as Array
-	#if area.overlaps_body(GlobalResource.game_data['ai_actor_node'] ):
-	print('I HIT BUG ? ',body.name)
+	if body.has_method('collisionEvent'):
+		body.collisionEvent('stun',power)
 	net.queue_free()
 	isColddown = false
 	

@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/map_items/door/door.gd" type="Script" id=1]
 [ext_resource path="res://assets/map_object/my/doors/doors1_closed.png" type="Texture" id=2]
 [ext_resource path="res://assets/map_object/my/doors/doors1_open.png" type="Texture" id=3]
 [ext_resource path="res://assets/map_object/my/doors/door_open.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/map_object/my/doors/door.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/test_learning/spot.png" type="Texture" id=6]
+[ext_resource path="res://assets/sound/electric_1.wav" type="AudioStream" id=7]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 99.8078 )
@@ -28,6 +30,24 @@ rotation = -1.5708
 scale = Vector2( 1.28205, 1.28205 )
 collision_layer = 3
 collision_mask = 3
+
+[node name="Light2D" type="Light2D" parent="closed/StaticBody2D"]
+position = Vector2( 5.8814, -88.1009 )
+rotation = -1.02102e-06
+scale = Vector2( 0.780001, 1 )
+texture = ExtResource( 6 )
+texture_scale = 0.5
+color = Color( 0.870588, 0.184314, 0.113725, 1 )
+shadow_enabled = true
+
+[node name="Light2D2" type="Light2D" parent="closed/StaticBody2D"]
+position = Vector2( -6.61294, 90.6996 )
+rotation = -1.02102e-06
+scale = Vector2( 0.780001, 1 )
+texture = ExtResource( 6 )
+texture_scale = 0.5
+color = Color( 0.870588, 0.184314, 0.113725, 1 )
+shadow_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="closed/StaticBody2D"]
 position = Vector2( 0, -0.199646 )
@@ -57,7 +77,21 @@ stream = ExtResource( 5 )
 volume_db = 3.496
 max_distance = 1000.0
 
+[node name="electric_shock" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+volume_db = 3.0
+max_distance = 1000.0
+
+[node name="tmr_electric" type="Timer" parent="."]
+one_shot = true
+
+[node name="tmr_light" type="Timer" parent="."]
+wait_time = 0.3
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="finished" from="sound_open" to="." method="_on_sound_open_finished"]
 [connection signal="finished" from="sound_closed" to="." method="_on_sound_closed_finished"]
+[connection signal="finished" from="electric_shock" to="." method="_on_electric_shock_finished"]
+[connection signal="timeout" from="tmr_electric" to="." method="_on_tmr_electric_timeout"]
+[connection signal="timeout" from="tmr_light" to="." method="_on_tmr_light_timeout"]

@@ -1,0 +1,256 @@
+[gd_scene load_steps=192 format=2]
+
+[ext_resource path="res://lib/actor/gol_actor.gd" type="Script" id=1]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_03.png" type="Texture" id=2]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_10.png" type="Texture" id=3]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_069.png" type="Texture" id=4]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_068.png" type="Texture" id=5]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_03.png" type="Texture" id=6]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_20.png" type="Texture" id=7]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_31.png" type="Texture" id=8]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_26.png" type="Texture" id=9]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_06.png" type="Texture" id=10]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_12.png" type="Texture" id=11]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_112.png" type="Texture" id=12]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_06.png" type="Texture" id=13]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_059.png" type="Texture" id=14]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_037.png" type="Texture" id=15]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_029.png" type="Texture" id=16]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_024.png" type="Texture" id=17]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_025.png" type="Texture" id=18]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_08.png" type="Texture" id=19]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_34.png" type="Texture" id=20]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_049.png" type="Texture" id=21]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_033.png" type="Texture" id=22]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_017.png" type="Texture" id=23]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_008.png" type="Texture" id=24]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_36.png" type="Texture" id=25]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_045.png" type="Texture" id=26]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_030.png" type="Texture" id=27]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_020.png" type="Texture" id=28]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_006.png" type="Texture" id=29]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_089.png" type="Texture" id=30]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_022.png" type="Texture" id=31]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_032.png" type="Texture" id=32]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_035.png" type="Texture" id=33]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_082.png" type="Texture" id=34]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_079.png" type="Texture" id=35]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_118.png" type="Texture" id=36]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_048.png" type="Texture" id=37]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_02.png" type="Texture" id=38]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_003.png" type="Texture" id=39]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_005.png" type="Texture" id=40]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_01.png" type="Texture" id=41]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_053.png" type="Texture" id=42]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_30.png" type="Texture" id=43]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_092.png" type="Texture" id=44]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_091.png" type="Texture" id=45]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_23.png" type="Texture" id=46]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_090.png" type="Texture" id=47]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_116.png" type="Texture" id=48]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_09.png" type="Texture" id=49]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_38.png" type="Texture" id=50]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_093.png" type="Texture" id=51]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_097.png" type="Texture" id=52]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_001.png" type="Texture" id=53]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_015.png" type="Texture" id=54]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_22.png" type="Texture" id=55]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_104.png" type="Texture" id=56]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_056.png" type="Texture" id=57]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_047.png" type="Texture" id=58]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_119.png" type="Texture" id=59]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_061.png" type="Texture" id=60]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_000.png" type="Texture" id=61]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_01.png" type="Texture" id=62]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_084.png" type="Texture" id=63]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_48.png" type="Texture" id=64]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_042.png" type="Texture" id=65]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_043.png" type="Texture" id=66]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_070.png" type="Texture" id=67]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_094.png" type="Texture" id=68]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_085.png" type="Texture" id=69]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_083.png" type="Texture" id=70]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_00.png" type="Texture" id=71]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_113.png" type="Texture" id=72]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_004.png" type="Texture" id=73]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_062.png" type="Texture" id=74]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_018.png" type="Texture" id=75]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_019.png" type="Texture" id=76]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_16.png" type="Texture" id=77]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_074.png" type="Texture" id=78]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_021.png" type="Texture" id=79]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_099.png" type="Texture" id=80]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_095.png" type="Texture" id=81]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_011.png" type="Texture" id=82]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_45.png" type="Texture" id=83]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_063.png" type="Texture" id=84]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_064.png" type="Texture" id=85]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_031.png" type="Texture" id=86]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_096.png" type="Texture" id=87]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_086.png" type="Texture" id=88]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_040.png" type="Texture" id=89]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_37.png" type="Texture" id=90]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_115.png" type="Texture" id=91]
+[ext_resource path="res://src/character/solder/solder.gd" type="Script" id=92]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_41.png" type="Texture" id=93]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_105.png" type="Texture" id=94]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_32.png" type="Texture" id=95]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_023.png" type="Texture" id=96]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_054.png" type="Texture" id=97]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_27.png" type="Texture" id=98]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_04.png" type="Texture" id=99]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_117.png" type="Texture" id=100]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_028.png" type="Texture" id=101]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_11.png" type="Texture" id=102]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_102.png" type="Texture" id=103]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_42.png" type="Texture" id=104]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_44.png" type="Texture" id=105]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_103.png" type="Texture" id=106]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_49.png" type="Texture" id=107]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_50.png" type="Texture" id=108]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_013.png" type="Texture" id=109]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_014.png" type="Texture" id=110]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_12.png" type="Texture" id=111]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_19.png" type="Texture" id=112]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_39.png" type="Texture" id=113]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_05.png" type="Texture" id=114]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_058.png" type="Texture" id=115]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_075.png" type="Texture" id=116]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_073.png" type="Texture" id=117]
+[ext_resource path="res://src/item/lantern/lantern.tscn" type="PackedScene" id=118]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_055.png" type="Texture" id=119]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_026.png" type="Texture" id=120]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_111.png" type="Texture" id=121]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_110.png" type="Texture" id=122]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_012.png" type="Texture" id=123]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_027.png" type="Texture" id=124]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_05.png" type="Texture" id=125]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_10.png" type="Texture" id=126]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_00.png" type="Texture" id=127]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_041.png" type="Texture" id=128]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_109.png" type="Texture" id=129]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_107.png" type="Texture" id=130]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_072.png" type="Texture" id=131]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_060.png" type="Texture" id=132]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_010.png" type="Texture" id=133]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_002.png" type="Texture" id=134]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_35.png" type="Texture" id=135]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_114.png" type="Texture" id=136]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_21.png" type="Texture" id=137]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_15.png" type="Texture" id=138]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_24.png" type="Texture" id=139]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_016.png" type="Texture" id=140]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_052.png" type="Texture" id=141]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_050.png" type="Texture" id=142]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_034.png" type="Texture" id=143]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_09.png" type="Texture" id=144]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_066.png" type="Texture" id=145]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_065.png" type="Texture" id=146]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_33.png" type="Texture" id=147]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_038.png" type="Texture" id=148]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_039.png" type="Texture" id=149]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_07.png" type="Texture" id=150]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_101.png" type="Texture" id=151]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_087.png" type="Texture" id=152]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_098.png" type="Texture" id=153]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_081.png" type="Texture" id=154]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_036.png" type="Texture" id=155]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_120.png" type="Texture" id=156]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_47.png" type="Texture" id=157]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_02.png" type="Texture" id=158]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_17.png" type="Texture" id=159]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_25.png" type="Texture" id=160]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_40.png" type="Texture" id=161]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_100.png" type="Texture" id=162]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_08.png" type="Texture" id=163]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_046.png" type="Texture" id=164]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_071.png" type="Texture" id=165]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_077.png" type="Texture" id=166]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_43.png" type="Texture" id=167]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_28.png" type="Texture" id=168]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_11.png" type="Texture" id=169]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_057.png" type="Texture" id=170]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_080.png" type="Texture" id=171]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_078.png" type="Texture" id=172]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_106.png" type="Texture" id=173]
+[ext_resource path="res://assets/characters/solder1/hit/Armature_hit_04.png" type="Texture" id=174]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_067.png" type="Texture" id=175]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_46.png" type="Texture" id=176]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_108.png" type="Texture" id=177]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_13.png" type="Texture" id=178]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_29.png" type="Texture" id=179]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_14.png" type="Texture" id=180]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_18.png" type="Texture" id=181]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_088.png" type="Texture" id=182]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_044.png" type="Texture" id=183]
+[ext_resource path="res://assets/characters/solder1/idle/Armature_newAnimation_07.png" type="Texture" id=184]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_009.png" type="Texture" id=185]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_007.png" type="Texture" id=186]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_076.png" type="Texture" id=187]
+[ext_resource path="res://assets/characters/solder1/shoot/Armature_shoot_051.png" type="Texture" id=188]
+[ext_resource path="res://src/weapons/autorifle/autorifle.tscn" type="PackedScene" id=189]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 127 ), ExtResource( 41 ), ExtResource( 158 ), ExtResource( 6 ), ExtResource( 99 ), ExtResource( 114 ), ExtResource( 13 ), ExtResource( 184 ), ExtResource( 19 ), ExtResource( 144 ), ExtResource( 126 ), ExtResource( 169 ), ExtResource( 111 ), ExtResource( 178 ), ExtResource( 180 ), ExtResource( 138 ), ExtResource( 77 ), ExtResource( 159 ), ExtResource( 181 ), ExtResource( 112 ), ExtResource( 7 ), ExtResource( 137 ), ExtResource( 55 ), ExtResource( 46 ), ExtResource( 139 ), ExtResource( 160 ), ExtResource( 9 ), ExtResource( 98 ), ExtResource( 168 ), ExtResource( 179 ), ExtResource( 43 ), ExtResource( 8 ), ExtResource( 95 ), ExtResource( 147 ), ExtResource( 20 ), ExtResource( 135 ), ExtResource( 25 ), ExtResource( 90 ), ExtResource( 50 ), ExtResource( 113 ), ExtResource( 161 ), ExtResource( 93 ), ExtResource( 104 ), ExtResource( 167 ), ExtResource( 105 ), ExtResource( 83 ), ExtResource( 176 ), ExtResource( 157 ), ExtResource( 64 ), ExtResource( 107 ), ExtResource( 108 ) ],
+"loop": true,
+"name": "idle",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 61 ) ],
+"loop": true,
+"name": "move",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 61 ), ExtResource( 53 ), ExtResource( 134 ), ExtResource( 39 ), ExtResource( 73 ), ExtResource( 40 ), ExtResource( 29 ), ExtResource( 186 ), ExtResource( 24 ), ExtResource( 185 ), ExtResource( 133 ), ExtResource( 82 ), ExtResource( 123 ), ExtResource( 109 ), ExtResource( 110 ), ExtResource( 54 ), ExtResource( 140 ), ExtResource( 23 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 28 ), ExtResource( 79 ), ExtResource( 31 ), ExtResource( 96 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 120 ), ExtResource( 124 ), ExtResource( 101 ), ExtResource( 16 ), ExtResource( 27 ), ExtResource( 86 ), ExtResource( 32 ), ExtResource( 22 ), ExtResource( 143 ), ExtResource( 33 ), ExtResource( 155 ), ExtResource( 15 ), ExtResource( 148 ), ExtResource( 149 ), ExtResource( 89 ), ExtResource( 128 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 183 ), ExtResource( 26 ), ExtResource( 164 ), ExtResource( 58 ), ExtResource( 37 ), ExtResource( 21 ), ExtResource( 142 ), ExtResource( 188 ), ExtResource( 141 ), ExtResource( 42 ), ExtResource( 97 ), ExtResource( 119 ), ExtResource( 57 ), ExtResource( 170 ), ExtResource( 115 ), ExtResource( 14 ), ExtResource( 132 ), ExtResource( 60 ), ExtResource( 74 ), ExtResource( 84 ), ExtResource( 85 ), ExtResource( 146 ), ExtResource( 145 ), ExtResource( 175 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 67 ), ExtResource( 165 ), ExtResource( 131 ), ExtResource( 117 ), ExtResource( 78 ), ExtResource( 116 ), ExtResource( 187 ), ExtResource( 166 ), ExtResource( 172 ), ExtResource( 35 ), ExtResource( 171 ), ExtResource( 154 ), ExtResource( 34 ), ExtResource( 70 ), ExtResource( 63 ), ExtResource( 69 ), ExtResource( 88 ), ExtResource( 152 ), ExtResource( 182 ), ExtResource( 30 ), ExtResource( 47 ), ExtResource( 45 ), ExtResource( 44 ), ExtResource( 51 ), ExtResource( 68 ), ExtResource( 81 ), ExtResource( 87 ), ExtResource( 52 ), ExtResource( 153 ), ExtResource( 80 ), ExtResource( 162 ), ExtResource( 151 ), ExtResource( 103 ), ExtResource( 106 ), ExtResource( 56 ), ExtResource( 94 ), ExtResource( 173 ), ExtResource( 130 ), ExtResource( 177 ), ExtResource( 129 ), ExtResource( 122 ), ExtResource( 121 ), ExtResource( 12 ), ExtResource( 72 ), ExtResource( 136 ), ExtResource( 91 ), ExtResource( 48 ), ExtResource( 100 ), ExtResource( 36 ), ExtResource( 59 ), ExtResource( 156 ) ],
+"loop": true,
+"name": "shoot",
+"speed": 60.0
+}, {
+"frames": [ ExtResource( 71 ), ExtResource( 62 ), ExtResource( 38 ), ExtResource( 2 ), ExtResource( 174 ), ExtResource( 125 ), ExtResource( 10 ), ExtResource( 150 ), ExtResource( 163 ), ExtResource( 49 ), ExtResource( 3 ), ExtResource( 102 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "hit",
+"speed": 12.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 46.5336
+
+[node name="Solder" type="Node"]
+script = ExtResource( 92 )
+hit = 100.0
+
+[node name="Actor" type="KinematicBody2D" parent="."]
+collision_layer = 129
+collision_mask = 129
+script = ExtResource( 1 )
+gol_scena_key = "solder"
+mode = 2
+speed_move_forward = 80.0
+run_speed = 120.0
+staminaOn = true
+stamina_max = 300.0
+stamina_regen_when_move = 10.0
+stamina_regen_when_idle = 15.0
+stamina_use_then_run = 20.0
+
+[node name="Lantern" parent="Actor" instance=ExtResource( 118 )]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Actor"]
+rotation = 3.14159
+frames = SubResource( 1 )
+animation = "shoot"
+frame = 63
+speed_scale = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Actor"]
+position = Vector2( -4.04881, 2.98936 )
+shape = SubResource( 2 )
+
+[node name="autorifle" parent="Actor" instance=ExtResource( 189 )]
+position = Vector2( 19.0704, -83.6976 )
+speed = 2000.0
+distance = 3000.0
+
+[node name="Camera2D" type="Camera2D" parent="Actor"]
+zoom = Vector2( 1.5, 1.5 )

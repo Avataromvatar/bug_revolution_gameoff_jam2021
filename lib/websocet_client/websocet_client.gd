@@ -47,8 +47,10 @@ func _ready():
 # Initiate connection to the given URL.
 	
 
-func connect_to_server():
+func connect_to_server(adress:String=''):
 	if !isConnected:
+		if adress.length()>3:
+			websocket_url = adress
 		var err = _client.connect_to_url(websocket_url)
 		if err != OK:
 			print("Unable to connect err:",err)

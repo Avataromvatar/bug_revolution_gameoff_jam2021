@@ -1,8 +1,101 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/IFC.png" type="Texture" id=1]
 [ext_resource path="res://src/text_frame/text_frame.tscn" type="PackedScene" id=2]
 [ext_resource path="res://intro.gd" type="Script" id=3]
+[ext_resource path="res://assets/test_learning/light_soft_round.png" type="Texture" id=4]
+[ext_resource path="res://assets/background/b1_pixel.png" type="Texture" id=5]
+[ext_resource path="res://assets/fonts/DEPLETED URANIUM.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://intro.tres" type="Animation" id=7]
+
+[sub_resource type="DynamicFont" id=5]
+size = 48
+font_data = ExtResource( 6 )
+
+[sub_resource type="Theme" id=6]
+default_font = SubResource( 5 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 54
+font_data = ExtResource( 6 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("background:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("background:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.188353, 0.1953 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("background:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 5517, 3214 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("background/bug:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4836.48, 2783.07 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("background/bug:rect_size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 734, 720 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("background/bug:rect_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.337033, 0.461599 ) ]
+}
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -12,20 +105,76 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="background" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 200.101
-margin_right = -205.899
+margin_right = 5517.0
+margin_bottom = 3214.0
+rect_scale = Vector2( 0.188353, 0.1953 )
+texture = ExtResource( 5 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bug" type="TextureRect" parent="background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4836.48
+margin_top = 2783.07
+margin_right = 5570.48
+margin_bottom = 3503.07
+rect_scale = Vector2( 0.337033, 0.461599 )
 texture = ExtResource( 1 )
-expand = true
 stretch_mode = 5
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Light2D" type="Light2D" parent="background/bug"]
+position = Vector2( 279.607, 412.426 )
+rotation = 0.460767
+scale = Vector2( 0.763404, 0.93943 )
+texture = ExtResource( 4 )
+color = Color( 0.188235, 0.596078, 0.152941, 0.65098 )
+energy = 0.28
 
 [node name="text_frame" parent="." instance=ExtResource( 2 )]
 anchor_left = 0.151
 anchor_right = 1.0
-margin_left = -59.4603
-margin_top = 28.541
-margin_right = -59.4603
-margin_bottom = 528.541
-rect_scale = Vector2( 2, 2 )
+margin_left = -114.227
+margin_top = 15.8878
+margin_right = -7.60254
+margin_bottom = 515.888
+theme = SubResource( 6 )
+speed_text = 2.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = 15.5563
+margin_top = 581.242
+margin_right = 184.556
+margin_bottom = 595.242
+text = "press Esc for skip intro ....."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 149.831
+margin_top = 197.777
+margin_right = 1172.83
+margin_bottom = 354.777
+theme = SubResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[wave]          BUG
+REVOLUTION OR LOVE[/wave]"
+text = "          BUG
+REVOLUTION OR LOVE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 7 )
+anims/intro = ExtResource( 7 )

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/weapons/autorifle/autorifle.gd" type="Script" id=1]
+[ext_resource path="res://assets/weapons/autorifle/autorifle_shoot.wav" type="AudioStream" id=2]
+
+[node name="Autorifle" type="Node2D"]
+script = ExtResource( 1 )
+speed = 1500.0
+power = 3.0
+shoot_in_second = 3.0
+
+[node name="AudioShoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )

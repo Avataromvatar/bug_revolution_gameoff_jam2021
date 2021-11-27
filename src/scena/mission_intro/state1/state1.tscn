@@ -1,0 +1,171 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/background/b3.png" type="Texture" id=1]
+[ext_resource path="res://src/scena/mission_intro/state1/state1.gd" type="Script" id=2]
+[ext_resource path="res://assets/background/bug_in_barrel.png" type="Texture" id=3]
+[ext_resource path="res://src/text_frame/text_frame.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/test_learning/caster.png" type="Texture" id=5]
+[ext_resource path="res://assets/fonts/KellySlab-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://src/thems/s18.tres" type="Theme" id=7]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+blend_mode = 1
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("bug:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("bug:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.0200771, 0.0343054 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("bug:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -40.4482, -1236.73 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "life"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("bug:rect_rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 23.2, -12.8666, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("bug:rect_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.0200771, 0.0343054 ), Vector2( 0.028562, 0.0359298 ), Vector2( 0.0183408, 0.0337912 ), Vector2( 0.0200771, 0.0343054 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("bug:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -40.4482, -1236.73 ), Vector2( -40.1982, -1232.23 ), Vector2( -40.4482, -1232.23 ), Vector2( -40.4482, -1236.73 ) ]
+}
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 6 )
+
+[sub_resource type="Theme" id=5]
+default_font = SubResource( 4 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -813.344, -342.211 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bug" type="TextureRect" parent="."]
+material = SubResource( 1 )
+margin_left = -40.4482
+margin_top = -1236.73
+margin_right = 1615.55
+margin_bottom = 1359.27
+rect_scale = Vector2( 0.0200771, 0.0343054 )
+rect_pivot_offset = Vector2( 838.637, 1453.78 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.964706 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 2 )
+anims/life = SubResource( 3 )
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.196078 )
+margin_left = 32.0
+margin_top = 25.0
+margin_right = 622.0
+margin_bottom = 567.0
+texture = ExtResource( 5 )
+expand = true
+
+[node name="text_frame" parent="." instance=ExtResource( 4 )]
+margin_left = 35.0
+margin_top = 28.0
+margin_right = 622.0
+margin_bottom = 557.0
+theme = SubResource( 5 )
+speed_text = 30.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = 15.5563
+margin_top = 581.242
+margin_right = 184.556
+margin_bottom = 595.242
+text = "press enter or space for skip write text ....."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 858.0
+margin_top = 550.0
+margin_right = 956.0
+margin_bottom = 575.0
+theme = ExtResource( 7 )
+text = "next..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

@@ -17,9 +17,9 @@ func _new_data_from_client(id,data_dict):
 	ret = ret.fromDictionary(data_dict)
 	if ret != null:
 		var tmp = ret.toJson()
-		if ret.target_key != ret.source:
-			send_data(id,tmp)
-			_send_to_another(id,tmp)
+		#if ret.target_key != ret.source:
+		#	send_data(id,tmp)
+		#	_send_to_another(id,tmp)
 		if ret.action_name == 'update':
 			_send_to_another(id,tmp)
 		if ret.action_name == 'shoot':
@@ -30,6 +30,18 @@ func _new_data_from_client(id,data_dict):
 			send_data(id,tmp)
 		if ret.action_name == 'move':
 			#send_data(id,tmp)
+			_send_to_another(id,tmp)
+		if ret.action_name == 'playerConnect':
+			#send_data(id,tmp)
+			_send_to_another(id,tmp)
+		if ret.action_name == 'add':
+			send_data(id,tmp)
+			_send_to_another(id,tmp)
+		if ret.action_name == 'remove':
+			send_data(id,tmp)
+			_send_to_another(id,tmp)
+		if ret.action_name == 'change_scena':
+			send_data(id,tmp)
 			_send_to_another(id,tmp)
 	
 	

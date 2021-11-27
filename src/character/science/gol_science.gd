@@ -1,8 +1,10 @@
 extends Node
 
-export var gol_scena_key:String = 'science'
+export var gol_scena_key:String = 'science' setget gol_scena_key_change
 export var isAI:bool=false
 export var hit:float = 10
+export var geager_on:bool = false
+export var melee_stun = 10
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -14,9 +16,12 @@ var nav_2d:Navigation2D
 var time_count:float = 0
 var ai_work_time_count:float = 0
 
+var isSlave:bool = false
+var isServer:bool = false
+
 var geager_power:float = 0
 var geager_count:float = 0
-var geager_on:bool = false
+
 var geager_sound_on:bool = false
 
 var ai_state = 0 # 0 -search 1- find and att 2-poterial
@@ -24,12 +29,29 @@ var ai_rand0 = 1000
 var ai_rand1 = 50
 var ai_rand2 = 200
 var ai_count_state2 = 0
+
+var _time_cheburec:float =5
+var _time_cheburec_count:float=0
 # Called when the node enters the scene tree for the first time.
+
+func gol_scena_key_change(scena_key:String):
+	gol_scena_key = scena_key
+	$Actor.gol_scena_key = gol_scena_key+'_actor'
+	$Actor/Lantern.gol_scena_key = gol_scena_key+'_lantern'
+	$Actor/autorifle.gol_scena_key = gol_scena_key+'_laser_gun'
+	if gol != null:
+		gol.gol_scena_key = scena_key
+
 func _ready():
+	randomize()
+	if GlobalResource.game_data['isServer']:
+		isSlave = false
+		isServer = true
 	gol = GlobalObjectLogic.new()
 	gol.gol_scena_key = gol_scena_key
 	gol.gol_type = 'character'
-	gol.event_handlers = {'next_item':funcref(self, '_event_handler_next_item')}
+	gol.event_handlers = {'next_item':funcref(self, '_event_handler_next_item'),
+	'playerConnect':funcref(self, '_event_playerConnect')}
 	nav_2d = get_parent().find_node('Navigation2D')
 	$Actor.gol_scena_key = gol_scena_key+'_actor'
 	$Actor/Lantern.gol_scena_key = gol_scena_key+'_lantern'
@@ -42,9 +64,21 @@ func _ready():
 	set_AI(isAI)
 	GlobalResource.game_data['science_actor'] = $Actor
 	GlobalResource.game_data['science'] = self
+	
 	add_child(gol)
 
 func _process(delta):
+	if isServer:
+		_time_cheburec_count +=delta
+		if _time_cheburec_count>_time_cheburec:
+			_time_cheburec_count = 0
+			_time_cheburec = (randi() % 20 + 1)
+			var randX = (randi() % 200 + 1)-100/2	# random integer between 1 and 512.
+			var randY = (randi() % 200 + 1)-100/2	# random integer between 1 and 512.
+			var gscena = find_parent('SCENA')
+			var act = gol.createActionTo('scena',gscena.gol_scena_key,'add',{'type':'cheburec','positionX':$Actor.global_position.x+randX,'positionY':$Actor.global_position.y+randY})
+			gol.gol_send_action(act)
+			#GlobalResource.game_data['pop_warning'].add_warning('cheburek add') 
 	time_count +=delta
 	if time_count>0.1:
 		time_count=0
@@ -58,7 +92,7 @@ func _process(delta):
 				$Actor/AnimatedSprite.play('idle')
 				$Actor/AnimatedSprite/AnimationPlayer.play("idle")
 			$Actor/AnimatedSprite/AnimationPlayer.play("RESET")
-	if isAI:
+	if isAI and !isSlave:
 		ai_work_time_count+=delta
 		if ai_work_time_count>=1:
 			ai_work_time_count = 0
@@ -68,7 +102,7 @@ func _process(delta):
 					r = ai_rand0
 				if ai_state == 1: #find bug and try hit
 					r = ai_rand1
-					$Actor/Staner.need_shoot()
+					$Actor/Staner.need_shoot(GlobalResource.game_data['bug_actor'].global_position)
 				if ai_state == 2: #bug hide
 					r = ai_rand2
 					ai_count_state2+=1
@@ -81,12 +115,13 @@ func _process(delta):
 				var gpb = $Actor.global_position
 				var gps = GlobalResource.game_data['bug_actor'].global_position
 				var path = nav_2d.get_simple_path(gpb,Vector2(gps.x+randX,gps.y+randY))
-				print('SCIENC NAVI ',path)
+				#print('SCIENC NAVI ',path)
 				$Actor.move_by_path(path)
 	if geager_on:
 		geager_count +=delta
 		if geager_count>0.5:
-			var v:Vector2 = GlobalResource.game_data['bug'].global_position - $Actor.global_position
+			geager_count=0
+			var v:Vector2 = GlobalResource.game_data['bug_actor'].global_position - $Actor.global_position
 			geager_power = 2000 - v.length()
 			if geager_power > 0:
 				$Actor/AudioStreamPlayer2D.volume_db = 0.5 + geager_power/120
@@ -103,7 +138,6 @@ func set_AI(on:bool):
 	$Actor.set_camera(!on)
 	$Actor/Staner.catch_input_from_user(!on)
 	if isAI:
-		randomize()
 		geager_on = false
 		$Actor/Lantern.catch_input_from_user(false)
 		$Actor/laser_gun.catch_input_from_user(false)
@@ -117,6 +151,9 @@ func set_AI(on:bool):
 		else:
 			$Actor/Staner.catch_input_from_user(false)
 			$Actor/laser_gun.catch_input_from_user(true)
+	if gol!=null:
+		var a = gol.createAction('playerConnect',{'on':!isAI})
+		gol.gol_send_action(a)
 	set_process_input(!on)
 
 func add_item(item:String):
@@ -128,6 +165,12 @@ func remove_item(item:String):
 func next_item():
 	pass
 
+func _event_playerConnect(data:Dictionary):
+	if data.has('on'):
+		print(gol_scena_key,' PlayerConnect ',data['on'])
+		set_AI(data['on'])
+		isSlave = data['on']
+		
 func _event_handler_next_item(data:Dictionary):
 	isSend = false
 	if data.has('item'):
@@ -170,12 +213,19 @@ func _body_hide(body):
 		print('You not hide at me!!!')
 
 func _collision_event(type:String,data):
-	hit -=data
-	if hit<=0:
-		print(name,' DIE!')
-	else:
-		print(name,' DMG: ',data,' HIT:',hit)
+	if type=='dmg':
+		hit -=data
+		if hit<=0:
+			print(name,' DIE!')
+		else:
+			print(name,' DMG: ',data,' HIT:',hit)
 
 func _on_AudioStreamPlayer2D_finished():
 	if geager_sound_on and geager_on:
 		$Actor/AudioStreamPlayer2D.play()
+
+
+func _on_MeleeFightArea_body_entered(body):
+	if body.has_method('collisionEvent'):
+		body.collisionEvent('stun',melee_stun)
+	

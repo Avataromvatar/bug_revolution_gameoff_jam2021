@@ -13,10 +13,11 @@ enum eActorState{
 	STAMINA_RECOVERY
 }
 var gol:GlobalObjectLogic
-export var gol_scena_key:String 
+export var gol_scena_key:String setget gol_scena_key_change
 export var mode:int = 0
 export var isAI:bool = false
 export var speed_rotate:float = 5.0
+#export var rrotate:float = 1.57
 export var speed_move_forward:float = 100.0
 export var speed_move_streve:float = 50.0
 export var speed_move_back:float = 50.0
@@ -46,6 +47,11 @@ var isWalk:bool = false
 var isPathMove:=false
 var path :=PoolVector2Array()
 
+func gol_scena_key_change(scena_key:String):
+	gol_scena_key = scena_key
+	if gol != null:
+		gol.gol_scena_key = scena_key
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#for test
@@ -99,7 +105,7 @@ func _update_path(delta)->Array:
 		var rotate_angle = need_rotate_to.dot(Vector2(0,1).rotated(rotation-1.57))#
 		return [0,-1,rotate_angle,0]
 	else:
-		print('SCIENCE STOP PATH')
+		print(gol_scena_key,' STOP PATH')
 		set_physics_process(false)
 		return [0,0,0,0]
 	

@@ -1,14 +1,14 @@
 extends Node2D
 
-signal move_end()
-signal target_hit(body)
+signal move_end(id)
+signal target_hit(body,id)
 
 export var speed:float = 1000
 export var distance:float =2000
 export var power:float =1
 
 var to_target:Vector2
-
+var _kostil_start_process:bool = true
 var rotation_dir:float #normalized
 var distance_last:float=0
 var scale_speed:Vector2
@@ -30,9 +30,11 @@ func init_shoot_direction(from:Vector2,dir:Vector2,id:int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	connect("tree_exiting",self,'_tree_exiting')
 	set_physics_process(true)
 	
-
+func _tree_exiting():
+	print(name,' id:',id,' tree_exiting')
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -45,10 +47,11 @@ func _physics_process(delta):
 		print(name,' shoot move_end in ',position,' dist:',distance_last)
 		set_physics_process(false)
 		emit_signal("move_end",id)
+		_kostil_start_process=false
 
 
 func _on_Area2D_body_entered(body):
-	print(name,' shoot target hit in ',position,' dist:',distance_last)
+	print(name,' shoot ',id,' target hit in ',position,' dist:',distance_last)
 	set_physics_process(false)
 	#if body.has_method('collisionEvent'):
 	#	body.collisionEvent('stun',power)

@@ -10,10 +10,14 @@ extends Control
 func _ready():
 	$text_frame.start_write_text('In Fraternitatis Chebureks')
 	$text_frame.connect("end_write",self,'_next_scena')
+	$AnimationPlayer.play("intro")
 
 func _next_scena():
-	yield(get_tree().create_timer(3.0), "timeout")
+	$RichTextLabel.show()
+	yield(get_tree().create_timer(4.0), "timeout")
 	get_tree().change_scene("res://main.tscn") 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	$background/bug/Light2D.energy += delta/8 
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().change_scene("res://main.tscn") 

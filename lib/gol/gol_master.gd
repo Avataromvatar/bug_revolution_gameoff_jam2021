@@ -17,7 +17,7 @@ func isConnected()->bool:
 
 func reconnect():
 	client.reconnect()
-func connect_to_server():
+func connect_to_server(adress:String=''):
 	client.connect_to_server()
 
 # Called when the node enters the scene tree for the first time.

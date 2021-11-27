@@ -5,12 +5,14 @@ signal body_hide(body)
 
 export var gol_scena_key:String = 'lantern'
 export var input_from_user:bool = false
+export var energy:float = 1.5
 var gol:GlobalObjectLogic
 
 var isOn:bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Light2D.energy = energy
 	gol = GlobalObjectLogic.new()
 	gol.gol_type = 'item'
 	gol.gol_scena_key = gol_scena_key

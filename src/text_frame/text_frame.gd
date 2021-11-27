@@ -7,7 +7,7 @@ signal end_write()
 #export var width:float = 100
 export var speed_text:float = 0
 export var sound_on:bool = true
-export var enter_on:bool = true
+export var enter_on:bool = true #then press enter or space text all write momentary
 
 var nextFirstSymbole:bool = true
 var isBBCode:bool = false
@@ -17,6 +17,7 @@ var _text:String
 var _count:int =0
 var _pause:bool = false
 
+var _need_time_count:float = 1
 var _time_count:float =0
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,11 +33,27 @@ func start_write_text(need_text:String,BBCodeOn:bool = false):
 	_pause = false
 	_count =0
 	_time_count = 0
+	$first_symbol.pitch_scale = 1+speed_text/10
+	$other_symbol.pitch_scale = 1+speed_text/10
+	$space.pitch_scale = 1+speed_text/10
+	$next_string.pitch_scale = 1+speed_text/10
+	if speed_text != 0:
+		_need_time_count = 1/speed_text
 	set_process(true)
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if enter_on:
+		if Input.is_action_pressed("ui_accept"):
+			if isBBCode:
+				bbcode_text = _text
+			else:
+				text = _text
+			emit_signal("end_write")
+			set_process(false)
+			return
 	if !_pause:
 		if _count<_text.length():
 			_next()
@@ -44,9 +61,9 @@ func _process(delta):
 			emit_signal("end_write")
 			set_process(false)
 	else:
-		if speed_text >0:
+		if speed_text >0 and !sound_on:
 			_time_count+=delta
-			if _time_count>=speed_text:
+			if _time_count>=_need_time_count:
 				_time_count = 0
 				_pause = false
 
@@ -102,20 +119,20 @@ func _next():
 
 
 func _on_first_symbol_finished():
-	if speed_text ==0:
+	#if speed_text ==0:
 		_pause = false
 
 
 func _on_other_symbol_finished():
-	if speed_text ==0:
+	#if speed_text ==0:
 		_pause = false
 
 
 func _on_space_finished():
-	if speed_text ==0:
+	#if speed_text ==0:
 		_pause = false
 
 
 func _on_next_string_finished():
-	if speed_text ==0:
+	#if speed_text ==0:
 		_pause = false
