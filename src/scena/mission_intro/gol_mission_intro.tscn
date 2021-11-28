@@ -32,7 +32,7 @@ render_target_update_mode = 3
 audio_listener_enable_2d = true
 
 [node name="body_scena" parent="ViewportContainer/Viewport" instance=ExtResource( 1 )]
-color = Color( 0.0470588, 0.0470588, 0.0470588, 1 )
+color = Color( 0.964706, 0.94902, 0.94902, 1 )
 
 [node name="Control" parent="." instance=ExtResource( 5 )]
 

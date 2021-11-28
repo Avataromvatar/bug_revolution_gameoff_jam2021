@@ -151,7 +151,8 @@ func set_AI(on:bool):
 		else:
 			$Actor/Staner.catch_input_from_user(false)
 			$Actor/laser_gun.catch_input_from_user(true)
-	if gol!=null and !isServer:
+	if gol!=null and !isServer and !isAI:
+		#GlobalResource.game_data['players']['science']=true
 		var a = gol.createAction('playerConnect',{'on':!isAI})
 		gol.gol_send_action(a)
 	set_process_input(!on)

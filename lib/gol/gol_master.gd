@@ -38,18 +38,18 @@ func addGOL(gol:GlobalObjectLogic)->bool:
 	return false
 
 func removeGOL(gol:GlobalObjectLogic):
-	if !_gol.has(gol.gol_type):
-		if !_gol[gol.gol_type].has(gol.gol_scena_key):
+	if _gol.has(gol.gol_type):
+		if _gol[gol.gol_type].has(gol.gol_scena_key):
 			_gol[gol.gol_type].erase(gol.gol_scena_key)
 
 func gol_send_action(action):
 	if permission:
 		client.send_data(action.getDictionary())
 
-func gol_set_event(event):
-	if _gol.has(event.target_type):
+func gol_set_event(event:GlobalObjectLogicDTO):
+	if _gol.has(event.target_type) and permission:
 		if _gol[event.target_type].has(event.target_key):
-			if permission:
+			if _gol[event.target_type][event.target_key] != null:
 				_gol[event.target_type][event.target_key].gol_set_event(event)
 
 #data - Dictionary

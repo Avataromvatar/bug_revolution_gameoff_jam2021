@@ -25,7 +25,7 @@ var event_handlers:Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	connect("tree_exited",self,'_tree_exited')
+	connect("tree_exiting",self,'_tree_exiting')
 	GolMaster.addGOL(self)
 	
 
@@ -54,7 +54,7 @@ func createActionTo(target_type:String,target_key:String,action:String,data:Dict
 	tmp.data = data
 	return tmp
 
-func _tree_exited():
+func _tree_exiting():
 	GolMaster.removeGOL(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

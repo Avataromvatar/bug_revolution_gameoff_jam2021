@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/map_object/taboo-tech/table 3x1/table-3x1.png" type="Texture" id=1]
 [ext_resource path="res://assets/map_object/taboo-tech/capsule/capsule.png" type="Texture" id=2]
 [ext_resource path="res://assets/map_object/papper_pack1.png" type="Texture" id=3]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+polygon = PoolVector2Array( -148.508, -54.8357, -156.374, -43.2238, -159.746, -30.8627, -157.873, -18.8763, -152.254, -9.51186, -141.766, -1.64575, -129.405, 1.72545, -110.676, -0.896591, -97.9405, -9.51186, -92.3218, -29.3644, -106.556, -54.4611, -121.913, -58.956, -138.02, -59.3306, -138.02, -59.3306 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( -272.013, -76.0956, -271.418, 73.7445, 271.455, 73.7445, 270.265, -71.3388 )
 
 [node name="Table_3" type="Node2D"]
 
@@ -46,3 +52,23 @@ collision_mask = 130
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PoolVector2Array( -276.725, 76.0175, -276.725, -77.217, 278.305, -78.9988, 277.414, 76.9084 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 1 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="LightOccluder2D"]
+position = Vector2( -94.3934, -2.9966 )
+occluder = SubResource( 1 )
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="LightOccluder2D"]
+position = Vector2( 92.1459, 0.37458 )
+occluder = SubResource( 1 )
+
+[node name="LightOccluder2D3" type="LightOccluder2D" parent="LightOccluder2D"]
+position = Vector2( 182.419, 1.87292 )
+occluder = SubResource( 1 )
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
+light_mask = 2
+occluder = SubResource( 2 )
+light_mask = 2
