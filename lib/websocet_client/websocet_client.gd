@@ -21,6 +21,7 @@ func get_id():
 		_client.get_connected_port()
 
 func reconnect():
+	print('Try to reconnect ',websocket_url)
 	_client.disconnect("connection_closed", self, "_closed")
 	_client.disconnect("connection_error", self, "_closed")
 	_client.disconnect("connection_established", self, "_connected")
@@ -51,6 +52,7 @@ func connect_to_server(adress:String=''):
 	if !isConnected:
 		if adress.length()>3:
 			websocket_url = adress
+		print('Try to connect ',websocket_url)
 		var err = _client.connect_to_url(websocket_url)
 		if err != OK:
 			print("Unable to connect err:",err)
@@ -61,11 +63,11 @@ func connect_to_server(adress:String=''):
 func _closed(was_clean = false):
 # was_clean will tell you if the disconnection was correctly notified
 # by the remote peer before closing the socket.
-	print("Closed, clean: ", was_clean)
+	print("Closed ",websocket_url," clean: ", was_clean)
 	set_process(false)
 	isConnected = false
 	emit_signal("closed")
-	connect_to_server()
+	#connect_to_server()
 
 func _connected(proto = ""):
 # This is called on connection, "proto" will be the selected WebSocket

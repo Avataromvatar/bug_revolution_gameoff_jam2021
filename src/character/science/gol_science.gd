@@ -191,14 +191,15 @@ func _event_handler_next_item(data:Dictionary):
 			
 
 func _input(event):
-	if Input.is_action_pressed("next_item") and !isSend:
-		isSend = true
-		if current_item==0:
-			current_item =1
-		else:
-			current_item =0
-		var tmp = gol.createAction('next_item',{'item':current_item})
-		gol.gol_send_action(tmp)
+	if GlobalResource.game_data['game_state'] != 3:
+		if Input.is_action_pressed("next_item") and !isSend:
+			isSend = true
+			if current_item==0:
+				current_item =1
+			else:
+				current_item =0
+			var tmp = gol.createAction('next_item',{'item':current_item})
+			gol.gol_send_action(tmp)
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

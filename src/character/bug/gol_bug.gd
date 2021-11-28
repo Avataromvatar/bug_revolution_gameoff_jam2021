@@ -3,9 +3,15 @@ extends Node
 export var gol_scena_key:String = 'bug' setget gol_scena_key_change
 export var isAI:bool=false
 export var hit:float = 10
+export var max_hit:float = 20
+export var cheburek_heal:float = 3
+export var mutation_dmg:float = 0.05
+export var regen_on:bool = false
+export var regen_speed:float = 0.05
+var sec_count:float = 0
 
 var score:int = 0
-var score_need:int = 20
+var score_need:int = 40
 var cheburek_eats:Dictionary ={}
 
 var inServer:bool = false
@@ -21,6 +27,7 @@ func gol_scena_key_change(scena_key:String):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+		
 	if GlobalResource.game_data['isServer']:
 		inServer = true
 	gol = GlobalObjectLogic.new()
@@ -37,36 +44,52 @@ func set_AI(on:bool):
 	$Actor.set_AI(on)
 	$Actor.set_camera(!on)
 	$Actor.set_light(!on)
-	$Actor/Bug_acid.catch_input_from_user(!on)
+	if GlobalResource.game_data['game_state'] != 3:  
+		$Actor/Bug_acid.catch_input_from_user(!on)
+	else:
+		$Actor/Bug_acid.catch_input_from_user(false)
 	
 func _collision_event(type:String,data):
 	if type == 'stun':
 		hit -=data
 		if hit<=0:
-			print(name,' Cathed!!!')
+			GlobalResource.game_data['game_event'].send_event('The bug is caught!!!',false,"res://src/scena/mission_intro/state4/state4.tscn",'sciWIN')
+			#print(name,' Cathed!!!')
 		else:
 			print(name,' DMG: ',data,' HIT:',hit)
 	if type == 'dmg':
 		hit -=data
 		if hit<=0:
-			print(name,' DIE!')
+			GlobalResource.game_data['game_event'].send_event('The bug is DIE!!!',false,"res://src/scena/mission_intro/end/end.tscn",'bugDIE')
+			#print(name,' DIE!')
 		else:
 			print(name,' DMG: ',data,' HIT:',hit)
-	if hit<=0:
-		var gscena = find_parent('SCENA')
-		var a =  gol.createActionTo('scena',gscena.gol_scena_key,'change_scena',{'new_scena':"res://main.tscn"})
-		gol.gol_send_action(a)
+	#if hit<=0:
+	#	var gscena = find_parent('SCENA')
+	#	var a =  gol.createActionTo('scena',gscena.gol_scena_key,'change_scena',{'new_scena':"res://main.tscn"})
+	#	gol.gol_send_action(a)
 	if type == 'cheburec':
 		if !cheburek_eats.has(data):
 			cheburek_eats[data]=true
 			score+=1
+			hit +=cheburek_heal
 			var gscena = find_parent('SCENA')
 			var act = gol.createActionTo('scena',gscena.gol_scena_key,'remove',{'type':'cheburec','id':data})
 			gol.gol_send_action(act)
+			if score>score_need:
+				GlobalResource.game_data['game_event'].send_event('The bug mutation end',false,"res://src/scena/mission_intro/state4/state4.tscn",'bugWIN')
 		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	sec_count +=delta
+	if sec_count>=1:
+		sec_count=0
+		hit -=mutation_dmg
+		if regen_on:
+			hit+=regen_speed
+		if hit>max_hit:
+			hit = max_hit
 	time_count +=delta
 	if time_count>0.1:
 		time_count=0

@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/popup/game_event/game_event.gd" type="Script" id=1]
+[ext_resource path="res://src/thems/s18.tres" type="Theme" id=2]
+[ext_resource path="res://assets/fonts/KellySlab-Regular.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 34
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="GameEvent" type="Popup"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_bottom = 71.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -18.5
+margin_bottom = 18.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+theme = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+margin_top = 84.0
+margin_right = 1024.0
+margin_bottom = 109.0
+theme = ExtResource( 2 )
+text = "next"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]

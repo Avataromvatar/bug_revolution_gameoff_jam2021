@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/thems/s18.tres" type="Theme" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
 [ext_resource path="res://assets/background/b1_pixel.png" type="Texture" id=3]
 [ext_resource path="res://src/popup/warning/warning.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/test_learning/caster.png" type="Texture" id=5]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -105,6 +106,43 @@ anchor_bottom = 1.0
 margin_top = 0.0
 rect_min_size = Vector2( 1024, 80 )
 time_close_popup = 4.0
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.588235 )
+margin_left = 36.0203
+margin_top = 262.755
+margin_right = 833.02
+margin_bottom = 571.755
+texture = ExtResource( 5 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 38.0203
+margin_top = 265.755
+margin_right = 828.02
+margin_bottom = 582.755
+text = "Setting parameters:
+Don't forget to press Enter to confirm the new port or socket parameter.
+Server startup and multiplayer game:
+To start the server, set the parameters and click the \"start server\" button.
+Always connect the bug first, then the scientist (or the algorithm will take his role). The soldier is present for testing.
+Game 1 part:
+The Bug hides and runs away from the scientist, the scientist catches him with the help of an electric grid or with his hands (you need to approach the beetle). The scientist leaves Chebureks in his halo, which the Beetle must eat to complete the mutation in acid mandibles, this mutation appeared during one experiment. While the acid does little damage to the beetle, the chebureks restore them. Chebureks may also appear near the fridge (but rarely).
+A Bug can also hide under tables, a scientist needs to either shoot blindly under the table or put a flashlight there (beyond the edge of the table)
+
+Shift - running
+F - turn off/turn on the flashlight
+
+Game 2 part:
+Well, you'll find out for yourself :)
+E - does something (scientist)
+The left mouse button - does something"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="pressed" from="server_start" to="." method="_on_server_start_pressed"]
 [connection signal="pressed" from="connect_solder" to="." method="_on_connect_solder_pressed"]

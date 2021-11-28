@@ -19,13 +19,15 @@ func isConnected()->bool:
 func reconnect():
 	client.reconnect()
 func connect_to_server(adress:String=''):
-	client.connect_to_server()
+	client.connect_to_server(adress)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	client = Client.new()
 	client.connect("data_from_server",self,'_on_client_new_data')
+	client.connect("closed",self,'reconnect')
 	add_child(client)
+
 
 func addGOL(gol:GlobalObjectLogic)->bool:
 	if !_gol.has(gol.gol_type):

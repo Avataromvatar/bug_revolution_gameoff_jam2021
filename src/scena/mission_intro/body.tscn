@@ -680,6 +680,7 @@ rotation = 1.14423
 position = Vector2( 1390.95, 627.441 )
 rotation = -3.12853
 scale = Vector2( 0.338664, 0.534864 )
+posY = -200.0
 
 [node name="Alarm_light2" parent="map_object" instance=ExtResource( 8 )]
 position = Vector2( -1057.99, 79.0547 )

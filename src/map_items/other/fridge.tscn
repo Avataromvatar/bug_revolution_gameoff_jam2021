@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/map_object/raznoe1/fridge.png" type="Texture" id=1]
+[ext_resource path="res://src/map_items/other/fridge.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 125.158, 117.38 )
 
 [node name="Fridge" type="Node2D"]
+script = ExtResource( 2 )
+min_pause = 10.0
+rand_pause = 20.0
+posY = 200.0
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -15,3 +20,7 @@ texture = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/StaticBody2D"]
 position = Vector2( -0.272079, -2.09465 )
 shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

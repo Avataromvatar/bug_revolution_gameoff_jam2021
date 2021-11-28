@@ -21,8 +21,11 @@ var gol:GlobalObjectLogic
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if !isDebug:
+		GlobalResource.game_data['game_state'] = 3
+		
 		GolMaster.permission = true
 		GlobalResource.game_data['pop_warning']  = $warning
+		GlobalResource.game_data['game_event'] = $GameEvent
 		gol = GlobalObjectLogic.new()
 		gol.gol_scena_key = gol_scena_key
 		gol.gol_type = 'scena'
@@ -81,6 +84,13 @@ func _ready():
 func _event_change_scena(data:Dictionary):
 	GolMaster.permission = false
 	if data.has('new_scena'):
+		if data.has('info'):
+			if data['info']=='bugWIN':
+				GlobalResource.game_data['game_state'] = 4
+			if data['info']=='sciWIN':
+				GlobalResource.game_data['game_state'] = 5
+			if data['info']=='bugDIE':
+				GlobalResource.game_data['game_state'] = 11
 		get_tree().change_scene(data['new_scena']) 
 	
 func _event_handler_add(data:Dictionary):
