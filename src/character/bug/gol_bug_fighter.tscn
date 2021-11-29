@@ -146,5 +146,16 @@ shadow_enabled = true
 shadow_gradient_length = 1.0
 shadow_item_cull_mask = 3
 
+[node name="Light2D_Z-1" type="Light2D" parent="Actor"]
+light_mask = 7
+position = Vector2( 0, -0.37458 )
+z_index = -1
+texture = ExtResource( 2 )
+texture_scale = 0.6
+color = Color( 0.85098, 0.898039, 0.858824, 1 )
+mode = 2
+shadow_enabled = true
+shadow_gradient_length = 1.0
+
 [node name="Camera2D" type="Camera2D" parent="Actor"]
 zoom = Vector2( 1.4, 1.4 )

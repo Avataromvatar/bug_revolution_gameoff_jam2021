@@ -69,6 +69,5 @@ position = Vector2( 182.419, 1.87292 )
 occluder = SubResource( 1 )
 
 [node name="LightOccluder2D2" type="LightOccluder2D" parent="."]
-light_mask = 2
+z_index = -1
 occluder = SubResource( 2 )
-light_mask = 2

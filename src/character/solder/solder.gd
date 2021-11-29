@@ -64,7 +64,7 @@ func set_isDead():
 		$Actor/AnimatedSprite.hide()
 		$Actor/isDead.show()
 		$Actor.set_physics_process(false)
-		$Actor/CollisionShape2D.disabled = true
+		$Actor/CollisionShape2D.set_deferred('disabled', true)
 		GlobalResource.game_data['game_fighting_status'] |=(1<<(id+3)) 
 
 func _process(delta):

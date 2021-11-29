@@ -51,6 +51,8 @@ var path :=PoolVector2Array()
 func gol_scena_key_change(scena_key:String):
 	gol_scena_key = scena_key
 	if gol != null:
+		action.source = gol_scena_key
+		action.target_key = gol_scena_key
 		gol.gol_scena_key = scena_key
 	
 # Called when the node enters the scene tree for the first time.

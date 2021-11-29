@@ -47,7 +47,7 @@ func set_isDead():
 		set_process(false)
 		set_physics_process(false)
 		$Actor.set_physics_process(false)
-		$Actor/CollisionShape2D.disabled = true
+		$Actor/CollisionShape2D.set_deferred('disabled', true)
 		GlobalResource.game_data['game_fighting_status'] |=2 
 	
 func set_AI(on:bool):

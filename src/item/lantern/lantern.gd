@@ -30,7 +30,9 @@ func catch_input_from_user(on:bool):
 func lantern_on(on:bool,need_emit:bool = false):
 	if isOn != on:
 		$Light2D.enabled =on
+		$Light2D_Z.enabled =on
 		isOn=on
+		$AudioStreamPlayer2D.play()
 		if need_emit:
 			var tmp = gol.createAction('update',{'on':isOn})
 			gol.gol_send_action(tmp)

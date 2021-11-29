@@ -41,7 +41,7 @@ func gol_scena_key_change(scena_key:String):
 	gol_scena_key = scena_key
 	$Actor.gol_scena_key = gol_scena_key+'_actor'
 	$Actor/Lantern.gol_scena_key = gol_scena_key+'_lantern'
-	$Actor/autorifle.gol_scena_key = gol_scena_key+'_laser_gun'
+	$Actor/laser_gun.gol_scena_key = gol_scena_key+'_laser_gun'
 	if gol != null:
 		gol.gol_scena_key = scena_key
 
@@ -229,7 +229,7 @@ func set_isDead():
 		set_process(false)
 		set_physics_process(false)
 		$Actor.set_physics_process(false)
-		$Actor/CollisionShape2D.disabled = true
+		$Actor/CollisionShape2D.set_deferred('disabled', true)
 		GlobalResource.game_data['game_fighting_status'] |=1 
 	
 func _collision_event(type:String,data):

@@ -2,14 +2,15 @@ extends Control
 
 export var gol_scena_key:String = 'scena_intro'
 export var isDebug =false
-var BUG = preload("res://src/character/bug/gol_bug.tscn").instance()
-var SCIENCE = preload("res://src/character/science/gol_science.tscn").instance()
-var ui_science = preload("res://src/ui/science_ui.tscn").instance()
-var BEAR = preload("res://src/character/bears/gol_bear.tscn")
+var _BUG = preload("res://src/character/bug/gol_bug.tscn")
+var _SCIENCE = preload("res://src/character/science/gol_science.tscn")
+var ui_science = preload("res://src/ui/science_ui.tscn")
+var _BEAR = preload("res://src/character/bears/gol_bear.tscn")
 var SOLDER = preload("res://src/character/solder/solder.tscn")
 var CHEBUREK = preload("res://src/map_items/cheburek/cheburek.tscn")
 var ai
-
+var BUG 
+var SCIENCE 
 var solders:Array
 var _solder_count:int =0
 
@@ -22,7 +23,8 @@ var gol:GlobalObjectLogic
 func _ready():
 	if !isDebug:
 		GlobalResource.game_data['game_state'] = 3
-		
+		BUG = _BUG.instance()
+		SCIENCE = _SCIENCE.instance()
 		GolMaster.permission = true
 		GlobalResource.game_data['pop_warning']  = $warning
 		GlobalResource.game_data['game_event'] = $GameEvent
@@ -65,7 +67,7 @@ func _ready():
 			solder.set_AI(false)
 			$ViewportContainer/Viewport/body_scena.add_child(solder)
 			GlobalResource.game_data['player'] = solder
-		var bear = BEAR.instance()
+		var bear = _BEAR.instance()
 		bear.get_node("Actor").set_position(Vector2(4500,800))
 		if GlobalResource.game_data['isServer']:
 			bear.inServer = true
@@ -83,6 +85,8 @@ func _ready():
 		
 func _event_change_scena(data:Dictionary):
 	GolMaster.permission = false
+	get_tree().paused = true
+	yield(get_tree().create_timer(1.0), "timeout")
 	if data.has('new_scena'):
 		if data.has('info'):
 			if data['info']=='bugWIN':
@@ -92,6 +96,7 @@ func _event_change_scena(data:Dictionary):
 			if data['info']=='bugDIE':
 				GlobalResource.game_data['game_state'] = 11
 		get_tree().change_scene(data['new_scena']) 
+		get_tree().paused = false
 	
 func _event_handler_add(data:Dictionary):
 	if data.has('type') and data.has('positionX') and data.has('positionY'):

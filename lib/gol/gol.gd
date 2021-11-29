@@ -8,8 +8,9 @@ class_name GlobalObjectLogic
 #var GlobalObjectLogic_DTO1 = preload("res://lib/gol/gol_dto.gd")
 
 
-export var gol_scena_key:String 
+export var gol_scena_key:String setget set_new_scena_key
 export var gol_type:String
+var isRegistred:bool = false
 #export var gol_model:Dictionary
 
 
@@ -21,12 +22,19 @@ var event_handlers:Dictionary
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+func set_new_scena_key(key:String):
+	if isRegistred:
+		GolMaster.removeGOL(self)
+		gol_scena_key=key
+		GolMaster.addGOL(self)
+	else:
+		gol_scena_key=key
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	connect("tree_exiting",self,'_tree_exiting')
 	GolMaster.addGOL(self)
+	isRegistred = true
 	
 
 func gol_send_action(action:GlobalObjectLogicDTO):

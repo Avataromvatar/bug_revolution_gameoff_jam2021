@@ -72,9 +72,10 @@ func _event_handler_shoot(data:Dictionary):
 			shoot_count+=1
 			find_parent('body_scena').add_child(bull)
 			isColddown = true
-			#$AudioStreamPlayer2D.play()
+			$AudioShoot.play()
 			timer_cooldown.start(1/shoot_in_second)
 			print(name,' shoot ',bull.name,' id:',bull.id)
+			
 	else:
 		printerr('ERROR GOL EVENT shoot in laser_gun data:',data)
 
