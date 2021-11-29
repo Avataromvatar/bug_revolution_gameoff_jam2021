@@ -1,10 +1,11 @@
 extends Control
 
-export var gol_scena_key:String = 'scena_intro'
+export var gol_scena_key:String = 'mission_fighting'
 export var isDebug =false
-var BUG = preload("res://src/character/bug/gol_bug.tscn").instance()
-var SCIENCE = preload("res://src/character/science/gol_science.tscn").instance()
-var ui_science = preload("res://src/ui/science_ui.tscn").instance()
+export var num_solders:int = 2
+var BUG = preload("res://src/character/bug/gol_bug_fighter.tscn")
+var SCIENCE = preload("res://src/character/science/gol_science_fighter.tscn")
+var ui_science = preload("res://src/ui/science_ui.tscn")
 var BEAR = preload("res://src/character/bears/gol_bear.tscn")
 var SOLDER = preload("res://src/character/solder/solder.tscn")
 var CHEBUREK = preload("res://src/map_items/cheburek/cheburek.tscn")
@@ -12,17 +13,21 @@ var ai
 
 var solders:Array
 var _solder_count:int =0
+var _solder_mask:int =0
 
+var _scientist
+var _bug
 var chebureks:Array
 var _cheburek_count:int =0
+
 
 var gol:GlobalObjectLogic 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if !isDebug:
-		GlobalResource.game_data['game_state'] = 3
-		
+		GlobalResource.game_data['game_state'] = 6
+		GlobalResource.game_data['game_fighting_status'] = 0
 		GolMaster.permission = true
 		GlobalResource.game_data['pop_warning']  = $warning
 		GlobalResource.game_data['game_event'] = $GameEvent
@@ -33,64 +38,63 @@ func _ready():
 			'add':funcref(self, '_event_handler_add'),
 			'remove':funcref(self, '_event_handler_remove'),
 			'change_scena':funcref(self, '_event_change_scena')}
+		add_child(gol)
+		
+		_bug = BUG.instance()
+		_scientist = SCIENCE.instance()
+		_scientist.current_item = 1
+		for i in range(0,num_solders):
+			var s = SOLDER.instance()
+			s.set_AI(true)
+			if GlobalResource.game_data['isServer']:
+				s.inServer = true
+			s.get_node("Actor").position = Vector2(1500,4500-i*100)
+			s.id=_solder_count
+			s.gol_scena_key = 'solder_%d'%_solder_count
+			solders.push_back(s)
+			_solder_mask |=(1<<i+3)
+			_solder_count+=1
+			
+			$ViewportContainer/Viewport/body_scena.add_child(s)
 		if GlobalResource.game_data['player_type'] == 'bug':
-			#BUG.isClientOn = true
-			#SCIENCE.isClientOn = false
-			BUG.set_AI(false)
-			SCIENCE.set_AI(true)
-			GlobalResource.game_data['player'] = BUG
-			ai = SCIENCE
+			_bug.set_AI(false)
+			_scientist.set_AI(true)
+			GlobalResource.game_data['player'] = _bug
+			ai = _scientist
 			#GlobalResource.game_data['science'] = ai.get_node("Actor")
 			#GlobalResource.game_data['bug'] = BUG.get_node("Actor")
 		elif GlobalResource.game_data['player_type'] == 'science':
 			#BUG.isClientOn = false
 			#SCIENCE.isClientOn = true
-			ai = BUG
-			BUG.set_AI(true)
-			SCIENCE.set_AI(false)
-			GlobalResource.game_data['player'] = SCIENCE
+			ai = _bug
+			_bug.set_AI(true)
+			_scientist.set_AI(false)
+			GlobalResource.game_data['player'] = _scientist
 			#SCIENCE.add_child(ui_science)
 			#GlobalResource.game_data['ai_actor_node'] = ai.get_node("Actor")
 			#GlobalResource.game_data['player_actor_node'] = SCIENCE.get_node("Actor")
-		elif GlobalResource.game_data['player_type'] == 'solder':
-			BUG.set_AI(true)
-			SCIENCE.set_AI(true)
-			var solder = SOLDER.instance()
-			solder.get_node("Actor").set_position(Vector2(1500,4700))
-			if GlobalResource.game_data['isServer']:
-				solder.inServer = true
-			solder.gol_scena_key = 'solder1'+str(_solder_count)
-			_solder_count+=1
-			solders.push_back(solder)
-			solder.set_AI(false)
-			$ViewportContainer/Viewport/body_scena.add_child(solder)
-			GlobalResource.game_data['player'] = solder
-		var bear = BEAR.instance()
-		bear.get_node("Actor").set_position(Vector2(4500,800))
-		if GlobalResource.game_data['isServer']:
-			bear.inServer = true
-		#GlobalResource.game_data['science'] = SCIENCE.get_node("Actor")
-		#GlobalResource.game_data['bug'] = BUG.get_node("Actor")
-		BUG.get_node("Actor").set_position(Vector2(4000,800))
-		SCIENCE.get_node("Actor").set_position(Vector2(3750,2500))
+		_bug.get_node("Actor").set_position(Vector2(4350,2150))
+		_scientist.get_node("Actor").set_position(Vector2(4350,2300))
 		#$CanvasModulate.add_child(BUG)
 		#$CanvasModulate.add_child(SCIENCE)
-		$ViewportContainer/Viewport/body_scena.add_child(BUG)
-		$ViewportContainer/Viewport/body_scena.add_child(SCIENCE)
+		$ViewportContainer/Viewport/body_scena.add_child(_bug)
+		$ViewportContainer/Viewport/body_scena.add_child(_scientist)
 		#$ViewportContainer/Viewport/body_scena.add_child(bear)
-		add_child(gol)
+		
 		$Control.init()
 		
 func _event_change_scena(data:Dictionary):
 	GolMaster.permission = false
 	if data.has('new_scena'):
 		if data.has('info'):
-			if data['info']=='bugWIN':
-				GlobalResource.game_data['game_state'] = 4
-			if data['info']=='sciWIN':
-				GlobalResource.game_data['game_state'] = 5
+			if data['info']=='allLive':
+				GlobalResource.game_data['game_state'] = 7
+			if data['info']=='sciDIE':
+				GlobalResource.game_data['game_state'] = 9
 			if data['info']=='bugDIE':
-				GlobalResource.game_data['game_state'] = 11
+				GlobalResource.game_data['game_state'] = 8
+			if data['info']=='allDIE':
+				GlobalResource.game_data['game_state'] = 10
 		get_tree().change_scene(data['new_scena']) 
 	
 func _event_handler_add(data:Dictionary):
@@ -122,6 +126,13 @@ func _input(event):
 		get_tree().paused = true
 		$game_menu.popup_centered(Vector2(170,170))
 
+
+func _process(delta):
+	if GlobalResource.game_data['game_fighting_status'] & 3 == 3: 
+		GlobalResource.game_data['game_event'].send_event('All Dead!!!',false,"res://src/scena/mission_intro/end/end.tscn",'allDead')
+	if GlobalResource.game_data['game_fighting_status'] & _solder_mask == _solder_mask: 
+		GlobalResource.game_data['game_event'].send_event('Solder is dead',false,"res://src/scena/mission_intro/end/end.tscn",'solderDead')
+		
 #func _new_data_about_ai(json):
 #	ai.set_position(Vector2(json['pos_x'],json['pos_y']))
 #	ai.set_rotate(json['rotation'])

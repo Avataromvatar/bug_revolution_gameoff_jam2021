@@ -47,6 +47,7 @@ var isWalk:bool = false
 var isPathMove:=false
 var path :=PoolVector2Array()
 
+
 func gol_scena_key_change(scena_key:String):
 	gol_scena_key = scena_key
 	if gol != null:

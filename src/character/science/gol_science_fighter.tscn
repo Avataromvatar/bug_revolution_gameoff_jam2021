@@ -1,10 +1,10 @@
 [gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://lib/actor/gol_actor.gd" type="Script" id=1]
-[ext_resource path="res://assets/characters/famale/token_3(2).png" type="Texture" id=2]
+[ext_resource path="res://assets/characters/skull.png" type="Texture" id=2]
 [ext_resource path="res://assets/test_learning/spot.png" type="Texture" id=3]
 [ext_resource path="res://src/weapons/staner/gol_staner.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/character/science/gol_science.gd" type="Script" id=5]
+[ext_resource path="res://src/character/science/gol_science_fighter.gd" type="Script" id=5]
 [ext_resource path="res://src/item/lantern/lantern.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/weapons/laser_gun/laser_gun.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/characters/science/science_mover0l1.png" type="Texture" id=8]
@@ -20,13 +20,13 @@ light_mode = 2
 [sub_resource type="CanvasItemMaterial" id=2]
 light_mode = 2
 
-[sub_resource type="CanvasItemMaterial" id=10]
+[sub_resource type="CanvasItemMaterial" id=3]
 light_mode = 2
 
-[sub_resource type="CanvasItemMaterial" id=11]
+[sub_resource type="CanvasItemMaterial" id=4]
 light_mode = 2
 
-[sub_resource type="SpriteFrames" id=12]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
@@ -39,7 +39,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=6]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("..:scale")
@@ -54,7 +54,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0.5, 0.5 ) ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=7]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("..:scale")
@@ -78,13 +78,13 @@ radius = 90.4051
 
 [node name="science" type="Node"]
 script = ExtResource( 5 )
-geager_on = true
+hit = 100.0
 
 [node name="Actor" type="KinematicBody2D" parent="."]
 material = SubResource( 1 )
 scale = Vector2( 0.5, 0.5 )
-collision_layer = 195
-collision_mask = 195
+collision_layer = 193
+collision_mask = 129
 script = ExtResource( 1 )
 gol_scena_key = "actor"
 mode = 2
@@ -99,12 +99,12 @@ stamina_min = 25.0
 stamina_regen_when_move = 12.0
 stamina_regen_when_idle = 15.0
 
-[node name="Sprite" type="Sprite" parent="Actor"]
+[node name="isDead" type="Sprite" parent="Actor"]
 visible = false
 material = SubResource( 2 )
 position = Vector2( 0.0325015, -0.12252 )
 rotation = 3.14159
-scale = Vector2( 0.6, 0.4 )
+scale = Vector2( 0.102811, 0.0987214 )
 texture = ExtResource( 2 )
 offset = Vector2( -5.56447, 23.1048 )
 
@@ -116,24 +116,26 @@ speed = 250.0
 distance = 600.0
 
 [node name="Lantern" parent="Actor" instance=ExtResource( 6 )]
-material = SubResource( 10 )
+material = SubResource( 3 )
 position = Vector2( -76.8552, -37.1677 )
 rotation = 0.218166
 scale = Vector2( 1.2, 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Actor"]
-material = SubResource( 11 )
+material = SubResource( 4 )
 rotation = -3.14159
-frames = SubResource( 12 )
+frames = SubResource( 5 )
 animation = "move"
 speed_scale = 2.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Actor/AnimatedSprite"]
-anims/RESET = SubResource( 13 )
-anims/idle = SubResource( 14 )
+anims/RESET = SubResource( 6 )
+anims/idle = SubResource( 7 )
 
 [node name="laser_gun" parent="Actor" instance=ExtResource( 7 )]
 position = Vector2( 83.7819, -72.7033 )
+speed = 2000.0
+power = 2.0
 shoot_in_second = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Actor"]

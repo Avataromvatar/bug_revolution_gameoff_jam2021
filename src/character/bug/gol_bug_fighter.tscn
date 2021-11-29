@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://lib/actor/gol_actor.gd" type="Script" id=1]
 [ext_resource path="res://assets/test_learning/light_soft_round.png" type="Texture" id=2]
 [ext_resource path="res://assets/characters/bug/bug_sheet.png" type="Texture" id=3]
-[ext_resource path="res://src/character/bug/gol_bug.gd" type="Script" id=4]
+[ext_resource path="res://src/character/bug/gol_bug_fighter.gd" type="Script" id=4]
 [ext_resource path="res://src/weapons/bug_acid/bug_acid.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/characters/skull.png" type="Texture" id=6]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 16.077
@@ -86,7 +87,7 @@ script = ExtResource( 4 )
 
 [node name="Actor" type="KinematicBody2D" parent="."]
 collision_layer = 64
-collision_mask = 75
+collision_mask = 11
 script = ExtResource( 1 )
 gol_scena_key = "bug"
 mode = 2
@@ -106,17 +107,19 @@ stamina_use_then_run = 8.0
 [node name="Bug_acid" parent="Actor" instance=ExtResource( 5 )]
 position = Vector2( 0.429035, -29.1743 )
 speed = 800.0
+power = 3.0
 input_from_user = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Actor"]
 position = Vector2( -0.0102234, -0.0199432 )
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="Actor"]
+[node name="isDead" type="Sprite" parent="Actor"]
 visible = false
 position = Vector2( 0.0325015, -0.12252 )
 rotation = 3.14159
-scale = Vector2( 0.6, 0.4 )
+scale = Vector2( 0.0334992, 0.0358486 )
+texture = ExtResource( 6 )
 offset = Vector2( -5.56447, 23.1048 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Actor"]

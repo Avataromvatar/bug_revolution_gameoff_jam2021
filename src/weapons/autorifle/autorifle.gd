@@ -39,14 +39,14 @@ func _ready():
 		
 func _process(delta):
 	if Input.is_action_pressed("fire"):
-		shoot()
+		need_shoot()
 		
 func catch_input_from_user(on:bool):
 	input_from_user = on
 	#set_process_input(input_from_user)
 	set_process(on)
 
-func shoot():
+func need_shoot():
 	if !isSend and !isColddown:
 		isSend = true
 		#print('need_shoot to',get_global_mouse_position())

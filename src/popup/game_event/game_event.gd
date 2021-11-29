@@ -13,6 +13,7 @@ func _ready():
 func send_event(text:String,bbcodeON:bool=false, jump_to:String='',info:String=''):
 	popup()
 	self.jump_to = jump_to
+	self.info =info
 	if bbcodeON:
 		$VBoxContainer/RichTextLabel.bbcode_enabled = true
 		$VBoxContainer/RichTextLabel.bbcode_text = text

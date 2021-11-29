@@ -8,6 +8,7 @@ export var inServer:bool = true
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
+var id:int =0
 var current_item:int =0
 var items:Array
 var gol:GlobalObjectLogic
@@ -16,6 +17,10 @@ var nav_2d:Navigation2D
 var time_count:float = 0
 var ai_work_time_count:float = 0
 
+var isDead:bool = false
+
+var target_actor
+var target_body
 
 var ai_state = 0 # 0 -search 1- find and att 2-poterial
 var ai_rand0 = 1000
@@ -51,6 +56,17 @@ func _ready():
 	GlobalResource.game_data[gol_scena_key] = self
 	add_child(gol)
 
+func set_isDead():
+	if !isDead:
+		isDead = true
+		set_physics_process(false)
+		set_process(false)
+		$Actor/AnimatedSprite.hide()
+		$Actor/isDead.show()
+		$Actor.set_physics_process(false)
+		$Actor/CollisionShape2D.disabled = true
+		GlobalResource.game_data['game_fighting_status'] |=(1<<(id+3)) 
+
 func _process(delta):
 	time_count +=delta
 	if time_count>0.1:
@@ -68,11 +84,15 @@ func _process(delta):
 			ai_work_time_count = 0
 			if nav_2d != null:
 				var r
-				if ai_state == 0: #search bug
+				if ai_state == 0: #search target
 					r = ai_rand0
-				if ai_state == 1: #find bug and try hit
+				if ai_state == 1: #find target and try hit
 					r = ai_rand1
-					$Actor/autorifle.need_shoot(GlobalResource.game_data['bug_actor'].global_position)
+					if target_body!=null:
+						if $Actor/RayCast2D.is_colliding():
+							var body = $Actor/RayCast2D.get_collider()
+							if body == GlobalResource.game_data['science_actor'] or body ==GlobalResource.game_data['bug_actor']:
+								$Actor/autorifle.need_shoot()
 				if ai_state == 2: #bug hide
 					r = ai_rand2
 					ai_count_state2+=1
@@ -82,9 +102,14 @@ func _process(delta):
 					ai_count_state2=0
 				var randX = (randi() % r + 1)-r/2	# random integer between 1 and 512.
 				var randY = (randi() % r + 1)-r/2	# random integer between 1 and 512.
-				var gpb = $Actor.global_position
-				var gps = GlobalResource.game_data['bug_actor'].global_position
-				var path = nav_2d.get_simple_path(gpb,Vector2(gps.x+randX,gps.y+randY))
+				var gp:Vector2 = $Actor.global_position
+				var gps:Vector2 = GlobalResource.game_data['science_actor'].global_position
+				var gpb:Vector2 = GlobalResource.game_data['bug_actor'].global_position
+				if gp.distance_to(gps)<gp.distance_to(gpb):
+					target_actor = GlobalResource.game_data['science_actor']
+				else:
+					target_actor = GlobalResource.game_data['bug_actor']
+				var path = nav_2d.get_simple_path(gp,Vector2(target_actor.global_position.x+randX,target_actor.global_position.y+randY))
 				#print('SCIENC NAVI ',path)
 				$Actor.move_by_path(path)
 
@@ -118,9 +143,10 @@ func next_item():
 #func _process(delta):
 #	pass
 func _body_find(body):
-	if isAI and body == GlobalResource.game_data['bug_actor']:
+	if isAI and body == GlobalResource.game_data['bug_actor'] or body == GlobalResource.game_data['science_actor']:
 		ai_state = 1
-		print('I find you!!!')
+		target_body = body
+		#print('I find you!!!')
 
 func _body_hide(body):
 	if isAI and body == GlobalResource.game_data['bug_actor']:
@@ -132,6 +158,7 @@ func _collision_event(type:String,data):
 	hit -=data
 	if hit<=0:
 		print(name,' DIE!')
+		set_isDead()
 	else:
 		print(name,' DMG: ',data,' HIT:',hit)
 

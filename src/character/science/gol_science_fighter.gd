@@ -5,7 +5,7 @@ export var isAI:bool=false
 export var hit:float = 10
 export var geager_on:bool = false
 export var melee_stun = 10
-export var cheburek_on:bool = true
+export var cheburek_on:bool = false
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -19,6 +19,8 @@ var ai_work_time_count:float = 0
 
 var isSlave:bool = false
 var isServer:bool = false
+
+var isDead:bool = false
 
 var geager_power:float = 0
 var geager_count:float = 0
@@ -218,12 +220,24 @@ func _body_hide(body):
 	if isAI and body == GlobalResource.game_data['bug_actor']:
 		ai_state = 2
 		print('You not hide at me!!!')
-
+		
+func set_isDead():
+	if !isDead:
+		isDead = true
+		$Actor/AnimatedSprite.hide()
+		$Actor/isDead.show()
+		set_process(false)
+		set_physics_process(false)
+		$Actor.set_physics_process(false)
+		$Actor/CollisionShape2D.disabled = true
+		GlobalResource.game_data['game_fighting_status'] |=1 
+	
 func _collision_event(type:String,data):
 	if type=='dmg':
 		hit -=data
 		if hit<=0:
 			print(name,' DIE!')
+			set_isDead()
 		else:
 			print(name,' DMG: ',data,' HIT:',hit)
 
@@ -233,6 +247,7 @@ func _on_AudioStreamPlayer2D_finished():
 
 
 func _on_MeleeFightArea_body_entered(body):
-	if body.has_method('collisionEvent'):
-		body.collisionEvent('stun',melee_stun)
+	if body.has_method('collisionEvent') and body.gol_scena_key!=null:
+		if !body.gol_scena_key.find('bug'):
+			body.collisionEvent('stun',melee_stun)
 	

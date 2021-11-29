@@ -6,12 +6,15 @@ signal body_hide(body)
 export var gol_scena_key:String = 'lantern'
 export var input_from_user:bool = false
 export var energy:float = 1.5
+export var finder_on:bool = true
 var gol:GlobalObjectLogic
 
 var isOn:bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if !finder_on:
+		$Area2D/CollisionPolygon2D.disabled =true
 	$Light2D.energy = energy
 	gol = GlobalObjectLogic.new()
 	gol.gol_type = 'item'
@@ -19,7 +22,7 @@ func _ready():
 	gol.event_handlers = {'update':funcref(self, '_event_handler_update')}
 	add_child(gol)
 	catch_input_from_user(input_from_user)
-
+	
 func catch_input_from_user(on:bool):
 	input_from_user = on
 	set_process_input(input_from_user)
