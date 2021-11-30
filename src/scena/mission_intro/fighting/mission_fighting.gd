@@ -87,14 +87,15 @@ func _event_change_scena(data:Dictionary):
 	GolMaster.permission = false
 	if data.has('new_scena'):
 		if data.has('info'):
-			if data['info']=='allLive':
-				GlobalResource.game_data['game_state'] = 7
-			if data['info']=='sciDIE':
-				GlobalResource.game_data['game_state'] = 9
-			if data['info']=='bugDIE':
-				GlobalResource.game_data['game_state'] = 8
-			if data['info']=='allDIE':
+			if data['info']=='allDead':
 				GlobalResource.game_data['game_state'] = 10
+			if data['info']=='solderDead':
+				if GlobalResource.game_data['game_fighting_status'] & 3 == 1:  
+					GlobalResource.game_data['game_state'] = 8
+				elif GlobalResource.game_data['game_fighting_status'] & 3 == 2:
+					GlobalResource.game_data['game_state'] = 9
+				elif GlobalResource.game_data['game_fighting_status'] & 3 == 0:
+					GlobalResource.game_data['game_state'] = 7
 		get_tree().change_scene(data['new_scena']) 
 	
 func _event_handler_add(data:Dictionary):

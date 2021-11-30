@@ -30,6 +30,9 @@ margin_top = -3.05176e-05
 margin_right = 2.4707
 rect_scale = Vector2( 1.06516, 1.14438 )
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextRext" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0.196078 )
@@ -74,6 +77,6 @@ __meta__ = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
-volume_db = -12.236
+volume_db = -5.0
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

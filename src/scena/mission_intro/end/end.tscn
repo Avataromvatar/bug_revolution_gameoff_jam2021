@@ -1,8 +1,83 @@
-[gd_scene format=2]
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://assets/music/untitled.wav" type="AudioStream" id=1]
+[ext_resource path="res://src/scena/mission_intro/end/end.gd" type="Script" id=2]
+[ext_resource path="res://assets/fonts/KellySlab-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/test_learning/caster.png" type="Texture" id=4]
+[ext_resource path="res://src/thems/s18.tres" type="Theme" id=5]
+[ext_resource path="res://assets/background/state4.png" type="Texture" id=6]
+[ext_resource path="res://src/text_frame/text_frame.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -173.529
+margin_top = -3.05176e-05
+margin_right = 2.4707
+rect_scale = Vector2( 1.06516, 1.14438 )
+texture = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextRext" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.196078 )
+margin_left = 35.0
+margin_top = 28.0
+margin_right = 625.0
+margin_bottom = 570.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text_frame" parent="." instance=ExtResource( 7 )]
+margin_left = 38.0
+margin_top = 31.0
+margin_right = 625.0
+margin_bottom = 560.0
+theme = SubResource( 2 )
+text = "xcvcvxxcvxcv"
+speed_text = 30.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = 15.5563
+margin_top = 581.242
+margin_right = 184.556
+margin_bottom = 595.242
+text = "press enter or space for skip write text ....."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_left = 858.0
+margin_top = 550.0
+margin_right = 956.0
+margin_bottom = 575.0
+theme = ExtResource( 5 )
+text = "END"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -12.236
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
