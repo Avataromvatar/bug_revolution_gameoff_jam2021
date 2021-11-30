@@ -120,11 +120,13 @@ __meta__ = {
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = 38.0203
-margin_top = 265.755
-margin_right = 828.02
-margin_bottom = 582.755
-text = "Setting parameters:
+margin_left = 38.0
+margin_top = 249.0
+margin_right = 828.0
+margin_bottom = 583.0
+text = "If you game alone start server first.
+If you play together only one server must start
+Setting parameters:
 Don't forget to press Enter to confirm the new port or socket parameter.
 Server startup and multiplayer game:
 To start the server, set the parameters and click the \"start server\" button.

@@ -220,7 +220,6 @@ radius = 46.5336
 
 [node name="Solder" type="Node"]
 script = ExtResource( 92 )
-hit = 150.0
 
 [node name="Actor" type="KinematicBody2D" parent="."]
 collision_layer = 129

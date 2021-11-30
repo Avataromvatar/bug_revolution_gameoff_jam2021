@@ -25,5 +25,7 @@ func _ready():
 
 
 func _on_Button_pressed():
+	GlobalResource.game_data['game_state'] = 1
+	
 	get_tree().change_scene("res://main.tscn")
 	
