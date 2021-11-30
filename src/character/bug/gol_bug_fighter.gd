@@ -61,13 +61,13 @@ func set_AI(on:bool):
 		$Actor/Bug_acid.catch_input_from_user(false)
 	
 func _collision_event(type:String,data):
-	if type == 'stun':
-		hit -=data
-		if hit<=0:
-			#GlobalResource.game_data['game_event'].send_event('The bug is caught!!!',false,"res://src/scena/mission_intro/end/end.tscn",'bugDIE')
-			print(name,' Cathed!!!')
-		else:
-			print(name,' DMG: ',data,' HIT:',hit)
+	#if type == 'stun':
+	#	hit -=data
+	#	if hit<=0:
+	#		#GlobalResource.game_data['game_event'].send_event('The bug is caught!!!',false,"res://src/scena/mission_intro/end/end.tscn",'bugDIE')
+	#		print(name,' Cathed!!!')
+	#	else:
+	#		print(name,' DMG: ',data,' HIT:',hit)
 	if type == 'dmg':
 		hit -=data
 		if hit<=0:

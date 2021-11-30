@@ -27,7 +27,7 @@ func reconnect():
 	_client.disconnect("connection_established", self, "_connected")
 	_client.disconnect("data_received", self, "_on_data")
 	isConnected = false
-	_client.free()
+	#_client.free()
 	_client = WebSocketClient.new()
 	_client.connect("connection_closed", self, "_closed")
 	_client.connect("connection_error", self, "_closed")

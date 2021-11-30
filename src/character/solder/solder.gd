@@ -2,8 +2,8 @@ extends Node
 
 export var gol_scena_key:String = 'solder' setget gol_scena_key_change
 export var isAI:bool=false
-export var hit:float = 10
-
+export var hit:float = 100
+export var melee_dmg = 15
 export var inServer:bool = true
 # Declare member variables here. Examples:
 # var a = 2
@@ -105,10 +105,12 @@ func _process(delta):
 				var gp:Vector2 = $Actor.global_position
 				var gps:Vector2 = GlobalResource.game_data['science_actor'].global_position
 				var gpb:Vector2 = GlobalResource.game_data['bug_actor'].global_position
-				if gp.distance_to(gps)<gp.distance_to(gpb):
+				if gp.distance_to(gps)<gp.distance_to(gpb) and GlobalResource.game_data['game_fighting_status']&1!=1:
 					target_actor = GlobalResource.game_data['science_actor']
-				else:
+				elif GlobalResource.game_data['game_fighting_status']&2!=2:
 					target_actor = GlobalResource.game_data['bug_actor']
+				else:
+					target_actor = GlobalResource.game_data['science_actor']
 				var path = nav_2d.get_simple_path(gp,Vector2(target_actor.global_position.x+randX,target_actor.global_position.y+randY))
 				#print('SCIENC NAVI ',path)
 				$Actor.move_by_path(path)
@@ -146,7 +148,7 @@ func _body_find(body):
 	if isAI and body == GlobalResource.game_data['bug_actor'] or body == GlobalResource.game_data['science_actor']:
 		ai_state = 1
 		target_body = body
-		#print('I find you!!!')
+		#print('I find you!!!')475
 
 func _body_hide(body):
 	if isAI and body == GlobalResource.game_data['bug_actor']:
@@ -162,3 +164,9 @@ func _collision_event(type:String,data):
 	else:
 		print(name,' DMG: ',data,' HIT:',hit)
 
+
+
+func _on_MeleeFightArea_body_entered(body):
+	if body.has_method('collisionEvent') and body.gol_scena_key!=null :
+		if !body.gol_scena_key.find('Solder'):
+			body.collisionEvent('dmg',melee_dmg)

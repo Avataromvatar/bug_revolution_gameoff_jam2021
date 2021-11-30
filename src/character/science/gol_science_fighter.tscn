@@ -78,7 +78,7 @@ radius = 90.4051
 
 [node name="science" type="Node"]
 script = ExtResource( 5 )
-hit = 100.0
+hit = 15.0
 
 [node name="Actor" type="KinematicBody2D" parent="."]
 material = SubResource( 1 )

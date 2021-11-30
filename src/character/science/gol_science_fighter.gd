@@ -19,7 +19,7 @@ var ai_work_time_count:float = 0
 
 var isSlave:bool = false
 var isServer:bool = false
-
+var isPlayer:bool = false
 var isDead:bool = false
 
 var geager_power:float = 0
@@ -151,6 +151,7 @@ func set_AI(on:bool):
 		$Actor/Staner.catch_input_from_user(false)
 		$Actor/Light2D.hide()
 	else:
+		isPlayer = true
 		$Actor/Lantern.catch_input_from_user(true)
 		if current_item==0:
 			$Actor/Staner.catch_input_from_user(true)
@@ -174,7 +175,7 @@ func next_item():
 	pass
 
 func _event_playerConnect(data:Dictionary):
-	if data.has('on'):
+	if data.has('on') and !isPlayer :
 		print(gol_scena_key,' PlayerConnect ',data['on'])
 		set_AI(data['on'])
 		isSlave = data['on']

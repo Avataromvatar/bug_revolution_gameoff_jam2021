@@ -52,7 +52,6 @@ margin_top = 31.0
 margin_right = 625.0
 margin_bottom = 560.0
 theme = SubResource( 2 )
-text = "xcvcvxxcvxcv"
 speed_text = 30.0
 
 [node name="Label" type="Label" parent="."]
