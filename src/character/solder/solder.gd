@@ -168,5 +168,6 @@ func _collision_event(type:String,data):
 
 func _on_MeleeFightArea_body_entered(body):
 	if body.has_method('collisionEvent') and body.gol_scena_key!=null :
-		if !body.gol_scena_key.find('Solder'):
+		if body.gol_scena_key.find('solder')==-1:
 			body.collisionEvent('dmg',melee_dmg)
+			$Actor/SolderFist.play()

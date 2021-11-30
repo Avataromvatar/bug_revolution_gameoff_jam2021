@@ -2,10 +2,11 @@
 # Bug: Revolution or Love.
 
 ## Introductory
-I've been dreaming of trying myself at gamedev for a long time and now the right moment has come :) Thanks to GameJam and Godot.
+I've been dreaming of trying myself at gamedev for a long time and now the right moment has come :) This is my "first work in GameDev". Thanks to GameJam and Godot.
 The project was started as an educational one for me, my daughter and her friend, as well as to close their school year project :), and of course for the fan, at least that was the case at the very beginning.
 
 I immediately apologize for my English :)
+              Avataromvatar
 
 ## About the game:
 This is a game about a mutant cyber beetle grown in the depths of a secret laboratory. A young laboratory scientist stayed in the laboratory at night trying to stimulate the mutation that had begun… And then it begins....

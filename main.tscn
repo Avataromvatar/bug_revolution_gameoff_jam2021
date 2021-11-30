@@ -32,12 +32,12 @@ theme = ExtResource( 1 )
 text = "Server Start"
 
 [node name="connect_solder" type="Button" parent="."]
-margin_left = 157.851
-margin_top = 202.593
-margin_right = 365.851
-margin_bottom = 242.593
+margin_left = 156.729
+margin_top = 192.491
+margin_right = 364.729
+margin_bottom = 232.491
 theme = ExtResource( 1 )
-text = "Connect solder"
+text = "Second game state"
 __meta__ = {
 "_edit_use_anchors_": false
 }

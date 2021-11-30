@@ -15,9 +15,9 @@ var state5_sciWin_text = "Scientist:\n The bug is caught. Now maybe they will fo
 func _ready():
 	GolMaster.permission = true
 	if GlobalResource.game_data['game_state']==4:
-		$text_frame.start_write_text(state4_bugWin_text)
+		$text_frame.start_write_text($text/state4_bug.text)#  state4_bugWin_text)
 	elif GlobalResource.game_data['game_state']==5:
-		$text_frame.start_write_text(state5_sciWin_text)
+		$text_frame.start_write_text($text/state4_sci.text)# state5_sciWin_text)
 	yield(get_tree().create_timer(2.0), "timeout")
 	$AudioStreamPlayer.play()
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://assets/IFC.png" type="Texture" id=1]
 [ext_resource path="res://src/text_frame/text_frame.tscn" type="PackedScene" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://assets/background/b1_pixel.png" type="Texture" id=5]
 [ext_resource path="res://assets/fonts/DEPLETED URANIUM.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://intro.tres" type="Animation" id=7]
+[ext_resource path="res://assets/music/untitled.wav" type="AudioStream" id=8]
+[ext_resource path="res://assets/test_learning/caster.png" type="Texture" id=9]
+[ext_resource path="res://assets/sound/intro2_1.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/fonts/KellySlab-Regular.ttf" type="DynamicFontData" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -25,7 +29,7 @@ default_font = SubResource( 3 )
 [sub_resource type="Animation" id=5]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("background:rect_position")
+tracks/0/path = NodePath("Control/background:rect_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -37,7 +41,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("background:rect_scale")
+tracks/1/path = NodePath("Control/background:rect_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -49,7 +53,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0.188353, 0.1953 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("background:rect_size")
+tracks/2/path = NodePath("Control/background:rect_size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -61,7 +65,7 @@ tracks/2/keys = {
 "values": [ Vector2( 5517, 3214 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("background/bug:rect_position")
+tracks/3/path = NodePath("Control/background/bug:rect_position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -73,7 +77,7 @@ tracks/3/keys = {
 "values": [ Vector2( 4836.48, 2783.07 ) ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("background/bug:rect_size")
+tracks/4/path = NodePath("Control/background/bug:rect_size")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -85,7 +89,7 @@ tracks/4/keys = {
 "values": [ Vector2( 734, 720 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("background/bug:rect_scale")
+tracks/5/path = NodePath("Control/background/bug:rect_scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -97,6 +101,13 @@ tracks/5/keys = {
 "values": [ Vector2( 0.337033, 0.461599 ) ]
 }
 
+[sub_resource type="DynamicFont" id=6]
+size = 21
+font_data = ExtResource( 11 )
+
+[sub_resource type="Theme" id=7]
+default_font = SubResource( 6 )
+
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -105,11 +116,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="background" type="TextureRect" parent="."]
+[node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 5517.0
-margin_bottom = 3214.0
+
+[node name="background" type="TextureRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 4493.0
+margin_bottom = 2614.0
 rect_scale = Vector2( 0.188353, 0.1953 )
 texture = ExtResource( 5 )
 stretch_mode = 1
@@ -117,13 +132,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="bug" type="TextureRect" parent="background"]
+[node name="bug" type="TextureRect" parent="Control/background"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4836.48
 margin_top = 2783.07
-margin_right = 5570.48
-margin_bottom = 3503.07
+margin_right = 53.48
+margin_bottom = 289.07
 rect_scale = Vector2( 0.337033, 0.461599 )
 texture = ExtResource( 1 )
 stretch_mode = 5
@@ -132,7 +147,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Light2D" type="Light2D" parent="background/bug"]
+[node name="Light2D" type="Light2D" parent="Control/background/bug"]
 position = Vector2( 279.607, 412.426 )
 rotation = 0.460767
 scale = Vector2( 0.763404, 0.93943 )
@@ -140,27 +155,17 @@ texture = ExtResource( 4 )
 color = Color( 0.188235, 0.596078, 0.152941, 0.65098 )
 energy = 0.28
 
-[node name="text_frame" parent="." instance=ExtResource( 2 )]
+[node name="text_frame" parent="Control" instance=ExtResource( 2 )]
 anchor_left = 0.151
 anchor_right = 1.0
-margin_left = -114.227
-margin_top = 15.8878
-margin_right = -7.60254
-margin_bottom = 515.888
+margin_left = -132.32
+margin_top = 7.95079
+margin_right = -25.6957
+margin_bottom = 507.951
 theme = SubResource( 2 )
 speed_text = 2.0
 
-[node name="Label" type="Label" parent="."]
-margin_left = 15.5563
-margin_top = 581.242
-margin_right = 184.556
-margin_bottom = 595.242
-text = "press Esc for skip intro ....."
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
 margin_left = 149.831
 margin_top = 197.777
 margin_right = 1172.83
@@ -175,6 +180,48 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control"]
+root_node = NodePath("../..")
 anims/RESET = SubResource( 5 )
 anims/intro = ExtResource( 7 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 9 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+margin_left = 49.0488
+margin_top = 490.0
+margin_right = 983.049
+margin_bottom = 564.0
+theme = SubResource( 7 )
+text = "In one dark-dark town, under the dark-dark ground, there is a dark-dark laboratory, in which dark-dark experements is cerried out...."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = 15.5563
+margin_top = 581.242
+margin_right = 184.556
+margin_bottom = 595.242
+text = "press Esc for skip intro ....."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = 10.0
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -15.0
+autoplay = true
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

@@ -164,5 +164,10 @@ max_distance = 500.0
 position = Vector2( 4.80769, -48.0769 )
 shape = SubResource( 9 )
 
+[node name="RayCast2D" type="RayCast2D" parent="Actor"]
+position = Vector2( 83.9052, -110.875 )
+rotation = 3.14159
+cast_to = Vector2( 0, 1500 )
+
 [connection signal="finished" from="Actor/AudioStreamPlayer2D" to="." method="_on_AudioStreamPlayer2D_finished"]
 [connection signal="body_entered" from="Actor/MeleeFightArea" to="." method="_on_MeleeFightArea_body_entered"]

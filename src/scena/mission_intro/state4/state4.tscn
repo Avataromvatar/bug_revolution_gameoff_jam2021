@@ -79,4 +79,43 @@ __meta__ = {
 stream = ExtResource( 7 )
 volume_db = -5.0
 
+[node name="text" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="state4_sci" type="RichTextLabel" parent="text"]
+margin_right = 40.0
+margin_bottom = 40.0
+text = "\"The bug is caught! I hope that now they will forget about the incident with the reactor.”
+The triumph of victory was interrupted by a security siren. Someone brought video from surveillance cameras to all active terminals, which clearly show how the security of the laboratory is trying to fight back against armored soldiers, but obviously loses. The attackers do not spare anyone…
+In the heart of the scientist, fear and the desire to live were fighting.
+One of the attackers approaches the terminal and simply opens it, taking out hard disks.
+“They came for data and they don't need scientists, so there is no hope for mercy.”
+The scientist looked at the Bug and turned off the stasis net. Sitting down, he stroked the fruit of his labor, tears flowed from his eyes. Surprisingly, the Bug grated something in response and leaned forward.
+- There are bad guys coming, they want to kill us. But we won't just give up, right?
+Bug nodded.
+“Does he understand me? Oh, I'd better deal with it later.”
+The scientist called the bug to a large nuclear battery. While dealing with the wires, he discovered a charging prototype of a laser automaton - an experimental development of another department. This discovery gave him hope. Connecting the Bug to the battery, the scientist gave a discharge. It smelled fried. From the pain, the Bug spat acid and hissed, while the scientist tried to calm him down:
+- Sorry, I had to finish the mutation. It's not a fact that it turned out, but it was worth a try. I'm glad you're alive. Come on, let's not give up our lives so easily.
+The scientist took the gun and, filled with determination, prepared for battle.
+There was an explosion in the common room, which means they are already here..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="state4_bug" type="RichTextLabel" parent="text"]
+margin_right = 40.0
+margin_bottom = 40.0
+text = "I mutated! My acid glands are working at full power. The scientist will be pleased when I show him that I can now produce acid.
+The triumph of victory was interrupted by a security siren. Someone brought video from surveillance cameras to all active terminals, which clearly show how the security of the laboratory is trying to fight back against armored soldiers, but obviously loses. The attackers do not spare anyone…
+The scientist is trembling, I can feel his fear. I went up to him and, burying my face in his legs, spat acid, which immediately began to burn through the floor. He got distracted and looked at me, saying:
+- Wow, you did it after all.
+I grated, confirming his words and, shaking my head in the direction of the cameras, spat again.
+- Do you want to fight? - salt water dripped from my man's eyes and he patted me on the back.
+- Well, we have nothing to lose, they will kill us anyway. By the way, I just saw a prototype of a laser gun from another department… Come on, let's not give up our lives so easily."
+
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

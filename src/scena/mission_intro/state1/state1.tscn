@@ -306,5 +306,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="text" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="state2_sci" type="RichTextLabel" parent="text"]
+margin_right = 40.0
+margin_bottom = 40.0
+text = "\"Damn it! What have I done!\"
+The inner voice of the scientist was sounding alarm, cold sweat was streaming down his back.
+\"Well, calm down and think! If the generator is turned off, then the Bug… Freed ...\"
+The scientist turned pale, not knowing what to expect from this.
+Summoning all his willpower, he took a flashlight and a special stun gun from a locker in his desk. This was not the first time that the test subjects escaped, however, when remembering that those responsible for such an escape were always found and removed, the scientist swallowed nervously.
+\"Okay, I'll catch him quickly and everything will be fine.”"
+
+[node name="state2_bug" type="RichTextLabel" parent="text"]
+margin_right = 40.0
+margin_bottom = 40.0
+text = "\"The pain... does the pain stop?\" Bug thought in surprise. He got used to it long ago, began to take it for granted.
+The sparkling field that held him back shuddered and went out. The Bug fell to the cold floor.
+\"Am I free? But the mutation is not over yet, which means that the scientist will not be satisfied...”
+This thought was unpleasant.
+“I need to find food urgently and finish the mutation. Maybe then I can prove to a scientist that I'm worth something. Maybe he will treat me differently and we will even play together” - this scenario inspired the Bug so much that he immediately went in search of food."
+
 [connection signal="finished" from="State1_bug/audio_state1_bug" to="." method="_on_audio_state1_bug_finished"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

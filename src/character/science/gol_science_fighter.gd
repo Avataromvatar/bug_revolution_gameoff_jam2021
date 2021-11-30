@@ -27,10 +27,13 @@ var geager_count:float = 0
 
 var geager_sound_on:bool = false
 
+var target_actor
+var target_body
+
 var ai_state = 0 # 0 -search 1- find and att 2-poterial
-var ai_rand0 = 1000
-var ai_rand1 = 50
-var ai_rand2 = 200
+var ai_rand0 = 300
+var ai_rand1 = 350
+var ai_rand2 = 100
 var ai_count_state2 = 0
 
 var _time_cheburec:float =5
@@ -109,7 +112,7 @@ func _process(delta):
 					r = ai_rand0
 				if ai_state == 1: #find bug and try hit
 					r = ai_rand1
-					$Actor/Staner.need_shoot(GlobalResource.game_data['bug_actor'].global_position)
+					$Actor/laser_gun.shoot()
 				if ai_state == 2: #bug hide
 					r = ai_rand2
 					ai_count_state2+=1
@@ -119,11 +122,21 @@ func _process(delta):
 					ai_count_state2=0
 				var randX = (randi() % r + 1)-r/2	# random integer between 1 and 512.
 				var randY = (randi() % r + 1)-r/2	# random integer between 1 and 512.
-				var gpb = $Actor.global_position
-				var gps = GlobalResource.game_data['bug_actor'].global_position
-				var path = nav_2d.get_simple_path(gpb,Vector2(gps.x+randX,gps.y+randY))
+				var gp = $Actor.global_position
+				var gps0 = GlobalResource.game_data['solder_0_actor'].global_position
+				var gps1 = GlobalResource.game_data['solder_1_actor'].global_position
+				if gp.distance_to(gps0)<gp.distance_to(gps1) and GlobalResource.game_data['game_fighting_status']&8!=8:
+					target_actor = GlobalResource.game_data['solder_0_actor']
+				elif GlobalResource.game_data['game_fighting_status']&16!=16:
+					target_actor = GlobalResource.game_data['solder_1_actor']
+				else:
+					target_actor = GlobalResource.game_data['solder_1_actor']
+				var path = nav_2d.get_simple_path(gp,Vector2(target_actor.global_position.x+randX,target_actor.global_position.y+randY))
+				if path.size()>1:
 				#print('SCIENC NAVI ',path)
-				$Actor.move_by_path(path)
+					$Actor.move_by_path(path)
+				else:
+					$Actor.rotate_to(target_actor.global_position)
 	if geager_on:
 		geager_count +=delta
 		if geager_count>0.5:
@@ -213,14 +226,14 @@ func _input(event):
 #func _process(delta):
 #	pass
 func _body_find(body):
-	if isAI and body == GlobalResource.game_data['bug_actor']:
+	if isAI and body != GlobalResource.game_data['bug_actor'] and body.has_method('collisionEvent'):
 		ai_state = 1
-		print('I find you!!!')
+		#print('I find you!!!')
 
 func _body_hide(body):
-	if isAI and body == GlobalResource.game_data['bug_actor']:
+	if isAI and body != GlobalResource.game_data['bug_actor'] and body.has_method('collisionEvent'):
 		ai_state = 2
-		print('You not hide at me!!!')
+		#print('You not hide at me!!!')
 		
 func set_isDead():
 	if !isDead:

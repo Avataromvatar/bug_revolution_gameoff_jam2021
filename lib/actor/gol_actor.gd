@@ -45,6 +45,8 @@ var gol_data:Dictionary={'x':0,'y':0,'angle':0,'stamina':0,'state':eActorState.I
 var isRotate:bool = false
 var isWalk:bool = false
 var isPathMove:=false
+var isNeedRotate:=false
+var need_rotate:float
 var path :=PoolVector2Array()
 
 
@@ -54,7 +56,7 @@ func gol_scena_key_change(scena_key:String):
 		action.source = gol_scena_key
 		action.target_key = gol_scena_key
 		gol.gol_scena_key = scena_key
-	
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#for test
@@ -94,6 +96,11 @@ func set_AI(on:bool):
 	#set_camera(!on)
 	#set_light(!on)
 
+func rotate_to(pos:Vector2):
+	if isAI:
+		isNeedRotate = true
+		need_rotate = global_position.direction_to(pos).dot(Vector2(0,1).rotated(rotation-1.57))#
+	
 func move_by_path(new_path:PoolVector2Array):
 	if isAI:
 		isPathMove = true
@@ -245,7 +252,11 @@ func _physics_process(delta):
 			if path.size()==0:
 				isPathMove = false
 				set_physics_process(false)
-		
+		if isNeedRotate:
+			rotation += need_rotate * speed_rotate * delta
+			if need_rotate+0.1 > rotation and need_rotate-0.1 < rotation:
+				isNeedRotate = false
+				
 func _event_handler_update(data:Dictionary):
 	#if isAI:
 	#	$Camera2D.current = false

@@ -24,12 +24,10 @@ texture = ExtResource( 2 )
 
 [node name="Light2D_Z" type="Light2D" parent="."]
 light_mask = 3
-position = Vector2( -0.348267, 254.727 )
-scale = Vector2( 0.483109, 0.91504 )
+scale = Vector2( 0.5, 0.5 )
 z_index = -1
 texture = ExtResource( 1 )
 offset = Vector2( 0, -512 )
-texture_scale = 0.5
 color = Color( 0.772549, 0.756863, 0.756863, 1 )
 energy = 1.5
 mode = 2

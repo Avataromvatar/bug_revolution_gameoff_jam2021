@@ -13,6 +13,7 @@ var state2_science_text ="'Damn it!! What have I done!! …...' the inner voice 
 var state2_common = 'Deep into the night.\nIn the cyber biological laboratory, only a young scientist and his experimental beetle, a cyber mutant, who is in a stasis field under the influence of radiation, remained.\nScientist:\n"The activity of acid glands is increasing, but it is not yet sufficient to be used as a weapon… Can raise the tension? Just a little bit.”\n\nBahhhh there is a clap and almost all the devices go out. Red evacuation lights turn on. The main reactor is out of order...\n\n'
 var state:int = 1
 var substate:int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if GlobalResource.game_data.has('game_state'):
@@ -61,9 +62,9 @@ func _play_state2():
 	elif substate == 1:
 		substate = 2
 		if GlobalResource.game_data['player_type'] == 'bug':
-			$text_frame.start_write_text(state2_bug_text)
+			$text_frame.start_write_text($text/state2_bug.text) #state2_bug_text)
 		else:
-			$text_frame.start_write_text(state2_science_text)	
+			$text_frame.start_write_text($text/state2_sci.text) #state2_science_text)	
 
 
 

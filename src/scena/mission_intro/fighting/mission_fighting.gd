@@ -54,6 +54,7 @@ func _ready():
 			solders.push_back(s)
 			_solder_mask |=(1<<i+3)
 			_solder_count+=1
+			GlobalResource.game_data[s.gol_scena_key] = s
 			
 			$ViewportContainer/Viewport/body_scena.add_child(s)
 		if GlobalResource.game_data['player_type'] == 'bug':
